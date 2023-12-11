@@ -1,0 +1,3 @@
+export const SOCKET_REQUEST = 'SOCKET_REQUEST';
+export const SOCKET_SUCCESS = 'SOCKET_SUCCESS';
+export const SOCKET_ERROR = 'SOCKET_ERROR';
