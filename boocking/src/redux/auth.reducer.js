@@ -7,6 +7,7 @@ const initialState = {
     loadings: {
         signIn: false,
         inviter: false,
+        loader:false
     },
     errors: {
         signIn: null,
@@ -16,6 +17,13 @@ const initialState = {
 
 const authReducer = (state = initialState, action)=>{
     switch (action.type){
+        case ActionTypes.LOADING_REQUEST:{
+            const loader = action.payload
+            return {
+                ...state,
+                loadings: {...state.loadings, loader:loader}
+            }
+        }
         case ActionTypes.SIGN_IN_REQUEST: {
             return {
                 ...state,

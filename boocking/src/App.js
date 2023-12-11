@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 import {useDispatch, useSelector} from "react-redux";
 import * as socketActions from './actions/socket.constants'
 import * as actionUserInfo from './actions/app.actions'

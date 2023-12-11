@@ -20,3 +20,8 @@ export const signOutError = (error) => ({
     type: ActionTypes.SIGN_OUT_ERROR,
     payload: error,
 })
+
+export const loader = (values) => ({
+    type: ActionTypes.LOADING_REQUEST,
+    payload: values,
+})

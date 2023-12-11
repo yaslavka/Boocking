@@ -1,0 +1,28 @@
+.header{
+  display: flex;
+  background-color: #175481ba;
+  height: 10vh;
+  padding: 5px;
+  justify-content: space-between;
+  align-items: center;
+  .inner{
+    display: flex;
+    margin-inline: 5px;
+  }
+  .button{
+    margin-inline: 5px;
+    cursor: pointer;
+  }
+  .menu {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0;
+    width: 48px;
+  }
+  .pull_left {
+    float: left;
+  }
+  .active{
+    display: flex;
+  }
+}
