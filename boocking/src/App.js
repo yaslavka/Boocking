@@ -3,6 +3,7 @@ import {io} from "socket.io-client";
 import {useDispatch, useSelector} from "react-redux";
 import * as socketActions from './actions/socket.constants'
 import * as actionUserInfo from './actions/app.actions'
+import * as actionGeo from './actions/geo.actions'
 import PublicRoutes from "./roures/PublicRoutes";
 import PrivateRoutes from "./roures/PrivateRoutes";
 function App() {
@@ -17,18 +18,10 @@ function App() {
      });
    }
   }, [dispatch, isAuthenticated])
+  useEffect(()=>{
+    dispatch(actionGeo.geoInfo())
+  },[dispatch])
 
-  useEffect(() => {
-    if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
-    }
-    else if (Notification.permission === "granted") {}
-    else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then(function (permission) {
-        if (permission === "granted") {}
-      });
-    }
-  },[])
   if (!isAuthenticated){
     return <PublicRoutes/>
   }else {

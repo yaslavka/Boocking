@@ -1,0 +1,23 @@
+{
+  "header": {
+    "bronSearch": "Проверить бронь",
+    "auth": "Личный кабинет"
+  },
+  "modalBron": {
+    "title": "Проверка брони",
+    "number": {
+      "title": "Номер брони:",
+      "placeHolder": "Номер брони"
+    },
+    "pinCode": {
+      "title": "ПИН-код:",
+      "placeHolder": "ПИН-код"
+    },
+    "button": "Проверить бронь"
+  },
+  "searchForm": {
+    "location": "Локация / гостиница",
+    "dateIn": "Дата Заезда",
+    "dateOut": "Дата Выезда"
+  }
+}

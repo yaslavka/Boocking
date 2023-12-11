@@ -1,6 +1,7 @@
 const routesLik = Object.freeze({
     root: '/',
     link:'/',
-    dashboard:'/dashboard'
+    dashboard:'/dashboard',
+    reservation:'/reservation/:id'
 })
 export default routesLik

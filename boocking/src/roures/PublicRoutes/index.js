@@ -18,20 +18,19 @@ function PublicRoutes() {
             dispatch(loadingActions.loader(false))
         },900)
     },[dispatch])
+    console.log('loadings', loadings)
     return (
        <>
+           <Header/>
            <Router>
                <Switch>
-                   <Header/>
                    {publicRouteConfig.map((route)=>(
                        <RouteWithSubRoutes key={route.id} {...omit(route, 'id')}/>
                    ))}
                    <Redirect to={routesLik.root}/>
                </Switch>
            </Router>
-           {loadings && (
-               <Sugar background={'rgb(60, 172, 254)'} color={`rgb(255, 255, 255)`}/>
-           )}
+           <Sugar background={'rgb(60, 172, 254)'} color={`rgb(255, 255, 255)`}/>
        </>
     )
 }

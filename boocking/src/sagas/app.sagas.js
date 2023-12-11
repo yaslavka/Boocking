@@ -15,8 +15,20 @@ export function* userInfo() {
         toast.error(error.message)
     }
 }
+export function* reservationInfo(action) {
+    try {
+        const response = yield call(api.reservationInfo, action.payload)
+        if (response) {
+            yield put(actions.reservationSuccess(response))
+        }
+    } catch (error) {
+        yield put(actions.reservationError(error))
+        toast.error(error.message)
+    }
+}
 export default function* appSaga() {
     yield all([
         takeEvery(ActionTypes.USER_INFO_REQUEST, userInfo),
+        takeEvery(ActionTypes.RESERVATION_INFO_REQUEST, reservationInfo),
     ])
 }

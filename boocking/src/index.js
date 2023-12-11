@@ -10,6 +10,8 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker'
 import {BrowserRouter} from "react-router-dom";
 import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './config/i18n'
 
 
 export const store = configureStore()
