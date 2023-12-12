@@ -8,6 +8,7 @@ import Cities from "../../components/Cities";
 import Recommended from "../../components/Recommended";
 import Actions from "../../components/Actions";
 import Advansages from "../../components/Advansages";
+import Footer from "../../components/Footer";
 
 function Home() {
     const {t} = useTranslation('common')
@@ -23,6 +24,7 @@ function Home() {
               {recommended && <Recommended recommended={recommended} t={t}/>}
               {actions && <Actions actions={actions} t={t}/>}
               <Advansages t={t}/>
+              <Footer/>
           </div>
       </>
     )

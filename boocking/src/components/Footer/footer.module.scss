@@ -1,0 +1,32 @@
+.footerPages{
+  background-color: #1181C3;
+  width: 100%;
+}
+.footerPagesContent{
+  padding: 10px;
+}
+.footerPagesForm{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  width: 100%;
+}
+.footerForm{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-inline: 5px;
+}
+.footerButtonWraper{
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+.InputFooter{
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 15px;
+}
