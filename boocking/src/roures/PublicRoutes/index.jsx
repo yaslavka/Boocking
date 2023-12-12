@@ -31,7 +31,7 @@ function PublicRoutes() {
           <Redirect to={routesLik.root} />
         </Switch>
       </Router>
-      {/*<Footer />*/}
+      <Footer />
       <Sugar background={'rgb(60, 172, 254)'} color={`rgb(255, 255, 255)`} />
     </>
   );
