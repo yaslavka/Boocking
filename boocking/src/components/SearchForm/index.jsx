@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import styles from './search.module.scss'
 import {Form} from "reactstrap";
 import DatePicker from "react-datepicker";
-import './index.css'
+import './index.scss'
 import {Button} from "react-bootstrap";
 import {useSelector} from "react-redux";
 

@@ -1,62 +1,25 @@
-.header{
+@import 'src/scss/_vars.scss';
+
+.header {
+  background-color: #1d5d90CC;
+  padding: 16px 0;
+}
+.headerWrapper {
+  @extend %globalWrapper;
   display: flex;
-  background-color: #175481ba;
-  height: 10vh;
-  padding: 5px;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 150px;
-}
-.inner{
-  display: flex;
-  margin-inline: 5px;
-  padding-inline: 15px;
-}
-.button{
-  padding-inline: 15px;
-  cursor: pointer;
-}
-.menu {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  padding: 0;
-  width: 48px;
-}
-.pull_left {
-  float: left;
-}
-.active{
-  display: flex;
-}
-.logo{
-  display: block;
-  margin-left: 5px;
-  height: 56px;
-  line-height: 54px;
-  text-align: center;
-  text-decoration: none;
-  width: 172px;
-}
-.logo__image{
-  margin-inline: 5px;
-}
-.auth_styles{
-  display: flex;
-  align-items: center;
-  margin-inline: 5px;
-}
-.text{
   align-items: center;
   justify-content: space-between;
+}
+.logoBox {}
+.loginBox {
   display: flex;
-  color: #FFFFFF;
+  align-items: center;
+  column-gap: 32px;
+}
+.buttonBox {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  color: white;
   font-weight: 500;
-}
-.account{
-  display: flex;
-}
-.avatar{
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
 }
