@@ -9,6 +9,8 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const multer = require("multer");
 const GeoControllers = require('./src/Controllers/GeoControllers')
+const RecommendedControllers = require('./src/Controllers/RecommendedControllers')
+const HotelControllers = require('./src/Controllers/HotelControllers')
 const storage = multer.diskStorage({
   destination(req, file, callback) {
     callback(null, './files/images');
@@ -25,7 +27,12 @@ app.use("/api/images", express.static(path.resolve(__dirname, "files", "images")
 app.use("/api/sites/", express.static(path.resolve(__dirname, "clientsites")));
 const server = http.createServer(app);
 
-app.use('/api/cities', GeoControllers.geoCities)
+app.get('/api/cities', GeoControllers.geoCities)
+app.use('/api/all_cities', GeoControllers.allCities)
+app.use('/api/recommended', RecommendedControllers.recommended)
+app.use('/api/actions', RecommendedControllers.actions)
+app.use('/api/hotel_id', HotelControllers.hotelId)
+app.use('/api/citi_id', HotelControllers.citiId)
 const start = async () => {
   try {
     await sequelize.authenticate();

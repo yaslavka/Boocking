@@ -15,8 +15,20 @@ export function* geoInfo() {
         toast.error(error.message)
     }
 }
+export function* allCitiesInfo() {
+    try {
+        const response = yield call(api.allCitiesInfo)
+        if (response) {
+            yield put(actions.allCitiesSuccess(response))
+        }
+    } catch (error) {
+        yield put(actions.allCitiesError(error.message))
+        toast.error(error.message)
+    }
+}
 export default function* geoSaga() {
     yield all([
         takeEvery(ActionTypes.GEO_REQUEST, geoInfo),
+        takeEvery(ActionTypes.ALL_CITIES_REQUEST, allCitiesInfo),
     ])
 }

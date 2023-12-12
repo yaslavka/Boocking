@@ -1,10 +1,17 @@
 .modal{
   display: block;
 }
-.title{
+
+.title {
    font-size: 16px;
    font-weight: 600;
+  //&:hover {}
+ /* @media (max-width: 800px) {
+    background-color: rebeccapurple;
+  }*/
  }
+
+
 .check_reservation{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import * as socketActions from './actions/socket.constants'
 import * as actionUserInfo from './actions/app.actions'
 import * as actionGeo from './actions/geo.actions'
+import * as actionRecommended from './actions/recommended.actions'
 import PublicRoutes from "./roures/PublicRoutes";
 import PrivateRoutes from "./roures/PrivateRoutes";
 function App() {
@@ -20,6 +21,9 @@ function App() {
   }, [dispatch, isAuthenticated])
   useEffect(()=>{
     dispatch(actionGeo.geoInfo())
+    dispatch(actionGeo.allCitiesInfo())
+    dispatch(actionRecommended.recommended())
+    dispatch(actionRecommended.actions())
   },[dispatch])
 
   if (!isAuthenticated){

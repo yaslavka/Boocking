@@ -1,3 +1,7 @@
 export const GEO_REQUEST = 'GEO_REQUEST';
 export const GEO_SUCCESS = 'GEO_SUCCESS';
 export const GEO_ERROR = 'GEO_ERROR';
+
+export const ALL_CITIES_REQUEST = 'ALL_CITIES_REQUEST';
+export const ALL_CITIES_SUCCESS = 'ALL_CITIES_SUCCESS';
+export const ALL_CITIES_ERROR = 'ALL_CITIES_ERROR';

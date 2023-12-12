@@ -5,6 +5,7 @@ import appReducer from "./app.reducer";
 import authReducer from "./auth.reducer";
 import stateReducer from "./state.reducer";
 import geoReducer from "./geo.reducer";
+import recommendedReducer from "./recommended.reducer";
 
 const rootReducer = (history) =>
     combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = (history) =>
         auth:authReducer,
         app: appReducer,
             geo:geoReducer,
+        recommended:recommendedReducer,
         router: connectRouter(history),
     })
 

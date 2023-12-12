@@ -1,0 +1,58 @@
+.advansagesPages{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  background-color: #FFFFFF;
+  margin-bottom: 20px;
+}
+.advansagesPagesTitle{
+  text-align: center;
+}
+.advansagesSubPagesTitle{
+  text-align: center;
+  color: #622e85;
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+.advansagesPagesImagesText{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.numberBox {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1500px;
+}
+.titleNumber {
+  font-size: 76px;
+  line-height: 76px;
+  font-weight: 800;
+  color: #5b5a5a;
+}
+.circleBox {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-inline: 27px;
+}
+.circle {
+  width: 2px;
+  height: 2px;
+  background-color: #5b5a5a;
+}
+.advansagesPagesImag{
+  width: 100%;
+  max-width: 1800px;
+  margin-bottom: 15px;
+  padding-inline: 16px;
+}

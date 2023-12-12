@@ -13,7 +13,7 @@ export const publicRouteConfig = [
 export const privateRouteConfig = [
     {
         id: 0,
-        path: routesLik.link,
+        path: routesLik.root,
         component: Home,
         exact: true,
     },

@@ -1,0 +1,123 @@
+.recommended{
+  background-color: #F2F2F2;
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 10px;
+  text-align: center;
+}
+.title{
+  text-align: center;
+  font-size: 30px;
+  color: #622e85
+}
+.pages_recomendet{
+  width: 100%;
+}
+.container{
+  max-width: 310px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #d6dfe8;
+}
+.content{
+  background-color: #d6dfe8;
+  border-top-right-radius: 9px;
+  border-top-left-radius: 9px;
+}
+.imageHotel{
+  width: 310px;
+  height: 180px;
+  padding: 10px;
+  border-radius: 20px;
+}
+.typeHotel{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.typeHotelText{
+  color: #adadb1;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ocenka{
+  font-weight: 200;
+  font-size: 15px;
+  color: #8c8c8c;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.fontWeight{
+  font-weight: 500;
+}
+.wraper{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 2px;
+  width: 100%;
+}
+.text{
+  color: #888888;
+  font-size: 12px;
+}
+.wraper_bottom{
+  border-bottom: 1px solid #d6dfe8
+}
+.address_container{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+}
+.address_text{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.address{
+  font-size: 12px;
+  font-weight: 300;
+  color: #7E7E7E;
+}
+.distance_pges{
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.distance{
+  display: flex;
+  align-items: center;
+  color: #7E7E7E;
+  font-size: 12px;
+  font-weight: 300;
+}
+.distance_text{
+  display: flex;
+  align-items: center;
+}
+.price_container{
+  background-color: #E8EDF1;
+  padding: 10px;
+}
+.button_container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.icons{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+.icons_container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

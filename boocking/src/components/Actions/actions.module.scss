@@ -1,0 +1,46 @@
+.actionsPages{
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 10px;
+  text-align: center;
+}
+.actionsContainer{
+  width: 100%;
+}
+.actionsWrapperContainer{
+  max-width: 342px;
+}
+.actionsContent{
+  margin-inline: 15px;
+  background-color: #ffffff;
+  border-width: 1px;
+  border-radius: 20px;
+  border-color: #D7E0E9;
+  border-style: solid;
+}
+.imageHotel{
+  width: 310px;
+  height: 180px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.actionCardsTitle{
+  padding: 10px;
+  align-items: flex-start;
+  text-align: left;
+}
+.actionCardsText{
+  font-weight: 900;
+  font-size: 20px;
+}
+.actionAddress{
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+.actionAddressText{
+  font-size: 12px;
+  font-weight: 500;
+  color: #7E7E7E;
+  padding: 10px;
+}

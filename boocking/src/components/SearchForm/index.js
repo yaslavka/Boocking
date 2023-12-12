@@ -5,21 +5,26 @@ import {Form} from "reactstrap";
 import DatePicker from "react-datepicker";
 import './index.css'
 import {Button} from "react-bootstrap";
+import {useSelector} from "react-redux";
 
 function SearchForm({t}) {
     let match = useHistory()
+    const cities = useSelector((state) => state.geo.allCities)
     const [people, setPeople] = useState({label: '', value: 0})
     const [child, setChild] = useState({label: '', value: 0})
     const [search, setSearch] = useState({search: ''})
+    const [id, setId]=useState('')
     const [startDateVisible, setStartDateVisible] = useState(false);
     const [startDate, setStartDate] = useState('')
     const [endDates, setEndDates] = useState('')
-    const handleOnchange = (event) => {
-        setSearch({search: event.target.value});
-    };
+    const [inputAction, setInputAction] = useState(false);
+
     const submitSignInForm =()=>{
-        match.push("/search_hotel_home",{ search, endDates, startDate, people, child })
+        match.push(`/search_hotel_home/${id}`,{ endDates, startDate, people, child })
     }
+    const filterCiti = cities ?
+        cities.filter((citi)=>citi.geo_city.toLowerCase().includes(search.search.toLowerCase())):[]
+
     return (
         <>
             <div className={styles.search}>
@@ -32,7 +37,10 @@ function SearchForm({t}) {
                                 fill="#0094FF"/>
                         </svg>
                         <div className='search-form-input'>
-                            <input className={styles.input} name="search" value={search.search} placeholder={t('searchForm.location')} onChange={handleOnchange}/>
+                            <input className={styles.input} name="search" value={search.search} placeholder={t('searchForm.location')} onChange={(e)=>{
+                                setSearch({search: e.target.value});
+                                setInputAction(true)
+                            }}/>
                         </div>
                         <div>
                             |
@@ -158,6 +166,15 @@ function SearchForm({t}) {
                         </Button>
                     </Form>
                 </div>
+                <section className={`${styles.section}`} style={ {display:inputAction ? 'flex': 'none'}}>
+                    {filterCiti && filterCiti.map((citi, index)=>(
+                        <div className={styles.search_link} key={index} role={"button"} onClick={()=>{setId(citi.id);setSearch({search: citi.geo_city}); setInputAction(false)}}>
+                            <span className={styles.search_box}>
+                                <span className={styles.search_cti}>{citi.geo_city}</span>
+                            </span>
+                        </div>
+                    ))}
+                </section>
             </div>
         </>
     )
