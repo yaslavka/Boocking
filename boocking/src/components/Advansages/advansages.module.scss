@@ -1,15 +1,18 @@
-.advansagesPages{
+@import 'src/scss/_vars.scss';
+
+.advansagesPages {
+  @extend %globalWrapper;
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-bottom: 20px;
 }
-.advansagesPagesTitle{
+.advansagesPagesTitle {
   text-align: center;
 }
-.advansagesSubPagesTitle{
+.advansagesSubPagesTitle {
   text-align: center;
   color: #622e85;
   font-weight: 900;
@@ -17,24 +20,41 @@
   margin-bottom: 50px;
 }
 
-.advansagesPagesImagesText{
+.advansagesPagesImagesText {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  column-gap: 24px;
+  margin-bottom: 40px;
+}
+.textBox {
+  width: 33%;
+  & p {
+    text-align: justify;
+  }
 }
 .numberBox {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   max-width: 1500px;
+  margin-bottom: 32px;
 }
 .titleNumber {
   font-size: 76px;
   line-height: 76px;
   font-weight: 800;
   color: #5b5a5a;
+}
+.bigDote {
+  position: absolute;
+  background-color: #FFF;
+  top: 26px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #93D7E0;
+  z-index: 1;
+  transform: translateX(31px);
 }
 .circleBox {
   position: absolute;
@@ -49,10 +69,4 @@
   width: 2px;
   height: 2px;
   background-color: #5b5a5a;
-}
-.advansagesPagesImag{
-  width: 100%;
-  max-width: 1800px;
-  margin-bottom: 15px;
-  padding-inline: 16px;
 }
