@@ -15,7 +15,7 @@ function Footer() {
   );
   const onSubmitSignIn = useCallback((credentials) => {}, [dispatch]);
   return (
-    <>
+    <footer>
       <div className={styles.footerPages}>
         <div className={styles.footerPagesContent}>
           <div className={styles.footerPagesForm}>
@@ -49,7 +49,7 @@ function Footer() {
           </div>
         </div>
       </div>
-    </>
+    </footer>
   );
 }
 export default Footer;

@@ -16,17 +16,14 @@ function Home() {
   const recommended = useSelector((state) => state.recommended.recommended);
   const actions = useSelector((state) => state.recommended.actions);
   return (
-    <>
-      <div className={styles.root}>
-        <img src={bg} alt={'tobook'} className={styles.root_pages} />
-        <SearchForm t={t} cities={cities} />
-        {cities && <Cities cities={cities} t={t} />}
-        {recommended && <Recommended recommended={recommended} t={t} />}
-        {actions && <Actions actions={actions} t={t} />}
-        <Advansages t={t} />
-        <Footer />
-      </div>
-    </>
+    <main className={styles.main}>
+      <img src={bg} alt='tobook' width={1920} height={750} />
+      <SearchForm t={t} cities={cities} />
+      {/*{cities && <Cities cities={cities} t={t} />}*/}
+      {recommended && <Recommended recommended={recommended} t={t} />}
+      {actions && <Actions actions={actions} t={t} />}
+      <Advansages t={t} />
+    </main>
   );
 }
 export default Home;
