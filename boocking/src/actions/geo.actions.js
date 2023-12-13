@@ -25,3 +25,16 @@ export const allCitiesError =(values)=>({
     type: ActionTypes.ALL_CITIES_ERROR,
     payload: values,
 })
+
+export const citiesIdInfo =(values)=>({
+    type: ActionTypes.CITIES_ID_REQUEST,
+    payload: values,
+})
+export const citiesIdSuccess =(values)=>({
+    type: ActionTypes.CITIES_ID_SUCCESS,
+    payload: values,
+})
+export const citiesIdError =(values)=>({
+    type: ActionTypes.CITIES_ID_ERROR,
+    payload: values,
+})

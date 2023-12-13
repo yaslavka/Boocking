@@ -26,9 +26,21 @@ export function* allCitiesInfo() {
         toast.error(error.message)
     }
 }
+export function* citiesIdInfo(action) {
+    try {
+        const response = yield call(api.citiesIdInfo, action.payload)
+        if (response) {
+            yield put(actions.citiesIdSuccess(response))
+        }
+    } catch (error) {
+        yield put(actions.citiesIdError(error.message))
+        toast.error(error.message)
+    }
+}
 export default function* geoSaga() {
     yield all([
         takeEvery(ActionTypes.GEO_REQUEST, geoInfo),
         takeEvery(ActionTypes.ALL_CITIES_REQUEST, allCitiesInfo),
+        takeEvery(ActionTypes.CITIES_ID_REQUEST, citiesIdInfo),
     ])
 }

@@ -1,6 +1,9 @@
 const routesLik = Object.freeze({
     root: '/',
-    link:'/',
+    hotelId:'/hotel/:id',
+    citiesId:'/search_hotel_home/:id',
+    allCities: '/all_city',
+    numbersId:'/',
     dashboard:'/dashboard',
     reservation:'/reservation/:id'
 })

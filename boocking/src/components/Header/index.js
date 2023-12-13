@@ -14,6 +14,7 @@ function Header() {
     const bronVisible = useSelector((state) => state.state.bronVisible)
     const authVisible = useSelector((state) => state.state.authVisible)
     const userInfo = useSelector(state => state.app.user);
+
     const navBarActive =()=>{
         if (navbarVisible === true){
             dispatch(headerActions.navBarVisible(false))

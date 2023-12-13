@@ -8,7 +8,6 @@ import App from './App';
 import configureStore from "./config/store";
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker'
-import {BrowserRouter} from "react-router-dom";
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './config/i18n'
@@ -17,16 +16,14 @@ import './config/i18n'
 export const store = configureStore()
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-   <BrowserRouter>
-       <Provider store={store.store}>
-           <PersistGate loading={null} persistor={store.persistor}>
-               <React.StrictMode>
-                   <App />
-                   <ToastContainer />
-               </React.StrictMode>
-           </PersistGate>
-       </Provider>
-   </BrowserRouter>
+    <Provider store={store.store}>
+        <PersistGate loading={null} persistor={store.persistor}>
+            <React.StrictMode>
+                <App />
+                <ToastContainer />
+            </React.StrictMode>
+        </PersistGate>
+    </Provider>
 );
 reportWebVitals();
 serviceWorker.unregister();

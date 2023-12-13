@@ -16,7 +16,7 @@ function Cities({cities}) {
                         <CitiesList key={index} citi={citi}/>
                     ))}
                 </Row>
-                <Button color="primary" className="py-2 px-5 box-button" role={"link"} href={'/oll_city'}>
+                <Button color="primary" className="py-2 px-5 box-button" role={"link"} href={'/all_city'}>
                     все города
                 </Button>
             </div>

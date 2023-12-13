@@ -7,7 +7,7 @@ import './index.css'
 import {Button} from "react-bootstrap";
 import {useSelector} from "react-redux";
 
-function SearchForm({t}) {
+function SearchForm({t, pathId}) {
     let match = useHistory()
     const cities = useSelector((state) => state.geo.allCities)
     const [people, setPeople] = useState({label: '', value: 0})
@@ -18,7 +18,7 @@ function SearchForm({t}) {
     const [startDate, setStartDate] = useState('')
     const [endDates, setEndDates] = useState('')
     const [inputAction, setInputAction] = useState(false);
-
+    const path = match.location.pathname
     const submitSignInForm =()=>{
         match.push(`/search_hotel_home/${id}`,{ endDates, startDate, people, child })
     }
@@ -27,7 +27,7 @@ function SearchForm({t}) {
 
     return (
         <>
-            <div className={styles.search}>
+            <div className={path !== `/search_hotel_home/${pathId}`? styles.search : styles.search2}>
                 <div className={styles.inner}>
                     <Form className={styles.form}>
                         <svg  width="22" viewBox="0 0 22 23" fill="none"

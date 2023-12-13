@@ -3,13 +3,16 @@ import * as ActionTypes from '../constants/geo.constants'
 const initialState = {
     cities: null,
     allCities:null,
+    citiesId:null,
     loadings: {
         cities: false,
-        allCities:null,
+        allCities:false,
+        citiesId:false,
     },
     errors: {
         cities: null,
         allCities:null,
+        citiesId:null,
     },
 }
 const geoReducer = (state = initialState, action) =>{
@@ -58,6 +61,30 @@ const geoReducer = (state = initialState, action) =>{
                 ...state,
                 loadings: { ...state.loadings, allCities: false },
                 errors: { ...state.errors, allCities: action.payload },
+            }
+        }
+
+        case ActionTypes.CITIES_ID_REQUEST: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, citiesId: true },
+                errors: { ...state.errors, citiesId: null },
+            }
+        }
+        case ActionTypes.CITIES_ID_SUCCESS: {
+            const citiesId = action.payload
+            return {
+                ...state,
+                loadings: { ...state.loadings, citiesId: false },
+                errors: { ...state.errors, citiesId: null },
+                citiesId,
+            }
+        }
+        case ActionTypes.CITIES_ID_ERROR: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, citiesId: false },
+                errors: { ...state.errors, citiesId: action.payload },
             }
         }
         default:
