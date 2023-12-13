@@ -120,7 +120,7 @@
 }
 
 .itemP{
-  padding: 15px;
+  padding-left: 15px;
 }
 .itemAddress{
   margin-bottom: 20px;
@@ -144,4 +144,116 @@
   font-size: 12px;
   padding-top: 6px;
   padding-left: 6px;
+}
+.itemServices{
+  display: inline-block;
+  line-height: 10px;
+  letter-spacing: 0.4px;
+  margin: 0 3px 5px 0;
+  color: #fff;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 18px;
+}
+.article{
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(13,110,253,.2901960784313726);
+  height: 217px;
+}
+.table{
+  border-bottom-color: rgba(13,110,253,.2901960784313726);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  width: 100%;
+}
+.tbody{
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.hotelDescription{
+  padding: 10px 25px;
+  width: 100%;
+}
+.linkText{
+  font-size: 15px;
+  font-weight: 800;
+  color: rgba(13, 110, 253, 0.7);
+}
+.without{
+  color: rgb(140, 140, 140);;
+}
+.priceRow{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.linkPrice{
+  color: #7d7d7d;
+  text-decoration: none;
+  &:hover{
+    color: #7d7d7d;
+    text-decoration: none;
+  }
+}
+.priceValue{
+  color: #090909;
+  font-size: 30px;
+}
+.toggleRoomDescription{
+  display: flex;
+  align-items: center;
+  border-bottom: 2px dotted #666;
+  color: #666;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  gap: 8px;
+}
+.toggleRoomDescription2{
+  color: #f53131;
+  line-height: 16px;
+  font-size: 12px;
+}
+.hotelAlbum{
+  //display: flex;
+  //align-items: center;
+  //justify-content: space-evenly;
+  //width: 100%;
+
+}
+.albumPhoto{
+  max-width: 500px;
+  margin: 0 auto;
+}
+.albumHotel{
+
+}
+.sliderLeftArrow {
+  position: absolute;
+  z-index: 1;
+  top: 32px;
+  left: -11px;
+  width: 50px;
+  height: 50px;
+  &:before {
+    display: none;
+  }
+}
+.sliderRightArrow {
+  position: absolute;
+  top: 15px;
+  right: -10px;
+  width: 50px;
+  height: 50px;
+  &:before {
+    display: none;
+  }
 }

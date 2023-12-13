@@ -103,6 +103,7 @@ function CitiesId() {
     useEffect(()=>{
         PopularsFilters()
     },[popular])
+    console.log(hotelFtFiltered)
     return(
         <div className={styles.root}>
             <div className={styles.searchContainer}>
@@ -168,7 +169,7 @@ function CitiesId() {
                                 </ul>
                             </div>
                         </div>
-                        {hotelFtFiltered.length > 0 && (
+                        {hotelFtFiltered?.length > 0 && (
                             <div className={styles.itemContainer}>
                                 <ul className={styles.list} style={{display: title === 0 ? 'flex' : "block"}}>
                                     {hotelFtFiltered.map((item, index)=>(

@@ -1,3 +1,5 @@
+const {AlbumNumbers} = require("../../models/AllbumNumbers");
+const {AlbumHotel} = require("../../models/AllbumHotel");
 const {GeoRegionsModels} = require("../../models/GeoRegionsModels");
 const {NumbersModels} = require("../../models/NumbersModels");
 const {GeoCityModels} = require("../../models/GeoCityModels");
@@ -27,14 +29,10 @@ class HotelControllers{
     }
     async citiId(req, res){
         const {id}=req.query
-        let cities = await GeoCityModels.findOne({where:{id:id}, include:[{model:GeoRegionsModels, as: 'geo_region'}]})
+        let cities = await GeoCityModels.findOne({where:{id:id}, include:[{model:GeoRegionsModels, as: 'geo_region'}, {model: HotelModals, as:'hotel', include:[{model: NumbersModels, as: 'number', include:[{model: AlbumNumbers, as: 'albumNumber'}]}, {model: AlbumHotel, as:'albumHotel'}]}]})
         if (!cities){
             return res.status(409).json({ message: '' })
         }else {
-            let hotel = await HotelModals.findAll({where:{geoCityId:cities.id}})
-            const numbers = await NumbersModels.findAll({where:{hotelId:hotel.map(i=>i.id)}})
-            cities.dataValues.hotel = hotel
-            cities.dataValues.numbers = numbers
             return res.status(200).json(cities)
         }
     }
