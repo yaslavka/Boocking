@@ -20,11 +20,39 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 function ListHotel({hotel, index, setHotelesId}) {
+    const newArrayImage = [];
+    const newArrayImagesPlusOne = [];
+
+    const isNewImage = () => {
+        hotel.albumHotel.forEach((item, index) => {
+           return  newArrayImage.push(item.albumHotel.split('.'));
+        })
+        newArrayImage.forEach((url, urlNumber) => {
+            return newArrayImagesPlusOne.push(url[0] + `-${urlNumber}`);
+        })
+    };
+
+    isNewImage();
+    console.log('newArrayImage 111111111111111111111', newArrayImage);
+    console.log('newArrayImagesPluseOne 2222222', newArrayImagesPlusOne);
+
     const [description,setDescription] = useState(false)
     const sliderRef = createRef();
     const settings = {
+        customPaging: function(i) {
+            return (
+                <a>
+                    <img alt='' src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${newArrayImagesPlusOne[i]}.jpg`}
+                        style={{ width: '50px', height: '50px' }} key={index}
+                    />
+                </a>
+            );
+        },
+        dots: true,
+        // dotsClass: "slick-dots slick-thumb",
+        dotsClass: styles.dots,
         infinite: true,
-        speed: 300,
+        speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: <NextArrow />,

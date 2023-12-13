@@ -11,6 +11,8 @@ const multer = require("multer");
 const GeoControllers = require('./src/Controllers/GeoControllers')
 const RecommendedControllers = require('./src/Controllers/RecommendedControllers')
 const HotelControllers = require('./src/Controllers/HotelControllers')
+
+
 const storage = multer.diskStorage({
   destination(req, file, callback) {
     callback(null, './files/images');
