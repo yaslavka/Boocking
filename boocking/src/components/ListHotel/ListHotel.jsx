@@ -16,65 +16,36 @@ import korona from '../../assets/icon/korona.png'
 import wifi from '../../assets/icon/wifi.png'
 import videocam from '../../assets/icon/videocam.png'
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import NumberList from "../NumberList";
+import NumberLists from "../NumberLists";
 
 function ListHotel({hotel, index, setHotelesId}) {
-    const newArrayImage = [];
-    const newArrayImagesPlusOne = [];
-
-    const isNewImage = () => {
-        hotel.albumHotel.forEach((item, index) => {
-           return  newArrayImage.push(item.albumHotel.split('.'));
-        })
-        newArrayImage.forEach((url, urlNumber) => {
-            return newArrayImagesPlusOne.push(url[0] + `-${urlNumber}`);
-        })
-    };
-
-    isNewImage();
-    console.log('newArrayImage 111111111111111111111', newArrayImage);
-    console.log('newArrayImagesPluseOne 2222222', newArrayImagesPlusOne);
-
     const [description,setDescription] = useState(false)
     const sliderRef = createRef();
     const settings = {
         customPaging: function(i) {
             return (
                 <a>
-                    <img alt='' src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${newArrayImagesPlusOne[i]}.jpg`}
-                        style={{ width: '50px', height: '50px' }} key={index}
-                    />
+                    {hotel.albumHotel.map((item, index)=>(
+                        <>
+                            {index === i && (
+                                <img key={i +1} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item.albumHotel}`} alt={item.albumHotel} height={50} width={50}/>
+                            )}
+                        </>
+                    ))}
                 </a>
             );
         },
+
         dots: true,
-        // dotsClass: "slick-dots slick-thumb",
-        dotsClass: styles.dots,
+        dotsClass: "slick-dots",
         infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
-        responsive: [
-            {
-                breakpoint: 720,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: true,
-                },
-            },
-            {
-                breakpoint: 490,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    infinite: true,
-                },
-            },
-        ],
+
     };
 
     function PrevArrow(props) {
@@ -214,7 +185,7 @@ function ListHotel({hotel, index, setHotelesId}) {
                                     <div className={styles.hotelDescription}>
                                         {hotel?.albumHotel?.length > 0 && (
                                             <>
-                                                <div className={styles.hotelAlbum}>
+                                                <div className={styles.hotelAlbumContainer}>
                                                     <section className={styles.albumPhoto}>
                                                        <Slider {...settings} ref={sliderRef}>
                                                            {hotel.albumHotel.map((img, index)=>(
@@ -228,15 +199,27 @@ function ListHotel({hotel, index, setHotelesId}) {
                                                 </div>
                                             </>
                                         )}
+                                        {hotel.descriptionHotel && (
+                                            <li className={styles.descriptionHotel}>{hotel.descriptionHotel}</li>
+                                        )}
                                     </div>
-                                    {hotel?.number?.length > 0 && (
-                                        <>
-                                            dgsdg                                        </>
-                                    )}
                                 </div>
+                                {hotel?.number?.length > 0 && (
+                                    <>
+                                        {hotel.number.map((item, index)=>(
+                                            <>
+                                                <div className={styles.table}>
+                                                    <NumberList item={item} key={index}/>
+                                                </div>
+                                                <NumberLists item={item} key={index}/>
+                                            </>
+                                        ))}
+                                    </>
+                                )}
                             </>
                         )}
                     </div>
+
                 </article>
             </li>
         </>

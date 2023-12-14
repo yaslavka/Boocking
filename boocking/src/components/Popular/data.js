@@ -39,12 +39,12 @@ export const ratings =[
 export const populars =[
     {
         id: 0,
-        label: 'Отели',
+        label: 'Отель',
         checked:false
     },
     {
         id: 1,
-        label: 'Хостелы',
+        label: 'Хостел',
         checked:false
     },
     {
@@ -66,14 +66,14 @@ export const populars =[
     },
     {
         id: 5,
-        label: 'Оценка Отлично 9+',
-        bal: 10,
+        label: 'Оценка Отлично 5+',
+        bal: 5,
         checked:false
     },
     {
         id: 6,
-        label: 'Оценка Хорошо 8+',
-        bal: 9,
+        label: 'Оценка Хорошо 4+',
+        bal: 4,
         checked:false
     },
     {

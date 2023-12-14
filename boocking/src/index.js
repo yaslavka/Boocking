@@ -9,7 +9,6 @@ import configureStore from "./config/store";
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker'
 import './index.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './config/i18n'
 
 

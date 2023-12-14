@@ -4,6 +4,7 @@ const {HotelModals} = require("../HotelModals");
 const NumbersModels = sequelize.define('number', {
     id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: 11},
     nameNumber:{type: DataTypes.STRING, allowNull: false},
+    descriptionNumber:{type: DataTypes.TEXT, defaultValue: null},
     imageNumber:{type: DataTypes.STRING, defaultValue: null},
     typeNumber:{type: DataTypes.STRING, allowNull: false},
     sleepingPlaces:{type: DataTypes.DECIMAL(61), defaultValue: 0},

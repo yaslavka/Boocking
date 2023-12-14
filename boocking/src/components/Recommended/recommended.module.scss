@@ -15,6 +15,7 @@
 }
 .container{
   max-width: 310px;
+  width: 100%;
   background-color: #fff;
   border-radius: 10px;
   border: 1px solid #d6dfe8;
@@ -25,8 +26,10 @@
   border-top-left-radius: 9px;
 }
 .imageHotel{
-  width: 310px;
-  height: 180px;
+  max-width: 310px;
+  width: 100%;
+  max-height: 180px;
+  height: 100%;
   padding: 10px;
   border-radius: 20px;
 }

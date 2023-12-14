@@ -17,6 +17,7 @@ function Home() {
     const actions = useSelector((state)=>state.recommended.actions)
     return(
       <>
+          <div style={{ marginBottom: 150}}/>
           <div className={styles.root}>
               <img src={bg} alt={'tobook'} className={styles.root_pages}/>
               <SearchForm t={t} cities={cities}/>
@@ -24,7 +25,6 @@ function Home() {
               {recommended && <Recommended recommended={recommended} t={t}/>}
               {actions && <Actions actions={actions} t={t}/>}
               <Advansages t={t}/>
-              <Footer/>
           </div>
       </>
     )

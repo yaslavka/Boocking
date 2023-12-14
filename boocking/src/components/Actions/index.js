@@ -1,8 +1,6 @@
 import React, {createRef} from "react";
 import Slider from "react-slick";
 import styles from './actions.module.scss'
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import {Button} from "reactstrap";
 function Actions({actions, t}) {
     const sliderRef = createRef();

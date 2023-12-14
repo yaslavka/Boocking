@@ -3,7 +3,7 @@ const routesLik = Object.freeze({
     hotelId:'/hotel/:id',
     citiesId:'/search_hotel_home/:id',
     allCities: '/all_city',
-    numbersId:'/',
+    numbersId:'/number/:id',
     dashboard:'/dashboard',
     reservation:'/reservation/:id'
 })

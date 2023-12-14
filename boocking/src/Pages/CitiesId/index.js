@@ -65,12 +65,13 @@ function CitiesId() {
     const [hotelFtFiltered, setHotelFiltered]=useState( [])
     const [isWifi, seIsWif]=useState(null)
     const [popular, setPopular]=useState([])
-    const [hotelesId, setHotelesId] = useState(null)
+
     useEffect(()=>{
         dispatch(citiesActions.citiesIdInfo(id))
         setPopular(populars)
         setHotelFiltered(citiesId && citiesId.hotel)
     },[dispatch, id])
+
     const Populars = (i)=>{
         let stateList = popular && popular
         const changeCheckedCuisines = stateList.map((item) =>
@@ -78,7 +79,8 @@ function CitiesId() {
         );
         setPopular(changeCheckedCuisines);
     }
-    const PopularsFilters = () => {
+
+    const Filters = () => {
         if (!popular || !hotels) {
             return;
         }
@@ -90,8 +92,12 @@ function CitiesId() {
 
         if (activeWifiFilters.length > 0 || activeTypeFilters.length > 0) {
             updateList = hotels.filter(item => {
-                const wifiMatch = activeWifiFilters.length === 0 || activeWifiFilters.includes(item.wifi) || activeTypeFilters.includes(item.typeHotel.toLowerCase());
-                const typeMatch = activeTypeFilters.length === 0 || activeTypeFilters.includes(item.typeHotel.toLowerCase()) || activeWifiFilters.includes(item.wifi);
+                const wifiMatch = activeWifiFilters.length === 0
+                    || activeWifiFilters.includes(item.wifi)
+                    || activeTypeFilters.includes(item.typeHotel.toLowerCase());
+                const typeMatch = activeTypeFilters.length === 0
+                    || activeTypeFilters.includes(item.typeHotel.toLowerCase())
+                    || activeWifiFilters.includes(item.wifi);
                 return wifiMatch && typeMatch;
             });
         } else {
@@ -101,87 +107,89 @@ function CitiesId() {
         setHotelFiltered(updateList);
     };
     useEffect(()=>{
-        PopularsFilters()
+        Filters()
     },[popular])
-    console.log(hotelFtFiltered)
     return(
-        <div className={styles.root}>
-            <div className={styles.searchContainer}>
-                <SearchForm t={t} cities={cities} pathId={id}/>
-            </div>
-            {recommended && <Recommended recommended={recommended} t={t}/>}
-            {citiesId && (
-                <>
-                    <div className={styles.pagesTitle}>
-                        <Link className={styles.pagesLinks} to={routesLik.root}>
-                            Главная
-                        </Link>
-                        <div className={styles.pagesArrow}> > </div>
-                        <Link className={styles.pagesLinks} to={routesLik.root}>
-                            {citiesId.geo_region.geo_region}
-                        </Link>
-                        <div className={styles.pagesArrow}> > </div>
-                        <Link className={styles.pagesLinks} to={`/search_hotel_home/${citiesId.id}`}>
-                            {citiesId.geo_city}
-                        </Link>
-                    </div>
-                    <div className={styles.pagesSubTitle}>
-                        Отели {citiesId.geo_region.geo_region}
-                    </div>
-                </>
-            )}
-            <Row>
-                <Col xl={3}>
-                    <NavBarFilters
-                        isWifi={isWifi}
-                        seIsWif={seIsWif}
-                        popular={popular} Populars={Populars}
-                    />
-                </Col>
-                <Col xl={9}>
-                    <div className={styles.listLayout}>
-                        <div className={styles.toolBox}>
-                            <div className={styles.sortBox}>
-                                <ul className={styles.ulBox}>
-                                    <li className={styles.label}>Сортировать:</li>
-                                    {linkMap.map((item, index)=>(
-                                        <button key={index} type="button"
-                                                className={type === index ? styles.active: styles.link}
-                                                onClick={() => setType(index)}>
-                                            {item.title}
-                                        </button>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className={styles.sortBox}>
-                                <ul className={styles.ulBox}>
-                                    {viewBox.map((item, index)=>(
-                                        <>
-                                            <button key={index}  type="button"
-                                                    className={title === index ? styles.active: styles.link}
-                                                    onClick={() => setTitle(index)}>
-                                                    <span className={item.className}>
-                                                    </span>
+        <>
+            <div style={{ marginBottom: 20}}/>
+            <div className={styles.root}>
+                <div className={styles.searchContainer}>
+                    <SearchForm t={t} cities={cities} pathId={id}/>
+                </div>
+                {recommended && <Recommended recommended={recommended} t={t}/>}
+                {citiesId && (
+                    <>
+                        <div className={styles.pagesTitle}>
+                            <Link className={styles.pagesLinks} to={routesLik.root}>
+                                Главная
+                            </Link>
+                            <div className={styles.pagesArrow}> > </div>
+                            <Link className={styles.pagesLinks} to={routesLik.root}>
+                                {citiesId.geo_region.geo_region}
+                            </Link>
+                            <div className={styles.pagesArrow}> > </div>
+                            <Link className={styles.pagesLinks} to={`/search_hotel_home/${citiesId.id}`}>
+                                {citiesId.geo_city}
+                            </Link>
+                        </div>
+                        <div className={styles.pagesSubTitle}>
+                            Отели {citiesId.geo_region.geo_region}
+                        </div>
+                    </>
+                )}
+                <Row>
+                    <Col xl={3}>
+                        <NavBarFilters
+                            isWifi={isWifi}
+                            seIsWif={seIsWif}
+                            popular={popular} Populars={Populars}
+                        />
+                    </Col>
+                    <Col xl={9}>
+                        <div className={styles.listLayout}>
+                            <div className={styles.toolBox}>
+                                <div className={styles.sortBox}>
+                                    <ul className={styles.ulBox}>
+                                        <li className={styles.label}>Сортировать:</li>
+                                        {linkMap.map((item, index)=>(
+                                            <button key={index} type="button"
+                                                    className={type === index ? styles.active: styles.link}
+                                                    onClick={() => setType(index)}>
                                                 {item.title}
                                             </button>
-                                        </>
-                                    ))}
-                                </ul>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className={styles.sortBox}>
+                                    <ul className={styles.ulBox}>
+                                        {viewBox.map((item, index)=>(
+                                            <>
+                                                <button key={index}  type="button"
+                                                        className={title === index ? styles.active: styles.link}
+                                                        onClick={() => setTitle(index)}>
+                                                    <span className={item.className}>
+                                                    </span>
+                                                    {item.title}
+                                                </button>
+                                            </>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
+                            {hotelFtFiltered?.length > 0 && (
+                                <div className={styles.itemContainer}>
+                                    <ul className={styles.list} style={{display: title === 0 ? 'flex' : "block"}}>
+                                        {hotelFtFiltered.map((item, index)=>(
+                                            <ListHotel key={item.id} hotel={item} index={index}/>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
-                        {hotelFtFiltered?.length > 0 && (
-                            <div className={styles.itemContainer}>
-                                <ul className={styles.list} style={{display: title === 0 ? 'flex' : "block"}}>
-                                    {hotelFtFiltered.map((item, index)=>(
-                                        <ListHotel key={item.id} hotel={item} index={index} setHotelesId={setHotelesId}/>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                </Col>
-            </Row>
-        </div>
+                    </Col>
+                </Row>
+            </div>
+        </>
     )
 }
 export default CitiesId

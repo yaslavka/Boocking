@@ -229,6 +229,13 @@
   //width: 100%;
 
 }
+.hotelAlbumContainer{
+  //display: flex;
+  //align-items: center;
+  //justify-content: space-evenly;
+  //width: 100%;
+  margin-bottom: 20px;
+}
 .albumPhoto{
   max-width: 500px;
   margin: 0 auto;
@@ -239,22 +246,28 @@
 .sliderLeftArrow {
   position: absolute;
   z-index: 1;
-  top: 32px;
-  left: -11px;
+  top: 50%;
   width: 50px;
   height: 50px;
-  transform: rotateZ(180deg);
+  bottom: 0;
+  transform: rotateZ(180deg) translateY(50%);
   &:before {
     display: none;
   }
 }
 .sliderRightArrow {
   position: absolute;
-  top: 15px;
-  right: -10px;
   width: 50px;
   height: 50px;
+  top: 50%;
+
   &:before {
     display: none;
   }
+}
+.descriptionHotel{
+  font-size: 15px;
+  font-weight: 500;
+  color: #999;
+  margin-bottom: 20px;
 }

@@ -5,8 +5,8 @@ import mark from '../../assets/icon/nakarte.png'
 import keys from '../../assets/hotel/iconmonstr-key-thin.svg'
 import {Button} from "reactstrap";
 import Slider from "react-slick";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import '../Slick/slick.css';
+import '../Slick/slick-theme.css';
 
 
 function Recommended({recommended, t}) {
