@@ -20,5 +20,9 @@ const routesLik = Object.freeze({
     chatId:'/chat/:id',
     helpChat:'/help-chat',
     helpChatId:'/help-chat/:id',
+    myReservation: '/my-reservation',
+    favorites: '/favorites',
+    negative:'/negative',
+    users:'/users'
 })
 export default routesLik

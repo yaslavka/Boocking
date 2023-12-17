@@ -54,3 +54,17 @@ export const reservationBookError = (error) => ({
     type: ActionTypes.RESERVATION_BOOK_ERROR,
     payload: error,
 })
+
+export const reservationManager = (values) => ({
+    type: ActionTypes.RESERVATION_MANAGER_REQUEST,
+    payload: values,
+})
+export const reservationManagerSuccess = (values) => ({
+    type: ActionTypes.RESERVATION_MANAGER_SUCCESS,
+    payload: values,
+
+})
+export const reservationManagerError = (error) => ({
+    type: ActionTypes.RESERVATION_MANAGER_ERROR,
+    payload: error,
+})

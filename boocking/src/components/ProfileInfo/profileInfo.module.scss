@@ -1,0 +1,28 @@
+.profilePages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+.profilePagesContainer{
+  padding: 20px;
+  border: 1px solid #D7E0E9;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: space-between;
+  & img {
+    max-width: 200px;
+    max-height: 200px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+}
+.profilePagesInfo{
+  font-weight: bold;
+  font-size: 20px;
+  margin-inline: 10px;
+}
+.marginBottom{
+  margin-bottom: 30px;
+}

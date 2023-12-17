@@ -16,6 +16,19 @@ export function* reservation() {
         toast.error(error.message)
     }
 }
+
+export function* reservationManager() {
+    try {
+        const response = yield call(api.reservationManager)
+        if (response) {
+            yield put(actions.reservationManagerSuccess(response))
+        }
+    } catch (error) {
+        yield put(actions.reservationManagerError(error.message))
+        toast.error(error.message)
+    }
+}
+
 export function* reservationInfo(action) {
     try {
         const response = yield call(api.reservationInfo, action.payload)
@@ -59,6 +72,7 @@ export function* reservationBook(action) {
 export default function* reservationSaga() {
     yield all([
         takeEvery(ActionTypes.RESERVATION_REQUEST, reservation),
+        takeEvery(ActionTypes.RESERVATION_MANAGER_REQUEST, reservationManager),
         takeEvery(ActionTypes.RESERVATION_ID_REQUEST, reservationId),
         takeEvery(ActionTypes.RESERVATION_INFO_REQUEST, reservationInfo),
         takeEvery(ActionTypes.RESERVATION_BOOK_REQUEST, reservationBook),

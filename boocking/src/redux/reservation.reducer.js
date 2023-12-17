@@ -5,18 +5,20 @@ const initialState = {
     reservationId:null,
     reservationInfo:null,
     reservationBook:null,
+    reservationManager:[],
     loadings: {
         reservation:false,
         reservationId:false,
         reservationInfo:false,
-        reservationBook:false
-
+        reservationBook:false,
+        reservationManager:false,
     },
     errors: {
         reservation:[],
         reservationId:null,
         reservationInfo:null,
-        reservationBook:null
+        reservationBook:null,
+        reservationManager:[],
     },
 }
 const reservationReducer = (state = initialState, action) =>{
@@ -113,6 +115,31 @@ const reservationReducer = (state = initialState, action) =>{
                 ...state,
                 loadings: { ...state.loadings, reservationBook: false },
                 errors: { ...state.errors, reservationBook: action.payload },
+            }
+        }
+
+
+        case ActionTypes.RESERVATION_MANAGER_REQUEST: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, reservationManager: true },
+                errors: { ...state.errors, reservationManager: [] },
+            }
+        }
+        case ActionTypes.RESERVATION_MANAGER_SUCCESS: {
+            const reservationManager = action.payload
+            return {
+                ...state,
+                loadings: { ...state.loadings, reservationManager: false },
+                errors: { ...state.errors, reservationBook: [] },
+                reservationManager,
+            }
+        }
+        case ActionTypes.RESERVATION_MANAGER_ERROR: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, reservationManager: false },
+                errors: { ...state.errors, reservationManager: action.payload },
             }
         }
         default:

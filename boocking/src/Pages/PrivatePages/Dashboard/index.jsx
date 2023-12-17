@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Col, Row} from "reactstrap";
 import styles from './dashboard.module.scss'
 import NavBarDashboard from "../../../components/NavBarDashboard";
+import ProfileInfo from "../../../components/ProfileInfo";
 
 function Dashboard() {
     const dispatch = useDispatch()
@@ -11,17 +12,17 @@ function Dashboard() {
     const userInfo = useSelector(state => state.app.user);
     const messages = useSelector(state => state.messages.messages)
     const reservation = useSelector(state => state.reservation.reservation);
-    console.log(messages)
+    const reservationManager = useSelector(state => state.reservation.reservationManager);
     return(
         <>
             {userInfo && (
                 <div className={styles.main}>
                     <Row>
                         <Col xl={3} className={styles.navContainer}>
-                            <NavBarDashboard reservation={reservation} userInfo={userInfo} messages={messages}/>
+                            <NavBarDashboard reservation={reservation} userInfo={userInfo} messages={messages} reservationManager={reservationManager} t={t}/>
                         </Col>
                         <Col xl={9}>
-
+                            <ProfileInfo userInfo={userInfo}/>
                         </Col>
                     </Row>
                 </div>

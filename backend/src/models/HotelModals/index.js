@@ -1,7 +1,5 @@
 const {DataTypes} = require("sequelize");
 const sequelize = require("../../../db");
-const {PromotionHotelModels} = require("../PromotionHotelModels");
-const {PromotionModels} = require("../PromotionModels");
 const {UserModels} = require("../UserModels");
 const {GeoCityModels} = require("../GeoCityModels");
 

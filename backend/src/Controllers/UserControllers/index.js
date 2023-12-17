@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const {ReviewModels} = require("../../models/ReviewModels");
 const {PromotionHotelModels} = require("../../models/PromotionHotelModels");
 const {PromotionModels} = require("../../models/PromotionModels");
 const {AlbumNumbers} = require("../../models/AllbumNumbers");
@@ -123,7 +124,7 @@ class UserControllers{
             const token = authorization.slice(7);
             try {
                 const { username } = jwt.decode(token);
-                let user = await UserModels.findOne({ where: { username:username }, include:['inviter', {model: GeoCityModels, as: 'geo_city'},{model: HotelModals, as:'hotel', include:[{model: PromotionHotelModels, as: 'promotionHotel'},{model: GeoCityModels, as: 'geo_city'}, {model: AlbumHotel, as:'albumHotel'}, {model: NumbersModels, as: 'number', include:[{model: AlbumNumbers, as: 'albumNumber'}]}]}] });
+                let user = await UserModels.findOne({ where: { username:username }, include:['inviter', {model: GeoCityModels, as: 'geo_city'},{model: HotelModals, as:'hotel', include:[{model:ReviewModels, as:'review'},{model: PromotionHotelModels, as: 'promotionHotel'},{model: GeoCityModels, as: 'geo_city'}, {model: AlbumHotel, as:'albumHotel'}, {model: NumbersModels, as: 'number', include:[{model: AlbumNumbers, as: 'albumNumber'}]}]}] });
                 const promotion = await PromotionModels.findAll()
                 if (!user) {
                     return res.status(409).json({message:"Ошибка авторизации"});

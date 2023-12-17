@@ -91,6 +91,32 @@ class ReservationControllers {
             }
         }
     }
+    async reservationManager(req, res){
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.status(409).json({message: 'вы не авторизованы'});
+        }else {
+            const token = authorization.slice(7);
+            try {
+                const { username } = jwt.decode(token);
+                let user = await UserModels.findOne({ where: { username:username } });
+                if (!user) {
+                    return res.status(409).json({message: 'вы не авторизованы'});
+                }else {
+                    const hotel = await HotelModals.findAll({where: {userid:user.id}})
+                    const numbers = await NumbersModels.findAll({where:{hotelId: hotel.map(i=>i.id)}})
+                    const reservation = await ReservationModels.findAll({where: {numberId:numbers.map(i=>i.id)}, include:[{model:NumbersModels, as: 'number'}]})
+                    if (!reservation.length){
+                        return res.status(200).json([]);
+                    }else {
+                        return res.status(200).json(reservation);
+                    }
+                }
+            }catch (error){
+                return res.status(500).json(error);
+            }
+        }
+    }
 
 }
 

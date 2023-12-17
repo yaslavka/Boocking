@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import * as messageActions from './actions/message.actions'
+import * as reservationManagerActions from './actions/reservation.actions'
 
 function SocketClient() {
     const dispatch = useDispatch()
@@ -13,6 +14,12 @@ function SocketClient() {
             dispatch(messageActions.messageInfo(authId.id))
         }
     },[dispatch, authId.id, authId.isAdmin])
+
+    useEffect(()=>{
+        if (authId.isManager){
+            dispatch(reservationManagerActions.reservationManager())
+        }
+    },[dispatch, authId.isManager])
 
     return (
         <></>
