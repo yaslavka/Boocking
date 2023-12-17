@@ -1,0 +1,64 @@
+.reviewContainer{
+  border-radius: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #D6DFE8;
+}
+.reviewCol{
+  background-color: #D6DFE8;
+  padding: 10px;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+  text-align: center;
+}
+.reviewBal{
+  font-weight: 900;
+  font-size: 50px;
+}
+.reviewBalText{
+  border-bottom: 1px dotted #666;
+  color: #666;
+  font-size: 20px;
+  text-decoration: none;
+}
+.reviewColRating{
+  padding: 10px;
+  margin-inline: 30px;
+}
+.reviewAvatar{
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.reviewFirstName{
+  font-size: 20px;
+  font-weight: 500;
+}
+.reviewBalGeoCity{
+
+}
+.reviewComments{
+  display: flex;
+  align-items: center;
+}
+.reviewCommentsComfort{
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  margin-inline: 5px;
+  border: 1px solid #8bea74;
+}
+.reviewCommentsPersonal{
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  margin-inline: 5px;
+  border: 1px solid #eaab74;
+}
+.reviewButtonMor{
+  background-color: #EBEBEB;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+}

@@ -1,5 +1,7 @@
 const {DataTypes} = require("sequelize");
 const sequelize = require("../../../db");
+const {PromotionHotelModels} = require("../PromotionHotelModels");
+const {PromotionModels} = require("../PromotionModels");
 const {UserModels} = require("../UserModels");
 const {GeoCityModels} = require("../GeoCityModels");
 
@@ -38,4 +40,5 @@ GeoCityModels.hasMany(HotelModals, { as: 'hotel' })
 HotelModals.belongsTo(GeoCityModels, { as: 'geo_city' })
 UserModels.hasMany(HotelModals, {as: "hotel"});
 HotelModals.belongsTo(UserModels, {as: 'user'});
+
 module.exports = {HotelModals}

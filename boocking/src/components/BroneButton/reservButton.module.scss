@@ -1,0 +1,26 @@
+.section{
+  border: 1px solid rgb(105, 38, 172);
+  border-radius: 10px;
+  background-color: #F4F4F4;
+}
+.title{
+  color: #0F81C0;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgb(105, 38, 172);
+}
+.article{
+  padding: 10px;
+}
+.dateContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #555555;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+}

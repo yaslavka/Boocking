@@ -1,0 +1,77 @@
+.numberContainer{
+  padding: 10px;
+}
+.row{
+  border-radius: 10px;
+  border: 1px solid #AFB6C0;
+}
+.col1{
+  border-right: 1px solid #AFB6C0;
+  padding:  10px 25px;
+
+}
+.numberImages{
+  display: flex;
+  margin-bottom: 10px;
+  & img{
+    border-radius: 10px;
+  }
+}
+.nameNumber{
+  margin-inline: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d6efd;
+}
+.typeNumber{
+  margin-inline: 10px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #070707;
+}
+.description{
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.textDescription {
+  font-weight: 700;
+  color: #7C7C7C;
+}
+.text {
+  font-weight: 400;
+  color: #7C7C7C;
+  & i {
+    margin-inline: 50px;
+  }
+}
+.sectionService{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+.col2{
+  padding:  10px 25px;
+}
+.service{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+.serviceText{
+  font-weight: 700;
+  font-size: 15px;
+  margin-inline: 10px;
+}
+.margiB{
+  margin-bottom: 20px;
+}
+.buttonText{
+  padding-top: 140px;
+  color: #53f147;
+  font-size: 15px;
+  font-weight: 500;
+}

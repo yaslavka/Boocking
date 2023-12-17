@@ -26,3 +26,20 @@ export const declOfNum = (number, titles) => {
     }
     return titles[1]
 }
+export const isValidUsername = (username) => {
+    const usernameValidation = /^[A-Za-z0-9]+$/
+    return usernameValidation.test(username)
+}
+export const isValidPassword = (password) => {
+    const passwordValidation = /^.{6,}$/
+    return passwordValidation.test(password)
+}
+export const isValidEmail = (email) => {
+    const re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(String(email).toLowerCase())
+}
+export const isValidPhone = (number) => {
+    const numberValidation = /^\d+$/
+    return numberValidation.test(number)
+}

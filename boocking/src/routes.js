@@ -4,6 +4,7 @@ import HotelId from "./Pages/HotelId";
 import CitiesId from "./Pages/CitiesId";
 import AllCities from "./Pages/AllCities";
 import NumbersId from "./Pages/NumbersId";
+import Dashboard from "./Pages/PrivatePages/Dashboard";
 
 export const publicRouteConfig = [
     {
@@ -72,7 +73,7 @@ export const privateRouteConfig = [
     {
         id: 5,
         path: routesLik.dashboard,
-        component: Home,
+        component: Dashboard,
         exact: true,
     },
 ]

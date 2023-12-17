@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import * as messageActions from './actions/message.actions'
 
 function SocketClient() {
-    //const dispatch = useDispatch()
-    const mySocket = useSelector(state => state.mySocket)?.socket
+    const dispatch = useDispatch()
+    const userInfo = useSelector(state => state.app.user);
+    const authId = userInfo && userInfo
     useEffect(()=>{
-        mySocket?.emit('dd');
-    },[mySocket])
+        if (authId.isAdmin){
+            dispatch(messageActions.messageAdminInfo(authId.id))
+        }else {
+            dispatch(messageActions.messageInfo(authId.id))
+        }
+    },[dispatch, authId.id, authId.isAdmin])
+
     return (
         <></>
     )

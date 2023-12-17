@@ -4,6 +4,7 @@ import foot from '../../assets/hotel/footer.png'
 import {Formik, Field,Form} from "formik";
 import {useDispatch} from "react-redux";
 import InputFooter from "../InputFooter";
+import * as action from '../../actions/app.actions'
 
 function Footer() {
     const dispatch = useDispatch()
@@ -14,7 +15,7 @@ function Footer() {
         [],
     )
     const onSubmitSignIn = useCallback( (credentials)=>{
-
+        dispatch(action.userInfo(credentials))
     },[dispatch])
     return(
         <>

@@ -25,7 +25,7 @@ function ListHotel({hotel, index, setHotelesId}) {
     const settings = {
         customPaging: function(i) {
             return (
-                <a>
+                <Link to={'#'}>
                     {hotel.albumHotel.map((item, index)=>(
                         <>
                             {index === i && (
@@ -33,7 +33,7 @@ function ListHotel({hotel, index, setHotelesId}) {
                             )}
                         </>
                     ))}
-                </a>
+                </Link>
             );
         },
 
@@ -185,6 +185,7 @@ function ListHotel({hotel, index, setHotelesId}) {
                                     <div className={styles.hotelDescription}>
                                         {hotel?.albumHotel?.length > 0 && (
                                             <>
+
                                                 <div className={styles.hotelAlbumContainer}>
                                                     <section className={styles.albumPhoto}>
                                                        <Slider {...settings} ref={sliderRef}>

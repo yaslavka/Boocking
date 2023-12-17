@@ -2,11 +2,13 @@ import React from "react";
 import styles from './header.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import * as headerActions from '../../actions/state.actions'
+//import * as actions from '../../actions/auth.actions'
 import {Link} from "react-router-dom";
 import logo from "../../assets/logo/photo_2023-02-22_23-34-15.png";
 import {useTranslation} from "react-i18next";
 import routesLik from "../../constants/routes.constants";
 import ModalBrone from "../ModalBrone";
+import ModalAuth from "../ModalAuth";
 function Header() {
     const dispatch = useDispatch()
     const {t} = useTranslation('common')
@@ -14,6 +16,12 @@ function Header() {
     const bronVisible = useSelector((state) => state.state.bronVisible)
     const authVisible = useSelector((state) => state.state.authVisible)
     const userInfo = useSelector(state => state.app.user);
+
+    // const LogOuts =  () => {
+    //     dispatch(actions.signOutSuccess());
+    //     localStorage.clear();
+    //     localStorage.removeItem('access_token');
+    // };
 
     const navBarActive =()=>{
         if (navbarVisible === true){
@@ -101,6 +109,7 @@ function Header() {
                 </div>
             </div>
             {bronVisible && <ModalBrone searchBronVisible={searchBronVisible} bronVisible={bronVisible} t={t}/>}
+            {authVisible && <ModalAuth authVisible={authVisible} modalAuthVisible={modalAuthVisible}/>}
         </>
     )
 }

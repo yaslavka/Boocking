@@ -15,7 +15,9 @@ const UserModels = sequelize.define('user',{
     isAdmin:{type: DataTypes.BOOLEAN, defaultValue: false},
     isManager:{type: DataTypes.BOOLEAN, defaultValue: false},
     geoCityId: { type: DataTypes.BIGINT, defaultValue: null },
+    inviter_id: {type: DataTypes.BIGINT, defaultValue: null},
 })
 GeoCityModels.hasMany(UserModels, { as: 'user' })
 UserModels.belongsTo(GeoCityModels, { as: 'geo_city' })
+UserModels.belongsTo(UserModels, {foreignKey: 'inviter_id', as: 'inviter'})
 module.exports = {UserModels}

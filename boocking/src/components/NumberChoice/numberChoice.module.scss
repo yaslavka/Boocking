@@ -1,0 +1,33 @@
+.numberChoiceContainer{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.numberChoiceTitle{
+  font-size: 15px;
+  font-weight: bold;
+}
+.numberChoiceForm{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.dtaPicker{
+  border: 1px solid #0d6efd;
+  padding: 12px;
+  margin-inline: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  & input{
+    padding-inline: 10px;
+  }
+  & select{
+    padding-inline: 10px;
+    border: none;
+    & option{
+      border: none;
+    }
+  }
+}

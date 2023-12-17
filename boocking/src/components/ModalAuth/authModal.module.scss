@@ -1,0 +1,44 @@
+.authFormTabs {
+  margin: 15px 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E7E5E3;
+}
+.authFormTab {
+  padding: 0 0 7px;
+  position: relative;
+  width: calc(50% - 5px);
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 130%;
+  color: #999999;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+.authFormTabActive {
+  padding: 0 0 7px;
+  position: relative;
+  width: calc(50% - 5px);
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 130%;
+  color: black;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+.authFormTabsContent{
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+.inputField{
+  padding-inline: 22px;
+  padding-bottom: 15px;
+}

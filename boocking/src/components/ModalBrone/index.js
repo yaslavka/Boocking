@@ -5,13 +5,13 @@ import {Formik, Form, Field} from "formik";
 import styles from './modalBrone.module.scss'
 import InputBron from "../InputBron";
 import {useDispatch, useSelector} from "react-redux";
-import * as reservationActions from '../../actions/app.actions'
+import * as reservationActions from '../../actions/reservation.actions'
 import {useHistory} from "react-router-dom";
 
 function ModalBrone({bronVisible, searchBronVisible, t}) {
     const dispatch = useDispatch()
     let match = useHistory()
-    const reservation = useSelector(state => state.app.reservation)
+    const reservation = useSelector(state => state.reservation.reservationInfo)
     const initialValues = useMemo(
         () => ({
             number: '',

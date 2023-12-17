@@ -1,3 +1,5 @@
+const {UserModels} = require("../../models/UserModels");
+const {ReviewModels} = require("../../models/ReviewModels");
 const {AlbumNumbers} = require("../../models/AllbumNumbers");
 const {AlbumHotel} = require("../../models/AllbumHotel");
 const {GeoRegionsModels} = require("../../models/GeoRegionsModels");
@@ -8,7 +10,7 @@ const {HotelModals} = require("../../models/HotelModals");
 class HotelControllers{
     async hotelId(req,res){
         const {id}=req.query
-        let hotelId = await HotelModals.findOne({where:{id:id}, include:[{model: GeoCityModels, as: 'geo_city'},{model: AlbumHotel, as:'albumHotel'}, {model: NumbersModels, as: 'number', include:[{model: AlbumNumbers, as: 'albumNumber'}]}]})
+        let hotelId = await HotelModals.findOne({where:{id:id}, include:[{model: ReviewModels, as: 'review', include:[{model: UserModels, as: 'user', include:[{model: GeoCityModels, as:'geo_city'}]}]},{model: GeoCityModels, as: 'geo_city'},{model: AlbumHotel, as:'albumHotel'}, {model: NumbersModels, as: 'number', include:[{model: AlbumNumbers, as: 'albumNumber'}]}]})
         if (!hotelId){
             return res.status(409).json({ message: '' })
         }else {

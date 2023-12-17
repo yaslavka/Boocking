@@ -53,11 +53,11 @@ const viewBox = [
 ]
 
 function CitiesId() {
-    const [type, setType]= useState(0)
-    const [title, setTitle]= useState(1)
     const dispatch = useDispatch()
     const {id}= useParams()
     const {t} = useTranslation('common')
+    const [type, setType]= useState(0)
+    const [title, setTitle]= useState(1)
     const cities = useSelector((state) => state.geo.cities)
     const recommended = useSelector((state)=>state.recommended.recommended)
     const citiesId = useSelector(state => state.geo.citiesId)
@@ -70,7 +70,7 @@ function CitiesId() {
         dispatch(citiesActions.citiesIdInfo(id))
         setPopular(populars)
         setHotelFiltered(citiesId && citiesId.hotel)
-    },[dispatch, id])
+    },[dispatch, id, citiesId])
 
     const Populars = (i)=>{
         let stateList = popular && popular
@@ -80,35 +80,35 @@ function CitiesId() {
         setPopular(changeCheckedCuisines);
     }
 
-    const Filters = () => {
-        if (!popular || !hotels) {
-            return;
-        }
 
-        const activeWifiFilters = popular.filter(item => item.checked && item.wifi).map(item => item.wifi);
-        const activeTypeFilters = popular.filter(item => item.checked && item.label).map(item => item.label.toLowerCase());
-
-        let updateList;
-
-        if (activeWifiFilters.length > 0 || activeTypeFilters.length > 0) {
-            updateList = hotels.filter(item => {
-                const wifiMatch = activeWifiFilters.length === 0
-                    || activeWifiFilters.includes(item.wifi)
-                    || activeTypeFilters.includes(item.typeHotel.toLowerCase());
-                const typeMatch = activeTypeFilters.length === 0
-                    || activeTypeFilters.includes(item.typeHotel.toLowerCase())
-                    || activeWifiFilters.includes(item.wifi);
-                return wifiMatch && typeMatch;
-            });
-        } else {
-            updateList = hotels;
-        }
-
-        setHotelFiltered(updateList);
-    };
     useEffect(()=>{
-        Filters()
-    },[popular])
+        (()=>{
+            if (!popular || !hotels) {
+                return;
+            }
+
+            const activeWifiFilters = popular.filter(item => item.checked && item.wifi).map(item => item.wifi);
+            const activeTypeFilters = popular.filter(item => item.checked && item.label).map(item => item.label.toLowerCase());
+
+            let updateList;
+
+            if (activeWifiFilters.length > 0 || activeTypeFilters.length > 0) {
+                updateList = hotels.filter(item => {
+                    const wifiMatch = activeWifiFilters.length === 0
+                        || activeWifiFilters.includes(item.wifi)
+                        || activeTypeFilters.includes(item.typeHotel.toLowerCase());
+                    const typeMatch = activeTypeFilters.length === 0
+                        || activeTypeFilters.includes(item.typeHotel.toLowerCase())
+                        || activeWifiFilters.includes(item.wifi);
+                    return wifiMatch && typeMatch;
+                });
+            } else {
+                updateList = hotels;
+            }
+
+            setHotelFiltered(updateList);
+        })()
+    },[popular, hotels])
     return(
         <>
             <div style={{ marginBottom: 20}}/>

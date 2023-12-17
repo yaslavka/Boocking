@@ -1,0 +1,45 @@
+.root{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.main{
+  background-color: #fff;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+.colNav{
+  max-width: 311px;
+  width: 100%;
+}
+.section{
+  margin-bottom: 120px;
+  & textarea {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 10px;
+    height: 50vh;
+    outline: none;
+    resize: none;
+  }
+}
+.padding{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.flexSpaceBetween{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.marginBottom{
+  margin-bottom: 20px;
+}

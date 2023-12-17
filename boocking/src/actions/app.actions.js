@@ -15,16 +15,7 @@ export const userInfoError = (error) => ({
     payload: error,
 })
 
-export const reservationInfo = (values) => ({
-    type: ActionTypes.RESERVATION_INFO_REQUEST,
+export const pages = (values) => ({
+    type: ActionTypes.TASK_PAGES,
     payload: values,
-})
-export const reservationSuccess = (values) => ({
-    type: ActionTypes.RESERVATION_INFO_SUCCESS,
-    payload: values,
-
-})
-export const reservationError = (error) => ({
-    type: ActionTypes.RESERVATION_INFO_ERROR,
-    payload: error,
 })

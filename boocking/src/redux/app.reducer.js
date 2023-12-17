@@ -2,15 +2,13 @@ import * as ActionTypes from '../constants/app.constants'
 import * as AuthActionTypes from '../constants/auth.constants'
 
 const initialState = {
+    pages: 1,
     user: null,
-    reservation:null,
     loadings: {
         user: false,
-        reservation:false,
     },
     errors: {
         user: null,
-        reservation:null
     },
 }
 const appReducer = (state = initialState, action) =>{
@@ -38,28 +36,9 @@ const appReducer = (state = initialState, action) =>{
                 errors: { ...state.errors, user: action.payload },
             }
         }
-        case ActionTypes.RESERVATION_INFO_REQUEST: {
-            return {
-                ...state,
-                loadings: { ...state.loadings, reservation: true },
-                errors: { ...state.errors, reservation: null },
-            }
-        }
-        case ActionTypes.RESERVATION_INFO_SUCCESS: {
-            const reservation = action.payload
-            return {
-                ...state,
-                loadings: { ...state.loadings, reservation: false },
-                errors: { ...state.errors, reservation: null },
-                reservation,
-            }
-        }
-        case ActionTypes.RESERVATION_INFO_ERROR: {
-            return {
-                ...state,
-                loadings: { ...state.loadings, reservation: false },
-                errors: { ...state.errors, reservation: action.payload },
-            }
+        case ActionTypes.TASK_PAGES: {
+            const pages = action.payload
+            return {...state, pages: pages}
         }
         case AuthActionTypes.SIGN_OUT_REQUEST:
         case AuthActionTypes.SIGN_OUT_SUCCESS:

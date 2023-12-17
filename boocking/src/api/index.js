@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Raven from 'raven-js';
+import {io} from 'socket.io-client';
 import {getAccessToken} from "../utils";
 import {store} from "../index";
 import * as actions from '../actions/auth.actions'
@@ -38,24 +39,4 @@ baseInstance.interceptors.response.use(
         }
     },
 )
-export const getDataAPI = async (url) => {
-    return await baseInstance.get(`/api/${url}`)
-}
-export const getQueryDataAPI = async (url, data) => {
-    return await baseInstance.get(`/api/${url}?data=${data}`)
-}
-export const postDataAPI = async (url, data) => {
-    return await baseInstance.post(`/api/${url}`, data)
-}
-
-export const putDataAPI = async (url, data) => {
-    return await baseInstance.put(`/api/${url}`, data)
-}
-
-export const patchDataAPI = async (url, data) => {
-    return await baseInstance.patch(`/api/${url}`, data)
-}
-
-export const deleteDataAPI = async (url, token) => {
-    return await baseInstance.delete(`/api/${url}`)
-}
+export const socket = io.connect(process.env.REACT_APP_SOCKET_BASE_URL);
