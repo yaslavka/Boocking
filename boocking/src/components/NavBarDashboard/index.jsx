@@ -6,7 +6,7 @@ import * as actions from '../../actions/auth.actions'
 import {useDispatch} from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
 
-function NavBarDashboard({userInfo, reservation, messages, reservationManager, setLifting}) {
+function NavBarDashboard({userInfo, reservation, messages, reservationManager, setLifting, setHighlight, setPremium, setPackage, setVip}) {
     const dispatch = useDispatch()
     const [object, setObject] =useState(false)
     const [mySites, setMySites] =useState(false)
@@ -247,118 +247,118 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
                         {promotions && (
                             <div className={styles.subNav}>
                                 <div className={styles.subNavLink} onClick={()=>{setLifting(true)}}><Link to={'#'}>Поднять</Link></div>
-                                <div className={styles.subNavLink}><Link to={'#'}>Выделить</Link></div>
-                                <div className={styles.subNavLink}><Link to={'#'}>Премиум</Link></div>
-                                <div className={styles.subNavLink}><Link to={'#'}>VIP Блок</Link></div>
-                                <div className={styles.subNavLink}><Link to={'#'}>Пакетное размещение</Link></div>
+                                <div className={styles.subNavLink} onClick={()=>{setHighlight(true)}}><Link to={'#'}>Выделить</Link></div>
+                                <div className={styles.subNavLink} onClick={()=>{setPremium(true)}}><Link to={'#'}>Премиум</Link></div>
+                                <div className={styles.subNavLink} onClick={()=>{setVip(true)}}><Link to={'#'}>VIP Блок</Link></div>
+                                <div className={styles.subNavLink} onClick={()=>{setPackage(true)}}><Link to={'#'}>Пакетное размещение</Link></div>
                             </div>
                         )}
                     </div>
-                    {userInfo.isAdmin ? (
-                       <>
-                           <div className={styles.navContainer}>
-                               <div className={styles.navLinkFlex}>
-                                   <Link to={routesLik.negative} className={styles.navLink}>
-                                       <svg
-                                           fill="#FFFFFF"
-                                           width={30}
-                                           viewBox="0 0 24 24"
-                                       >
-                                           <circle cx="15.5" cy="9.5" r="1.5"/>
-                                           <circle cx="8.5" cy="9.5" r="1.5"/>
-                                           <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5z"/>
-                                       </svg>
-                                       <div className={styles.navLinkText}>Жалобы</div>
-                                   </Link>
-                                   <div className={styles.navLinkFlexArrow}>
-                                       <div className={styles.navLinkSpanNegative}>
-                                           <span>{messages && messages?.length}</span>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div className={styles.navContainer}>
-                               <div className={styles.navLinkFlex}>
-                                   <Link to={routesLik.helpChat} className={styles.navLink}>
-                                       <svg
-                                           fill="#FFFFFF"
-                                           width={30}
-                                           viewBox="0 0 24 24">
-                                           <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
-                                       </svg>
-                                       <div className={styles.navLinkText}>Тикеты</div>
-                                   </Link>
-                                   <div className={styles.navLinkFlexArrow}>
-                                       <div className={styles.navLinkSpan}>
-                                           <span>{messages && messages?.length}</span>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div className={styles.navContainer}>
-                               <div className={styles.navLinkFlex}>
-                                   <Link to={routesLik.users} className={styles.navLink}>
-                                       <svg
-                                           fill="#FFFFFF"
-                                           width={30}
-                                           viewBox="0 0 24 24">
-                                           <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                                       </svg>
-                                       <div className={styles.navLinkText}>Пользователи</div>
-                                   </Link>
-                               </div>
-                           </div>
-                       </>
-                    ):(
-                        <>
-                            <div className={styles.navContainer}>
-                                <div className={styles.navLinkFlex}>
-                                    <Link to={routesLik.chat} className={styles.navLink}>
-                                        <svg
-                                            fill="#FFFFFF"
-                                            width={30}
-                                            viewBox="0 0 24 24">
-                                            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
-                                        </svg>
-                                        <div className={styles.navLinkText}>Сообщения</div>
-                                    </Link>
-                                    <div className={styles.navLinkFlexArrow}>
-                                        <div className={styles.navLinkSpan}>
-                                            <span>{messages && messages?.length}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles.navContainer}>
-                                <div className={styles.navLinkFlex}>
-                                    <Link to={routesLik.helpChat} className={styles.navLink}>
-                                        <svg
-                                            fill="#FFFFFF"
-                                            width={30}
-                                            viewBox="0 0 24 24">
-                                            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
-                                        </svg>
-                                        <div className={styles.navLinkText}>Поддержка</div>
-                                    </Link>
-                                    <div className={styles.navLinkFlexArrow}>
-                                        <div className={styles.navLinkSpan}>
-                                            <span>{messages && messages?.length}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    )}
+                </>
+            )}
+            {userInfo.isAdmin === true? (
+                <>
                     <div className={styles.navContainer}>
                         <div className={styles.navLinkFlex}>
-                            <Link to={'#'} className={styles.navLink} onClick={LogOuts}>
-                                <LogoutIcon sx={{fontSize: 30}}/>
-                                <div className={styles.navLinkText}>Выход</div>
+                            <Link to={routesLik.negative} className={styles.navLink}>
+                                <svg
+                                    fill="#FFFFFF"
+                                    width={30}
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle cx="15.5" cy="9.5" r="1.5"/>
+                                    <circle cx="8.5" cy="9.5" r="1.5"/>
+                                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5z"/>
+                                </svg>
+                                <div className={styles.navLinkText}>Жалобы</div>
+                            </Link>
+                            <div className={styles.navLinkFlexArrow}>
+                                <div className={styles.navLinkSpanNegative}>
+                                    <span>{messages && messages?.length}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.navContainer}>
+                        <div className={styles.navLinkFlex}>
+                            <Link to={routesLik.helpChat} className={styles.navLink}>
+                                <svg
+                                    fill="#FFFFFF"
+                                    width={30}
+                                    viewBox="0 0 24 24">
+                                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
+                                </svg>
+                                <div className={styles.navLinkText}>Тикеты</div>
+                            </Link>
+                            <div className={styles.navLinkFlexArrow}>
+                                <div className={styles.navLinkSpan}>
+                                    <span>{messages && messages?.length}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.navContainer}>
+                        <div className={styles.navLinkFlex}>
+                            <Link to={routesLik.users} className={styles.navLink}>
+                                <svg
+                                    fill="#FFFFFF"
+                                    width={30}
+                                    viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                <div className={styles.navLinkText}>Пользователи</div>
                             </Link>
                         </div>
                     </div>
                 </>
+            ):(
+                <>
+                    <div className={styles.navContainer}>
+                        <div className={styles.navLinkFlex}>
+                            <Link to={routesLik.chat} className={styles.navLink}>
+                                <svg
+                                    fill="#FFFFFF"
+                                    width={30}
+                                    viewBox="0 0 24 24">
+                                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
+                                </svg>
+                                <div className={styles.navLinkText}>Сообщения</div>
+                            </Link>
+                            <div className={styles.navLinkFlexArrow}>
+                                <div className={styles.navLinkSpan}>
+                                    <span>{messages && messages?.length}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.navContainer}>
+                        <div className={styles.navLinkFlex}>
+                            <Link to={routesLik.helpChat} className={styles.navLink}>
+                                <svg
+                                    fill="#FFFFFF"
+                                    width={30}
+                                    viewBox="0 0 24 24">
+                                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
+                                </svg>
+                                <div className={styles.navLinkText}>Поддержка</div>
+                            </Link>
+                            <div className={styles.navLinkFlexArrow}>
+                                <div className={styles.navLinkSpan}>
+                                    <span>{messages && messages?.length}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
             )}
+            <div className={styles.navContainer}>
+                <div className={styles.navLinkFlex}>
+                    <Link to={'#'} className={styles.navLink} onClick={LogOuts}>
+                        <LogoutIcon sx={{fontSize: 30}}/>
+                        <div className={styles.navLinkText}>Выход</div>
+                    </Link>
+                </div>
+            </div>
         </>
     )
 }

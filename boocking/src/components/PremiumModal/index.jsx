@@ -6,23 +6,23 @@ import {Form} from "react-bootstrap";
 import {declOfNum} from "../../utils";
 import {Button, FormGroup, Input} from "reactstrap";
 
-function LiftingModal({lifting, liftingPackage, object, setLifting, objectManager, value}) {
+function PremiumModal({premium, premiumPackage, object, setPremium, objectManager, value}) {
     const { t } = useTranslation('common');
-    const [liftingInput, setLiftingInput] = useState(null)
+    const [premiumInput, setPremiumInput] = useState(null)
     const [id, setId] = useState(null)
     const handleChange =(e)=>{
-        setLiftingInput(Number(e.target.value))
+        setPremiumInput(Number(e.target.value))
     }
-    const liftingConfirmValue = async ()=>{
-        setLifting(false)
-        const days = Number(liftingInput)
+    const highlightConfirmValue = async ()=>{
+        setPremium(false)
+        const days = Number(premiumInput)
         let result = await confirm({
             title:`${t('Подтвердите Поднятие')}`,
             message: `${t('Поднятие в списке на')} ${days} ${declOfNum(days, [
                 `${t('день')}`,
                 `${t('дня')}`,
                 `${t('дней')}`,
-            ])}, ${t('на сумму')} ${days * Number(liftingPackage.price)} RUB?`,
+            ])}, ${t('на сумму')} ${days * Number(premiumPackage.price)} RUB?`,
             confirmText: `${t('Подтвердить')}`,
             confirmColor: 'danger',
             cancelText: `${t('Отменить')}`,
@@ -33,16 +33,16 @@ function LiftingModal({lifting, liftingPackage, object, setLifting, objectManage
         }
 
     }
-    const liftingConfirm = async ()=>{
-        setLifting(false)
-        const days = Number(liftingInput)
+    const highlightConfirm = async ()=>{
+        setPremium(false)
+        const days = Number(premiumInput)
         let result = await confirm({
             title:`${t('Подтвердите Поднятие')}`,
             message: `${t('Поднятие в списке на')} ${days} ${declOfNum(days, [
                 `${t('день')}`,
                 `${t('дня')}`,
                 `${t('дней')}`,
-            ])}, ${t('на сумму')} ${days * Number(liftingPackage.price)} RUB?`,
+            ])}, ${t('на сумму')} ${days * Number(premiumPackage.price)} RUB?`,
             confirmText: `${t('Подтвердить')}`,
             confirmColor: 'danger',
             cancelText: `${t('Отменить')}`,
@@ -55,16 +55,16 @@ function LiftingModal({lifting, liftingPackage, object, setLifting, objectManage
     }
     return (
         <>
-            <Modal show={lifting} onHide={()=> {setLifting(false)}}>
-                <Modal.Header closeButton={()=> {setLifting(false)}}>
-                    Поднятие
+            <Modal show={premium} onHide={()=> {setPremium(false)}}>
+                <Modal.Header closeButton={()=> {setPremium(false)}}>
+                    Выделение
                 </Modal.Header>
                 <Form onSubmit={(e)=>e.preventDefault()}>
                     {value ? (
                         <>
                             <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                                <Input type="number" name="lifting"
-                                       value={liftingInput}
+                                <Input type="number" name="premium"
+                                       value={premiumInput}
                                        placeholder="Количество дней" onChange={handleChange}/>
                             </FormGroup>
                         </>
@@ -72,29 +72,29 @@ function LiftingModal({lifting, liftingPackage, object, setLifting, objectManage
                        <>
                            {objectManager && (
                                <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                                   <select onChange={(e)=>setId(Number(e.target.value))}>
-                                       <option value="Выберите отель" disabled hidden>Выберите отель</option>
-                                       {objectManager.map((item, index) => (
+                                   <select onChange={(e)=>setId(e.target.value)}>
+                                       <option value="Выберите отель" disabled >Выберите отель</option>
+                                       {objectManager.map((item) => (
                                            <>
-                                               <option key={index} id={item.id} value={item.id}>{item.nameHotel}</option>
+                                               <option id={item.id} value={item.id}>{item.nameHotel}</option>
                                            </>
                                        ))}
                                    </select>
                                </FormGroup>
                            )}
                            <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                               <Input type="number" name="lifting"
-                                      value={liftingInput}
+                               <Input type="number" name="premium"
+                                      value={premiumInput}
                                       placeholder="Количество дней" onChange={handleChange}/>
                            </FormGroup>
                        </>
                     )}
                     <Modal.Footer>
-                        <Button color={'primary'} type={"button"} onClick={value ? liftingConfirmValue : liftingConfirm}>Поднять</Button>
+                        <Button color={'primary'} type={"button"} onClick={value ? highlightConfirmValue : highlightConfirm}>Выделить</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>
         </>
     )
 }
-export default LiftingModal
+export default PremiumModal

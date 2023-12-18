@@ -6,57 +6,60 @@ import {Link} from "react-router-dom";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import LiftingModal from "../LiftingModal";
+import HighlightModalModal from "../HighlightModal";
+import PremiumModal from "../PremiumModal";
+import VipModal from "../VipModal";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function SelectObject({object, key, reservationManager}) {
+function SelectObject({object, index, reservationManager, userInfo}) {
     const [lifting, setLifting] = useState(false)
     const [highlight, setHighlight] = useState(false)
     const [premium, setPremium] = useState(false)
     const [vip, setVip] = useState(false)
-    const liftingPackage = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Поднятие')[0]
-    const highlightPackage = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Выделение')[0]
-    const premiumPackage = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Премиум')[0]
-    const vipPackage = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'VIP БЛОК')[0]
+    const liftingPackage = userInfo && userInfo.promotion.length > 0 && userInfo && userInfo.promotion.filter(i=>i.promotion === 'Поднятие')[0]
+    const highlightPackage = userInfo && userInfo.promotion.length > 0 && userInfo && userInfo.promotion.filter(i=>i.promotion === 'Выделение')[0]
+    const premiumPackage = userInfo && userInfo.promotion.length > 0 && userInfo && userInfo.promotion.filter(i=>i.promotion === 'Премиум')[0]
+    const vipPackage = userInfo && userInfo.promotion.length > 0 && userInfo && userInfo.promotion.filter(i=>i.promotion === 'VIP БЛОК')[0]
+    //console.log(object?.promotionHotel.filter(i=>i.promotionHotel === 'Поднятие' && i.status === true)[0].daysLeft)
 
-
-    let liftingServiceRed = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Поднятие' && i.status === true)[0].daysLeft || 0
-    let liftingServiceGrey = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Поднятие' && i.status === true)[0].daysHavePassed || 100
+    let liftingServiceRed = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Поднятие' && i?.status === true)[0]?.daysLeft || 100
+    let liftingServiceGrey = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Поднятие' && i?.status === true)[0]?.daysHavePassed || 0
     const liftingService = {
         datasets: [
             {
                 backgroundColor: ["#e6e6e68a", "#DE3232"],
-                data: [liftingServiceGrey , liftingServiceRed ],
+                data: [liftingServiceRed , liftingServiceGrey ],
             },
         ],
     }
-    let highlightGrin = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Выделение' && i.status === true)[0].daysLeft || 0
-    let highlightGrey = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Выделение' && i.status === true)[0].daysHavePassed || 100
+    let highlightGrin = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Выделение' && i?.status === true)[0]?.daysLeft ? object?.promotionHotel.filter(i=>i?.promotionHotel === 'Выделение' && i?.status === true)[0]?.daysLeft : 100
+    let highlightGrey = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Выделение' && i?.status === true)[0]?.daysHavePassed ? object?.promotionHotel.filter(i=>i?.promotionHotel === 'Выделение' && i?.status === true)[0]?.daysHavePassed : 0
     const highlights = {
         datasets: [
             {
                 backgroundColor: ["#e6e6e68a", "#00D66F"],
-                data: [highlightGrey , highlightGrin ],
+                data: [highlightGrin , highlightGrey ],
             },
         ],
     };
-    let premiumBlue = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Премиум' && i.status === true)[0].daysLeft || 0
-    let premiumGrey = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Премиум' && i.status === true)[0].daysHavePassed || 100
+    let premiumBlue = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Премиум' && i?.status === true)[0]?.daysLeft ? object?.promotionHotel.filter(i=>i?.promotionHotel === 'Премиум' && i?.status === true)[0]?.daysLeft : 100
+    let premiumGrey = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Премиум' && i?.status === true)[0]?.daysHavePassed ? object?.promotionHotel.filter(i=>i?.promotionHotel === 'Премиум' && i?.status === true)[0]?.daysHavePassed : 0
     const premiums = {
         datasets: [
             {
                 backgroundColor: ["#e6e6e68a", "#1380C3"],
-                data: [premiumGrey , premiumBlue ],
+                data: [premiumBlue , premiumGrey ],
             },
         ],
     };
 
-    let vipBlockGrey = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'VIP БЛОК' && i.status === true)[0].daysLeft || 0
-    let vipBlockV = object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'VIP БЛОК' && i.status === true)[0].daysHavePassed || 100
+    let vipBlockGrey = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'VIP БЛОК' && i?.status === true)[0]?.daysLeft ? object?.promotionHotel.filter(i=>i?.promotionHotel === 'VIP БЛОК' && i?.status === true)[0]?.daysLeft : 100
+    let vipBlockV = object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'VIP БЛОК' && i?.status === true)[0]?.daysHavePassed ? object?.promotionHotel.filter(i=>i?.promotionHotel === 'VIP БЛОК' && i?.status === true)[0]?.daysHavePassed : 0
     const vipBlock = {
         datasets: [
             {
                 backgroundColor: ["#e6e6e68a", "#774AFF"],
-                data: [vipBlockV , vipBlockGrey ],
+                data: [vipBlockGrey , vipBlockV ],
             },
         ],
     };
@@ -64,7 +67,7 @@ function SelectObject({object, key, reservationManager}) {
         <>
             <Row>
                 <Col xl={9}>
-                    <ListHotel key={key} hotel={object} index={key}/>
+                    <ListHotel key={index} hotel={object} index={index}/>
                 </Col>
                 <Col xl={3}>
                     <div className={styles.colInfoUserHotel}>
@@ -105,7 +108,9 @@ function SelectObject({object, key, reservationManager}) {
                     <div className={styles.absolute}>
                         <div className={styles.textService}>ПОДНЯТИЕ</div>
                         <div>Осталось</div>
-                        <div className={styles.subTextService}>{object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Поднятие' && i.status === true)[0].daysHavePassed || 0} ДНЕЙ</div>
+                        <div className={styles.subTextService}>
+                            {object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Поднятие' && i?.status === true)[0]?.daysHavePassed
+                            ? object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Поднятие' && i?.status === true)[0]?.daysHavePassed : 0} ДНЕЙ</div>
                     </div>
                     <Button color={'primary'} onClick={()=>{setLifting(true)}}>Продлить</Button>
                 </div>
@@ -114,7 +119,9 @@ function SelectObject({object, key, reservationManager}) {
                     <div className={styles.absolute}>
                         <div className={styles.textService}>ВЫДЕЛЕНИЕ</div>
                         <div>Осталось</div>
-                        <div className={styles.subTextService}>{object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Выделение' && i.status === true)[0].daysHavePassed || 0} ДНЕЙ</div>
+                        <div className={styles.subTextService}>
+                            {object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Выделение' && i?.status === true)[0]?.daysHavePassed
+                            ? object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Выделение' && i?.status === true)[0]?.daysHavePassed : 0} ДНЕЙ</div>
                     </div>
                     <Button color={'primary'} onClick={()=>{setHighlight(true)}}>Продлить</Button>
                 </div>
@@ -123,7 +130,9 @@ function SelectObject({object, key, reservationManager}) {
                     <div className={styles.absolute}>
                         <div className={styles.textService}>ПРЕМИУМ</div>
                         <div>Осталось</div>
-                        <div className={styles.subTextService}>{object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'Премиум' && i.status === true)[0].daysHavePassed || 0} ДНЕЙ</div>
+                        <div className={styles.subTextService}>
+                            {object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Премиум' && i?.status === true)[0]?.daysHavePassed
+                            ? object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'Премиум' && i?.status === true)[0]?.daysHavePassed : 0} ДНЕЙ</div>
                     </div>
                     <Button color={'primary'} onClick={()=>{setPremium(true)}}>Продлить</Button>
                 </div>
@@ -132,13 +141,24 @@ function SelectObject({object, key, reservationManager}) {
                     <div className={styles.absolute}>
                         <div className={styles.textService}>VIP БЛОК</div>
                         <div>Осталось</div>
-                        <div className={styles.subTextService}>{object?.promotionHotel > 0 && object?.promotionHotel.filter(i=>i.promotionHotel === 'VIP БЛОК' && i.status === true)[0].daysHavePassed || 0} ДНЕЙ</div>
+                        <div className={styles.subTextService}>
+                            {object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'VIP БЛОК' && i?.status === true)[0]?.daysHavePassed
+                            ? object?.promotionHotel.length > 0 && object?.promotionHotel.filter(i=>i?.promotionHotel === 'VIP БЛОК' && i?.status === true)[0]?.daysHavePassed : 0} ДНЕЙ</div>
                     </div>
                     <Button color={'primary'} onClick={()=>{setVip(true)}}>Продлить</Button>
                 </div>
             </div>
             {lifting && (
                 <LiftingModal lifting={lifting} object={object} liftingPackage={liftingPackage} setLifting={setLifting} value/>
+            )}
+            {highlight && (
+                <HighlightModalModal object={object} value highlight={highlight} highlightPackage={highlightPackage} setHighlight={setHighlight}/>
+            )}
+            {premium && (
+                <PremiumModal value object={object} premium={premium} premiumPackage={premiumPackage} setPremium={setPremium}/>
+            )}
+            {vip && (
+                <VipModal setVip={setVip} object={object} value vip={vip} vipPackage={vipPackage}/>
             )}
         </>
     )

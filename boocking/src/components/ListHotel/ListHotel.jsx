@@ -1,4 +1,4 @@
-import React, {createRef, useState} from "react";
+import React, {createRef, useCallback, useState} from "react";
 import styles from './listHotel.module.scss'
 import {Link} from "react-router-dom";
 import { Rating } from 'react-simple-star-rating'
@@ -18,9 +18,14 @@ import videocam from '../../assets/icon/videocam.png'
 import Slider from 'react-slick';
 import NumberList from "../NumberList";
 import NumberLists from "../NumberLists";
+import {useDispatch, useSelector} from "react-redux";
+import * as actions from '../../actions/favorites.actions'
 
 function ListHotel({hotel, index, setHotelesId}) {
+    const dispatch = useDispatch()
     const [description,setDescription] = useState(false)
+    const [status,setStatus] = useState(null)
+    const favorites = useSelector(state => state.favorites.favorites);
     const sliderRef = createRef();
     const settings = {
         customPaging: function(i) {
@@ -70,7 +75,10 @@ function ListHotel({hotel, index, setHotelesId}) {
             </button>
         );
     }
-
+    const statusFavorites = favorites?.length > 0 && favorites.find(item=> item.hotelId === hotel.id)
+    const addToFavorite = useCallback((value)=>{
+        dispatch(actions.addFavorites({id:hotel.id, status:value}))
+    },[dispatch, hotel.id])
     return (
         <>
             <li className={`${styles.item}  ${styles.list}`} key={index}>
@@ -80,9 +88,15 @@ function ListHotel({hotel, index, setHotelesId}) {
                             <div className={`${styles.owlCarousel} `}>
                                 <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${hotel.imageHotel}`} alt={hotel.nameHotel} className={styles.images} width={300} height={190}/>
                             </div>
-                            <div className={styles.addToFavorites} onClick={()=>setHotelesId(hotel.id)}>
-                                <div className={styles.like}/>
-                            </div>
+                            {statusFavorites?.status === true ? (
+                                <div className={styles.addToFavoritesStatus} onClick={()=>{addToFavorite(false)}}>
+                                    <div className={styles.like}/>
+                                </div>
+                            ):(
+                                <div className={styles.addToFavorites} onClick={()=>{addToFavorite(true)}}>
+                                    <div className={styles.like}/>
+                                </div>
+                            )}
                         </div>
                         <div className={`${styles.itemContent} ${styles.list} ${styles.clearfix}`}>
                             <div className={styles.itemMeta}>

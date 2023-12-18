@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import * as messageActions from './actions/message.actions'
 import * as reservationManagerActions from './actions/reservation.actions'
+import * as actionFavorite from './actions/favorites.actions'
 
 function SocketClient() {
     const dispatch = useDispatch()
@@ -20,6 +21,9 @@ function SocketClient() {
             dispatch(reservationManagerActions.reservationManager())
         }
     },[dispatch, authId?.isManager])
+    useEffect(()=>{
+        dispatch(actionFavorite.favorites())
+    },[dispatch])
 
     return (
         <></>

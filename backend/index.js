@@ -15,6 +15,7 @@ const RecommendedControllers = require('./src/Controllers/RecommendedControllers
 const HotelControllers = require('./src/Controllers/HotelControllers')
 const NumberControllers = require('./src/Controllers/NumberControllers')
 const ReservationControllers = require('./src/Controllers/ReservationControllers')
+const FavoritesControllers = require('./src/Controllers/FavoritesControllers')
 
 
 const storage = multer.diskStorage({
@@ -51,6 +52,8 @@ app.get('/api/reservation_manager', ReservationControllers.reservationManager)
 app.post('/api/reservation_info', ReservationControllers.reservationInfo)
 app.get('/api/reservation_id', ReservationControllers.reservationId)
 app.post('/api/reservation_book', ReservationControllers.reservationBook)
+app.get('/api/all_favorites', FavoritesControllers.allFavorites)
+app.post('/api/add_favorites', FavoritesControllers.addToFavorites)
 const start = async () => {
   try {
     await sequelize.authenticate();

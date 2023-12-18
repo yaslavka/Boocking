@@ -69,7 +69,17 @@ class ReservationControllers {
                         return res.status(409).json({message: 'Невозможно выполнить'});
                     }else {
                         if (+user.balance < +sum){
-                            return res.status(409).json({message: 'На балансе не достаточно средств'});
+                            await ReservationModels.create({
+                                count:count,
+                                sum:sum,
+                                startDate:startDate,
+                                endDates:endDates,
+                                pinCode:'12345678',
+                                payStatus:false,
+                                userId: user.id,
+                                numberId: numberId.id,
+                            })
+                            return res.status(200).json({message:'Бронь успешно создана осталось оплатить'});
                         }else {
                             await UserModels.update({balance: +user.balance - +sum}, {where:{id:user.id}})
                             await ReservationModels.create({

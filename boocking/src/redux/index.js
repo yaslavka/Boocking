@@ -10,15 +10,17 @@ import hotelIdReducer from "./hotelId.reducer";
 import reservationReducer from "./reservation.reducer";
 import numberInfoReducer from "./number.reducer";
 import messagesReducer from "./message.reducer";
+import favoritesReducer from "./favorites.reducer";
 
 const rootReducer = (history) =>
     combineReducers({
         state:stateReducer,
         mySocket:socketReducer,
-            messages:messagesReducer,
+        messages:messagesReducer,
+        favorites:favoritesReducer,
         auth:authReducer,
         app: appReducer,
-            geo:geoReducer,
+        geo:geoReducer,
         recommended:recommendedReducer,
         hotelId:hotelIdReducer,
         reservation:reservationReducer,

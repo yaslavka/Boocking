@@ -15,7 +15,7 @@ function AllCities() {
     const lastTaskIndex = pages * count
     const firstTaskIndex = lastTaskIndex - count
     let currentPages = allCities && allCities.slice(firstTaskIndex, lastTaskIndex)
-    for (let i = 1; i <= Math.ceil(allCities.length / count); i++){
+    for (let i = 1; i <= Math.ceil(allCities?.length / count); i++){
         pagesNumber.push(i)
     }
     const nextPages = (page)=>{

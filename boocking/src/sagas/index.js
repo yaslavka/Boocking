@@ -7,6 +7,7 @@ import hotelIdSaga from "./hotelId.sagas";
 import reservationSaga from "./reservation.sagas";
 import numberInfoSaga from "./number.sagas";
 import messageSaga from "./message.sagas";
+import favoritesSaga from "./favorites.sagas";
 
 export default function* rootSaga() {
     yield all([
@@ -17,6 +18,7 @@ export default function* rootSaga() {
         hotelIdSaga(),
         reservationSaga(),
         numberInfoSaga(),
-        messageSaga()
+        messageSaga(),
+        favoritesSaga()
     ])
 }

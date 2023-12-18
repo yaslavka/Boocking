@@ -51,7 +51,9 @@ function ProfileInfo({userInfo}) {
                             {userInfo.isManager && (
                                 <button className={styles.profileStatusButton}>Менеджер</button>
                             )}
-                            <button className={styles.profileStatusButton}>Гость</button>
+                            {userInfo.isManager === false && userInfo.isAdmin === false && (
+                                <button className={styles.profileStatusButton}>Гость</button>
+                            )}
                         </div>
                         <div className={styles.profileEdit}>
                             <Link to={routesLik.profileEdit}>

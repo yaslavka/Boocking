@@ -5,6 +5,9 @@ import CitiesId from "./Pages/CitiesId";
 import AllCities from "./Pages/AllCities";
 import NumbersId from "./Pages/NumbersId";
 import Dashboard from "./Pages/PrivatePages/Dashboard";
+import MyReservation from "./Pages/PrivatePages/MyReservation";
+import MyFavorites from "./Pages/PrivatePages/MyFavorites";
+import MessagePages from "./Pages/PrivatePages/MessagePages";
 
 export const publicRouteConfig = [
     {
@@ -74,6 +77,30 @@ export const privateRouteConfig = [
         id: 5,
         path: routesLik.dashboard,
         component: Dashboard,
+        exact: true,
+    },
+    {
+        id: 6,
+        path: routesLik.myReservation,
+        component: MyReservation,
+        exact: true,
+    },
+    {
+        id: 7,
+        path: routesLik.favorites,
+        component: MyFavorites,
+        exact: true,
+    },
+    {
+        id: 8,
+        path: routesLik.chat,
+        component: MessagePages,
+        exact: true,
+    },
+    {
+        id: 8,
+        path: routesLik.chatId,
+        component: MessagePages,
         exact: true,
     },
 ]
