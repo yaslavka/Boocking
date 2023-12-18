@@ -19,7 +19,7 @@ function Footer() {
     },[dispatch])
     return(
         <>
-            <div className={styles.footerPages}>
+            <footer className={styles.footerPages}>
                 <div className={styles.footerPagesContent}>
                     <div className={styles.footerPagesForm}>
                         <img src={foot} alt={foot}/>
@@ -47,7 +47,7 @@ function Footer() {
                         </Formik>
                     </div>
                 </div>
-            </div>
+            </footer>
         </>
     )
 }

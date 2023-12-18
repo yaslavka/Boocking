@@ -17,12 +17,6 @@ function Header() {
     const authVisible = useSelector((state) => state.state.authVisible)
     const userInfo = useSelector(state => state.app.user);
 
-    // const LogOuts =  () => {
-    //     dispatch(actions.signOutSuccess());
-    //     localStorage.clear();
-    //     localStorage.removeItem('access_token');
-    // };
-
     const navBarActive =()=>{
         if (navbarVisible === true){
             dispatch(headerActions.navBarVisible(false))

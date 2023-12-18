@@ -78,7 +78,7 @@ function ListHotel({hotel, index, setHotelesId}) {
                     <div className={styles.article}>
                         <div className={`${styles.itemInnerImages}`}>
                             <div className={`${styles.owlCarousel} `}>
-                                <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${hotel.imageHotel}`} alt={hotel.nameHotel} className={styles.images}/>
+                                <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${hotel.imageHotel}`} alt={hotel.nameHotel} className={styles.images} width={300} height={190}/>
                             </div>
                             <div className={styles.addToFavorites} onClick={()=>setHotelesId(hotel.id)}>
                                 <div className={styles.like}/>
@@ -101,7 +101,7 @@ function ListHotel({hotel, index, setHotelesId}) {
                                         <Link to={`/hotel/${hotel.id}`} className={`${styles.itemName} ${styles.list} ${styles.link}`}>
                                             <span itemProp="name">{hotel.nameHotel}</span>
                                         </Link>
-                                        <h1 style={{fontSize: 15, fontWeight: 200, color: "#8c8c8c", width: 350}}>оценка: <i style={{fontWeight: 500}}>{hotel.bal}/10</i> | <i className="fa fa-comment"> </i> Отзывов: </h1>
+                                        <h1 style={{fontSize: 15, fontWeight: 200, color: "#8c8c8c", width: 450}}>оценка: <i style={{fontWeight: 500}}>{hotel.bal}/10</i> | <i className="fa fa-comment"> </i> Отзывов: </h1>
                                     </div>
                                 </div>
                                 <img src={map} alt=''/>

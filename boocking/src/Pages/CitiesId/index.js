@@ -68,9 +68,12 @@ function CitiesId() {
 
     useEffect(()=>{
         dispatch(citiesActions.citiesIdInfo(id))
+    },[dispatch, id])
+
+    useEffect(()=>{
         setPopular(populars)
         setHotelFiltered(citiesId && citiesId.hotel)
-    },[dispatch, id, citiesId])
+    },[citiesId])
 
     const Populars = (i)=>{
         let stateList = popular && popular

@@ -23,6 +23,7 @@ const routesLik = Object.freeze({
     myReservation: '/my-reservation',
     favorites: '/favorites',
     negative:'/negative',
-    users:'/users'
+    users:'/users',
+    profileEdit:'/profile-edit'
 })
 export default routesLik

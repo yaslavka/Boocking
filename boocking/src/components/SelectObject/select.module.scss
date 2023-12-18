@@ -1,0 +1,97 @@
+.colInfoUserHotel{
+  padding: 10px;
+  height: auto;
+  box-shadow: 0 3px 3px 0 #0d6efd4a;
+  color: #666;
+  font-size: 12px;
+  position: relative;
+  transition: box-shadow .25s ease-out;
+}
+.colInfoUserHotelTitle{
+  font-weight: bold;
+  color: #000000;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.info{
+  color: #0d6efd;
+  font-weight: 500;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+.profileEdit{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 20px;
+}
+.titleService{
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  color: #000000;
+}
+.flex{
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.wrap{
+  flex-wrap: wrap;
+}
+.chartContainer{
+  width: 18vmax;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  & button {
+    margin-top: 10px;
+    position: relative;
+    z-index: 2;
+  }
+}
+.absolute{
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  left: 0;
+  top: 97px;
+  bottom: 0;
+  text-align: center;
+  @media (min-width: 1400px){
+    top: 130px;
+  }
+  @media (max-width: 343px){
+    top: 35px;
+  }
+  @media (max-width: 1115px){
+    top: 80px;
+  }
+}
+.textService{
+  font-size: 20px;
+  font-weight: bold;
+  @media (max-width: 343px){
+    font-size: 10px;
+    font-weight: bold;
+  }
+  @media (max-width: 1115px){
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+.subTextService{
+  font-size: 17px;
+  font-weight: bold;
+  @media (max-width: 343px){
+    font-size: 10px;
+    font-weight: bold;
+  }
+  @media (max-width: 1115px){
+    font-size: 10px;
+    font-weight: bold;
+  }
+}

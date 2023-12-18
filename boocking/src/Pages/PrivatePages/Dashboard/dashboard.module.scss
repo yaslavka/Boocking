@@ -1,6 +1,9 @@
 .main{
   background-color: #fff;
-  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .navContainer{
   background-color: #171717;
@@ -8,8 +11,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  //@media (min-width: 1200px){
-  //  flex: 0 0 auto;
-  //  width: 22%;
-  //}
+  @media (max-width: 1199px){
+    display: none;
+  }
+}
+.selectObject{
+  display: flex;
+  padding: 20px;
+  gap: 8px;
+  align-items: center;
+}
+.selectObjectText{
+  font-weight: bold;
+  font-size: 20px;
+}
+.selectObjectWrapper{
+}
+.itemContainer{
+  min-height: 300px;
+}
+.list {
+  width: 100%;
+  padding: 0 15px;
+}
+.titleService{
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  color: #000000;
+}
+.flex{
+  display: flex;
+  align-items: center;
+}
+.spaceBetween{
+  justify-content: space-between;
+}
+.chartContainer{
+  width: 18vmax;
+  margin: 0 auto;
+  position: relative;
+}
+.center{
+  justify-content: center;
 }

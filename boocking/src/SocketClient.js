@@ -8,18 +8,18 @@ function SocketClient() {
     const userInfo = useSelector(state => state.app.user);
     const authId = userInfo && userInfo
     useEffect(()=>{
-        if (authId.isAdmin){
-            dispatch(messageActions.messageAdminInfo(authId.id))
+        if (authId?.isAdmin){
+            dispatch(messageActions.messageAdminInfo(authId?.id))
         }else {
-            dispatch(messageActions.messageInfo(authId.id))
+            dispatch(messageActions.messageInfo(authId?.id))
         }
-    },[dispatch, authId.id, authId.isAdmin])
+    },[dispatch, authId?.id, authId?.isAdmin])
 
     useEffect(()=>{
-        if (authId.isManager){
+        if (authId?.isManager){
             dispatch(reservationManagerActions.reservationManager())
         }
-    },[dispatch, authId.isManager])
+    },[dispatch, authId?.isManager])
 
     return (
         <></>

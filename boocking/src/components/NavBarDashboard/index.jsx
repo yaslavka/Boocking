@@ -2,13 +2,21 @@ import React, {useState} from "react";
 import styles from './navBarDashboard.module.scss'
 import {Link} from "react-router-dom";
 import routesLik from "../../constants/routes.constants";
+import * as actions from '../../actions/auth.actions'
+import {useDispatch} from "react-redux";
+import LogoutIcon from '@mui/icons-material/Logout';
 
-function NavBarDashboard({userInfo, reservation, messages, reservationManager}) {
+function NavBarDashboard({userInfo, reservation, messages, reservationManager, setLifting}) {
+    const dispatch = useDispatch()
     const [object, setObject] =useState(false)
     const [mySites, setMySites] =useState(false)
     const [promotions, setPromotions] =useState(false)
     const reviewLength = userInfo && userInfo?.hotel[0]?.review
-    console.log(userInfo && userInfo)
+    const LogOuts =  () => {
+        dispatch(actions.signOutSuccess());
+        localStorage.clear();
+        localStorage.removeItem('access_token');
+    };
     return (
         <>
             <div className={styles.navContainer}>
@@ -238,7 +246,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager}) 
                         </div>
                         {promotions && (
                             <div className={styles.subNav}>
-                                <div className={styles.subNavLink}><Link to={'#'}>Поднять</Link></div>
+                                <div className={styles.subNavLink} onClick={()=>{setLifting(true)}}><Link to={'#'}>Поднять</Link></div>
                                 <div className={styles.subNavLink}><Link to={'#'}>Выделить</Link></div>
                                 <div className={styles.subNavLink}><Link to={'#'}>Премиум</Link></div>
                                 <div className={styles.subNavLink}><Link to={'#'}>VIP Блок</Link></div>
@@ -341,6 +349,14 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager}) 
                             </div>
                         </>
                     )}
+                    <div className={styles.navContainer}>
+                        <div className={styles.navLinkFlex}>
+                            <Link to={'#'} className={styles.navLink} onClick={LogOuts}>
+                                <LogoutIcon sx={{fontSize: 30}}/>
+                                <div className={styles.navLinkText}>Выход</div>
+                            </Link>
+                        </div>
+                    </div>
                 </>
             )}
         </>

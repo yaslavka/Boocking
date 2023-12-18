@@ -67,7 +67,7 @@ function NumbersId() {
                 )}
             </div>
             <div className={styles.main}>
-                <Row>
+                <Row style={{margin: '0 auto'}}>
                     <Col xl={3} className={styles.colNav}>
                         <NavBarHotelId/>
                     </Col>
