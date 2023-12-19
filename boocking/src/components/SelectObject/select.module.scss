@@ -43,7 +43,7 @@
   flex-wrap: wrap;
 }
 .chartContainer{
-  width: 18vmax;
+  width: 15vmax;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -58,40 +58,58 @@
   z-index: 2;
   right: 0;
   left: 0;
-  top: 97px;
+  top: 35%;
   bottom: 0;
   text-align: center;
-  @media (min-width: 1400px){
-    top: 130px;
-  }
-  @media (max-width: 343px){
-    top: 35px;
-  }
-  @media (max-width: 1115px){
-    top: 80px;
-  }
 }
 .textService{
-  font-size: 20px;
+  font-size: 100%;
   font-weight: bold;
   @media (max-width: 343px){
-    font-size: 10px;
+    font-size: 30%;
     font-weight: bold;
   }
   @media (max-width: 1115px){
-    font-size: 10px;
+    font-size:30%;
     font-weight: bold;
   }
 }
 .subTextService{
-  font-size: 17px;
+  font-size: 100%;
   font-weight: bold;
   @media (max-width: 343px){
-    font-size: 10px;
+    font-size: 90%;
     font-weight: bold;
   }
   @media (max-width: 1115px){
-    font-size: 10px;
+    font-size: 90%;
     font-weight: bold;
+  }
+}
+.fullRow {
+  width: 100%;
+  position: relative;
+  padding-bottom: 80px;
+  padding-top: 80px;
+}
+.container{
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 0 auto;
+  @media (max-width: 1400px){
+    max-width: 1200px;
+  }
+  @media (max-width: 1200px){
+    max-width: 1140px;
+  }
+  @media (max-width: 992px){
+    max-width: 960px;
+  }
+  @media (max-width: 786px){
+    max-width: 720px;
+  }
+  @media (max-width: 576px){
+    max-width: 540px;
   }
 }

@@ -1,9 +1,9 @@
 import React from "react";
 
-function ChatInput({placeholder, type, name, field, form, ...props }) {
+function ChatInput({className,placeholder, type, name, field, form, ...props }) {
     return (
         <>
-            <input
+            <input className={className}
                 type={type}
                 name={name}
                 placeholder={placeholder}

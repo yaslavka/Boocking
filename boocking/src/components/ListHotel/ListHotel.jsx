@@ -20,11 +20,12 @@ import NumberList from "../NumberList";
 import NumberLists from "../NumberLists";
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from '../../actions/favorites.actions'
+import {toast} from "react-toastify";
 
-function ListHotel({hotel, index, setHotelesId}) {
+function ListHotel({hotel, index,}) {
     const dispatch = useDispatch()
+    const userInfo = useSelector(state => state.app.user);
     const [description,setDescription] = useState(false)
-    const [status,setStatus] = useState(null)
     const favorites = useSelector(state => state.favorites.favorites);
     const sliderRef = createRef();
     const settings = {
@@ -77,7 +78,11 @@ function ListHotel({hotel, index, setHotelesId}) {
     }
     const statusFavorites = favorites?.length > 0 && favorites.find(item=> item.hotelId === hotel.id)
     const addToFavorite = useCallback((value)=>{
-        dispatch(actions.addFavorites({id:hotel.id, status:value}))
+        if (userInfo && userInfo.isManager === true){
+            toast.success('Менеджеры не могут добавит отель в избранное')
+        }else {
+            dispatch(actions.addFavorites({id:hotel.id, status:value}))
+        }
     },[dispatch, hotel.id])
     return (
         <>

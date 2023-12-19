@@ -8,6 +8,9 @@ import Dashboard from "./Pages/PrivatePages/Dashboard";
 import MyReservation from "./Pages/PrivatePages/MyReservation";
 import MyFavorites from "./Pages/PrivatePages/MyFavorites";
 import MessagePages from "./Pages/PrivatePages/MessagePages";
+import MyaHotels from "./Pages/PrivatePages/MyaHotels";
+import MyaHotelEdit from "./Pages/PrivatePages/MyaHotelEdit";
+import HelpMessagePages from "./Pages/PrivatePages/HelpMessagePages";
 
 export const publicRouteConfig = [
     {
@@ -101,6 +104,30 @@ export const privateRouteConfig = [
         id: 8,
         path: routesLik.chatId,
         component: MessagePages,
+        exact: true,
+    },
+    {
+        id: 9,
+        path: routesLik.myHotel,
+        component: MyaHotels,
+        exact: true,
+    },
+    {
+        id: 10,
+        path: routesLik.hotelEitId,
+        component: MyaHotelEdit,
+        exact: true,
+    },
+    {
+        id: 11,
+        path: routesLik.helpChat,
+        component: HelpMessagePages,
+        exact: true,
+    },
+    {
+        id: 12,
+        path: routesLik.helpChatId,
+        component: HelpMessagePages,
         exact: true,
     },
 ]

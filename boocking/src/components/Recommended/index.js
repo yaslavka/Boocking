@@ -154,7 +154,7 @@ function Recommended({recommended, t}) {
                                     </div>
                                     <div className={styles.button_container}>
                                         <div className={styles.icons_container}>
-                                            <Button color="primary" href={`/hotel_hom/${item.id}`}>
+                                            <Button color="primary" href={`/hotel/${item.id}`}>
                                                 перейти
                                             </Button>
                                             <div className={styles.icons}>

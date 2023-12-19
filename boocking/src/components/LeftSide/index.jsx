@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styles from "../../Pages/PrivatePages/MessagePages/messge.module.scss";
 import MessageUserList from "../MessageUserList";
 
-function LeftSide({messages, setUser}) {
+function LeftSide({messages, help}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [inputAction, setInputAction] = useState(false);
 
@@ -31,7 +31,7 @@ function LeftSide({messages, setUser}) {
                         {filteredUsers?.length > 0 && inputAction === true ? (
                             <>
                                 {filteredUsers.map((user, index)=>(
-                                    <MessageUserList key={index} user={user.users} inputAction={inputAction} messages={user.message} chat={user} setUser={setUser}/>
+                                    <MessageUserList key={index} user={user.users} inputAction={inputAction} messages={user.message} chat={user} help/>
                                 ))}
                             </>
                         ):(
@@ -39,7 +39,7 @@ function LeftSide({messages, setUser}) {
                                 {inputAction === false && (
                                     <>
                                         {messages.map((user, index)=>(
-                                            <MessageUserList key={index} user={user.users} messages={user.message} chat={user} setUser={setUser}/>
+                                            <MessageUserList key={index} user={user.users} messages={user.message} chat={user} help/>
                                         ))}
                                     </>
                                 )}

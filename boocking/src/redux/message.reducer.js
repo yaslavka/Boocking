@@ -2,15 +2,21 @@ import * as ActionTypes from '../constants/message.constants'
 
 const initialState = {
     messages: [],
+    messagesAdmin: [],
     user:{},
     sendMessage:null,
+    sendMessageAdmin:null,
     loadings: {
         messages: false,
         sendMessage:false,
+        messagesAdmin: false,
+        sendMessageAdmin:false,
     },
     errors: {
         messages: [],
         sendMessage:null,
+        messagesAdmin: [],
+        sendMessageAdmin:null,
     },
 }
 const messagesReducer = (state = initialState, action) =>{
@@ -19,15 +25,28 @@ const messagesReducer = (state = initialState, action) =>{
             return {...state, user:action.payload}
         }
         case ActionTypes.MESSAGE_ADMIN_INFO_REQUEST: {
-            const messages = action.payload
             return {
                 ...state,
-                loadings: { ...state.loadings, messages: false },
-                errors: { ...state.errors, messages: [] },
-                messages,
+                loadings: { ...state.loadings, messagesAdmin: true },
+                errors: { ...state.errors, messagesAdmin: [] },
             }
         }
-
+        case ActionTypes.MESSAGE_ADMIN_INFO_SUCCESS: {
+            const messagesAdmin = action.payload
+            return {
+                ...state,
+                loadings: { ...state.loadings, messagesAdmin: false },
+                errors: { ...state.errors, messagesAdmin: [] },
+                messagesAdmin,
+            }
+        }
+        case ActionTypes.MESSAGE_ADMIN_INFO_ERROR: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, messagesAdmin: false },
+                errors: { ...state.errors, messagesAdmin: [] },
+            }
+        }
         case ActionTypes.MESSAGE_INFO_REQUEST: {
             return {
                 ...state,
@@ -73,6 +92,30 @@ const messagesReducer = (state = initialState, action) =>{
                 ...state,
                 loadings: { ...state.loadings, sendMessage: false },
                 errors: { ...state.errors, sendMessage: action.payload },
+            }
+        }
+
+        case ActionTypes.SEND_MESSAGE_ADMIN_REQUEST: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, sendMessageAdmin: true },
+                errors: { ...state.errors, sendMessageAdmin: [] },
+            }
+        }
+        case ActionTypes.SEND_MESSAGE_ADMIN_SUCCESS: {
+            const sendMessageAdmin = action.payload
+            return {
+                ...state,
+                loadings: { ...state.loadings, sendMessageAdmin: false },
+                errors: { ...state.errors, sendMessageAdmin: [] },
+                sendMessageAdmin,
+            }
+        }
+        case ActionTypes.SEND_MESSAGE_ADMIN_ERROR: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, sendMessageAdmin: false },
+                errors: { ...state.errors, sendMessageAdmin: action.payload },
             }
         }
         default:

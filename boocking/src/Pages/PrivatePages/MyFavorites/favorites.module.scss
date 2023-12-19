@@ -1,9 +1,9 @@
 .main{
-  background-color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: rgb(35, 35, 45);
 }
 .navContainer{
   background-color: #171717;
@@ -27,8 +27,10 @@
   position: relative;
   padding-bottom: 80px;
   padding-top: 80px;
+  background-color: rgb(35, 35, 45);
 }
 .container{
+  background-color: rgb(35, 35, 45);
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;

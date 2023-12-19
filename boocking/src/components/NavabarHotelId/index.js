@@ -15,9 +15,7 @@ function NavBarHotelId() {
                         <Map style={{borderWidth: 2, borderColor: '#0d6efd4a', maxWidth: 285, width: '100%', height:500, borderRadius: 10, overflow: "hidden"}}  defaultState={{ center: [55.751574, 37.573856], zoom: 9 }}/>
                     </YMaps>
                 </div>
-                <div className={styles.sidebarSearch}>
-                    <RecomendetHotelId/>
-                </div>
+                <RecomendetHotelId/>
                 <div className={styles.sidebarSearchForms}>
                     <img src={banners} alt={banners} className={styles.images}/>
                 </div>

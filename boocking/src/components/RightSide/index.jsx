@@ -10,7 +10,8 @@ import {getAccessToken} from "../../utils";
 
 
 
-function RightSide({messages, authId, id}) {
+function RightSide({messages, authId, id, help}) {
+    const userInfo = useSelector(state => state.app.user);
     const dispatch = useDispatch()
     const token =getAccessToken()
     const user = useSelector(state => state.messages.user)
@@ -21,16 +22,22 @@ function RightSide({messages, authId, id}) {
         [],
     )
     const sendMessage = useCallback((message)=>{
-        dispatch(messageActions.sendMessage({...message, id:id, userId:authId, recipient:user?.id, token:token}))
+        if (help){
+            dispatch(messageActions.sendMessageAdmin({...message, id:id, userId:authId, recipient:userInfo?.isAdmin ? user?.id: 1, token:token}))
+        }else {
+            dispatch(messageActions.sendMessage({...message, id:id, userId:authId, recipient:user?.id, token:token}))
+        }
     },[dispatch, id])
     return (
         <>
             <div className={styles.messageHeaderLeft}>
                 {user && (
                     <MessageUserList user={user} left>
-                        <div>
-                            <i className="fas fa-trash text-danger"/>
-                        </div>
+                        {userInfo?.isAdmin && (
+                            <div>
+                                <i className="fas fa-trash text-danger"/>
+                            </div>
+                        )}
                     </MessageUserList>
                 )}
             </div>

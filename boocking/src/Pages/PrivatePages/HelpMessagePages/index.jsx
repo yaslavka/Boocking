@@ -8,21 +8,23 @@ import LeftSide from "../../../components/LeftSide";
 import RightSide from "../../../components/RightSide";
 import PrivateNavbar from "../../../components/PrivateNavbar";
 
-function MessagePages() {
+function HelpMessagePages() {
     const {id}=useParams()
     const {t} = useTranslation('common')
     const userInfo = useSelector(state => state.app.user);
-    const messages = useSelector(state => state.messages.messages)
+    const messages = useSelector(state => state.messages.messagesAdmin)
     return (
         <>
             {userInfo && (
                 <PrivateNavbar>
                     <Row className={styles.message}>
-                        <Col xl={3} className={`${styles.borderRight}`} style={{padding: 0}}>
-                            <LeftSide messages={messages} authId={userInfo.id}/>
-                        </Col>
-                        <Col xl={8} className={styles.borderRightC} style={{padding: 0, width:'75%'}}>
-                            {id === undefined ? (
+                        {userInfo.isAdmin && (
+                            <Col xl={3} className={`${styles.borderRight}`} style={{padding: 0}}>
+                                <LeftSide messages={messages} authId={userInfo.id} help/>
+                            </Col>
+                        )}
+                        <Col xl={8} className={styles.borderRightC} style={{padding: 0, width:userInfo.isAdmin === false ? '100%' :'75%'}}>
+                            {userInfo.isAdmin && id === undefined ? (
                                 <>
                                     <div className={styles.messageContainer}>
                                         <i className="fab fa-facebook-messenger text-primary"/>
@@ -31,7 +33,7 @@ function MessagePages() {
                                 </>
                             ):(
                                 <>
-                                    <RightSide messages={messages} authId={userInfo.id} id={id} t={t}/>
+                                    <RightSide messages={messages} authId={userInfo.id} id={id} t={t} userInfo={userInfo}  help/>
                                 </>
                             )}
                         </Col>
@@ -41,4 +43,4 @@ function MessagePages() {
         </>
     )
 }
-export default MessagePages
+export default HelpMessagePages

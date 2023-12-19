@@ -43,6 +43,19 @@ const sendMessage=(action)=>{
     })
 }
 
+const sendMessageAdmin=(action)=>{
+    return new Promise((resolve , reject)=>{
+        socket.emit('sendMessageAdmin', action)
+        socket.on('allMessageHelpRec', data =>{
+            if (data.error) {
+                reject(data.error);
+            } else {
+                resolve(data);
+            }
+        })
+    })
+}
+
 export function* messageInfo(action) {
     try {
         const response = yield call(allMessage, action.payload)
@@ -58,14 +71,28 @@ export function* messageInfo(action) {
 export function* messageAdminInfo(action) {
     try {
         const response = yield call(allMessageAdmin, action.payload)
+        console.log(response)
         if (response) {
-            yield put(actions.messageInfoSuccess(response))
+            yield put(actions.messageAdminInfoSuccess(response))
         }
     } catch (error) {
-        yield put(actions.messageInfoError(error.message))
+        yield put(actions.messageAdminInfoError(error.message))
         toast.error(error.message)
     }
 }
+
+export function* sendMessagesAdmin(action) {
+    try {
+        const response = yield call(sendMessageAdmin, action.payload)
+        if (response) {
+            yield put(actions.messageAdminInfoSuccess(response))
+        }
+    } catch (error) {
+        yield put(actions.messageAdminInfoError(error.message))
+        toast.error(error.message)
+    }
+}
+
 
 export function* sendMessages(action) {
     try {
@@ -83,6 +110,7 @@ export default function* messageSaga() {
     yield all([
         takeEvery(ActionTypes.MESSAGE_INFO_REQUEST, messageInfo),
         takeEvery(ActionTypes.MESSAGE_ADMIN_INFO_REQUEST, messageAdminInfo),
+        takeEvery(ActionTypes.SEND_MESSAGE_ADMIN_REQUEST, sendMessagesAdmin),
         takeEvery(ActionTypes.SEND_MESSAGE_REQUEST, sendMessages),
     ])
 }

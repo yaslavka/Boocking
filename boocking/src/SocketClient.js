@@ -9,10 +9,11 @@ function SocketClient() {
     const userInfo = useSelector(state => state.app.user);
     const authId = userInfo && userInfo
     useEffect(()=>{
-        if (authId?.isAdmin){
-            dispatch(messageActions.messageAdminInfo(authId?.id))
-        }else {
+        if (!authId?.isAdmin){
+            dispatch(messageActions.messageAdminInfo(1))
             dispatch(messageActions.messageInfo(authId?.id))
+        }else {
+            dispatch(messageActions.messageAdminInfo(authId?.id))
         }
     },[dispatch, authId?.id, authId?.isAdmin])
 

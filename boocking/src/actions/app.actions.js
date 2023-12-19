@@ -19,3 +19,17 @@ export const pages = (values) => ({
     type: ActionTypes.TASK_PAGES,
     payload: values,
 })
+
+export const uploadAvatar = (values) => ({
+    type: ActionTypes.UPLOAD_AVATAR_REQUEST,
+    payload: values,
+})
+export const uploadAvatarSuccess = (values) => ({
+    type: ActionTypes.UPLOAD_AVATAR_SUCCESS,
+    payload: values,
+
+})
+export const uploadAvatarError = (error) => ({
+    type: ActionTypes.UPLOAD_AVATAR_ERROR,
+    payload: error,
+})

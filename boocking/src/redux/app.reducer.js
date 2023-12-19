@@ -4,11 +4,14 @@ import * as AuthActionTypes from '../constants/auth.constants'
 const initialState = {
     pages: 1,
     user: null,
+    uploadAvatar:null,
     loadings: {
         user: false,
+        uploadAvatar:false,
     },
     errors: {
         user: null,
+        uploadAvatar:null,
     },
 }
 const appReducer = (state = initialState, action) =>{
@@ -34,6 +37,30 @@ const appReducer = (state = initialState, action) =>{
                 ...state,
                 loadings: { ...state.loadings, user: false },
                 errors: { ...state.errors, user: action.payload },
+            }
+        }
+
+        case ActionTypes.UPLOAD_AVATAR_REQUEST: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, uploadAvatar: true },
+                errors: { ...state.errors, uploadAvatar: null },
+            }
+        }
+        case ActionTypes.UPLOAD_AVATAR_SUCCESS: {
+            const uploadAvatar = action.payload
+            return {
+                ...state,
+                loadings: { ...state.loadings, uploadAvatar: false },
+                errors: { ...state.errors, uploadAvatar: null },
+                uploadAvatar,
+            }
+        }
+        case ActionTypes.UPLOAD_AVATAR_ERROR: {
+            return {
+                ...state,
+                loadings: { ...state.loadings, uploadAvatar: false },
+                errors: { ...state.errors, uploadAvatar: action.payload },
             }
         }
         case ActionTypes.TASK_PAGES: {

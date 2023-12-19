@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+const {Op} = require("sequelize");
 const {UserModels} = require("../../models/UserModels");
 const {ReviewModels} = require("../../models/ReviewModels");
 const {AlbumNumbers} = require("../../models/AllbumNumbers");
@@ -24,6 +26,30 @@ class HotelControllers{
             return res.status(409).json({ message: '' })
         }else {
             return res.status(200).json(cities)
+        }
+    }
+    async uploadImagesHotel(req, res){
+        const { id }=JSON.parse(req.body.dataHotel)
+        const { filename }=req.file
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.status(409).json({ message: 'Ошибка загрузки Изображения' });
+        }else {
+            const token = authorization.slice(7);
+            const { username } = jwt.decode(token);
+            let user = await UserModels.findOne({ where:{ username: username, isManager: true } });
+            if (!user) {
+                return res.status(409).json({ message: "Ошибка загрузки Изображения" })
+            }else {
+                const hotel = await HotelModals.findOne({where:{[Op.and]:[{id:id}, {userId:user.id}]}})
+                if (!hotel){
+                    return res.status(409).json({ message: "Ошибка загрузки Изображения" })
+                }else {
+                    let update = {imageHotel: filename}
+                    await HotelModals.update(update, {where:{id:hotel.id}})
+                    return res.status(200).json({message: 'Изображение успешно обновленно'})
+                }
+            }
         }
     }
 }

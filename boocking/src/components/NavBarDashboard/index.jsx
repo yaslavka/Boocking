@@ -6,7 +6,7 @@ import * as actions from '../../actions/auth.actions'
 import {useDispatch} from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
 
-function NavBarDashboard({userInfo, reservation, messages, reservationManager, setLifting, setHighlight, setPremium, setPackage, setVip}) {
+function NavBarDashboard({userInfo, reservation, messages, reservationManager, setLifting, setHighlight, setPremium, setPackage, setVip, messagesAdmin}) {
     const dispatch = useDispatch()
     const [object, setObject] =useState(false)
     const [mySites, setMySites] =useState(false)
@@ -17,6 +17,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
         localStorage.clear();
         localStorage.removeItem('access_token');
     };
+    console.log(messagesAdmin)
     return (
         <>
             <div className={styles.navContainer}>
@@ -101,9 +102,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
                             <div className={styles.subNav}>
                                 <div className={styles.subNavLink}><Link to={routesLik.myHotel}>Мои отели</Link></div>
                                 <div className={styles.subNavLink}><Link to={routesLik.hotelAdd}>Добавить отель</Link></div>
-                                <div className={styles.subNavLink}><Link to={routesLik.hotelEit}>Редактировать отель</Link></div>
                                 <div className={styles.subNavLink}><Link to={routesLik.myHotelAddNumber}>Мои номера</Link></div>
-                                <div className={styles.subNavLink}><Link to={routesLik.myHotelAddNumberEdit}>Редактировать номера</Link></div>
                                 <div className={styles.subNavLink}><Link to={routesLik.myHotelAddNumber}>добавить номера</Link></div>
                             </div>
                         )}
@@ -292,7 +291,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
                             </Link>
                             <div className={styles.navLinkFlexArrow}>
                                 <div className={styles.navLinkSpan}>
-                                    <span>{messages && messages?.length}</span>
+                                    <span>{messagesAdmin && messagesAdmin?.length}</span>
                                 </div>
                             </div>
                         </div>
@@ -344,7 +343,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
                             </Link>
                             <div className={styles.navLinkFlexArrow}>
                                 <div className={styles.navLinkSpan}>
-                                    <span>{messages && messages?.length}</span>
+                                    <span>{messagesAdmin && messagesAdmin?.length}</span>
                                 </div>
                             </div>
                         </div>

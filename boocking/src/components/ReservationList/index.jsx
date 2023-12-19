@@ -12,7 +12,7 @@ function ReservationList({item, manager}) {
                 <Row>
                     <Col xl={4} lg={4} md={5}>
                         <div className={styles.overflowHidden}>
-                            <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item?.number.imageNumber}`} alt={''} width={400} height={350}/>
+                            <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item?.number?.imageNumber}`} alt={''} width={400} height={350}/>
                         </div>
                     </Col>
                     <Col xl={6} lg={5} md={7}>
@@ -39,27 +39,29 @@ function ReservationList({item, manager}) {
                     </Col>
                     <Col xl={2} lg={3}>
                         <div className={styles.forBook}>
-                            <div className={`h5 ${styles.forBookPrice}`}>
+                            <h5 className={`${styles.forBookPrice}`}>
                                 {item.sum}
                                 <small> р/сутки </small>
-                            </div>
-                            <div className={`h5 ${item.payStatus === true ? styles.statusA : styles.statusF}`}>
+                            </h5>
+                            <div className={`${item.payStatus === true ? styles.statusA : styles.statusF}`}>
                                 {item.payStatus === true ? 'Оплачен':'Не оплачен'}
-                                {item.payStatus === false && (
-                                    <div className={`h5 ${styles.forBookPrice}`}>
+                                {item.payStatus === false && !manager && (
+                                    <h5 className={`${styles.forBookPrice}`}>
                                         оплатить
-                                    </div>
+                                    </h5>
                                 )}
                             </div>
                             {manager ?(
                                 <>
                                     {item.payStatus === true ? (
                                         <>
-
+                                            <Button color={'primary'}>
+                                                Оплачен
+                                            </Button>
                                         </>
                                     ):(
                                         <Button color={'primary'}>
-                                            Оплачено
+                                            Написать Покупателю
                                         </Button>
                                     )}
                                 </>
