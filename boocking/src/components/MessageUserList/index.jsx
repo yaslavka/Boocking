@@ -2,14 +2,17 @@ import React from "react";
 import styles from "../../Pages/PrivatePages/MessagePages/messge.module.scss";
 import {Link} from "react-router-dom";
 import {Avatar} from "@mui/material";
+import {useDispatch} from "react-redux";
+import * as actions from '../../actions/message.actions'
 
-function MessageUserList({user, messages, chat, setUser, left, children}) {
+function MessageUserList({user, messages, chat, left, children}) {
+    const dispatch = useDispatch()
     messages?.reverse()
     return (
         <>
             <div className={left ? styles.messageUserLeft : styles.messageUser}>
                 <div className={styles.itemContainer}>
-                    <Link to={left ? '#' : `/chat/${chat?.id}`} className={styles.itemContainer} onClick={()=>{!left && setUser(user)}}>
+                    <Link to={left ? '#' : `/chat/${chat?.id}`} className={styles.itemContainer} onClick={()=>{!left && dispatch(actions.user(user))}}>
                         <Avatar  src={
                             user?.avatar
                                 ? `${process.env.REACT_APP_BASE_AVATAR_URL}/${user?.avatar}`

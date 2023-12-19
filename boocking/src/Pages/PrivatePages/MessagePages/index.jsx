@@ -25,7 +25,6 @@ function MessagePages() {
     const [premium, setPremium] = useState(false)
     const [vip, setVip] = useState(false)
     const [packages, setPackages] = useState(false)
-    const [user, setUser] = useState({})
     const liftingPackage = userInfo && userInfo.promotion.length > 0 && userInfo && userInfo.promotion.filter(i=>i.promotion === 'Поднятие')[0]
     const highlightPackage = userInfo && userInfo.promotion.length > 0 && userInfo && userInfo.promotion.filter(i=>i.promotion === 'Выделение')[0]
     const premiumPackage = userInfo && userInfo.promotion.length > 0 && userInfo && userInfo.promotion.filter(i=>i.promotion === 'Премиум')[0]
@@ -50,28 +49,26 @@ function MessagePages() {
                                     setPackage={setPackages}
                                 />
                             </Col>
-                            <Col xl={9}>
-                                <div className={styles.message}>
-                                    <Row>
-                                        <Col xl={3} className={`${styles.borderRight}`}>
-                                            <LeftSide messages={messages} authId={userInfo.id} setUser={setUser}/>
-                                        </Col>
-                                        <Col xl={9} style={{padding: 0}}>
-                                            {id === undefined ? (
-                                                <>
-                                                    <div className={styles.messageContainer}>
-                                                        <i className="fab fa-facebook-messenger text-primary"/>
-                                                        <h4>Messenger</h4>
-                                                    </div>
-                                                </>
-                                            ):(
-                                                <>
-                                                    <RightSide messages={messages} authId={userInfo.id} id={id} user={user}/>
-                                                </>
-                                            )}
-                                        </Col>
-                                    </Row>
-                                </div>
+                            <Col xl={9} className={styles.colM} style={{width: '70%', margin: '15px auto'}}>
+                                <Row className={styles.message}>
+                                    <Col xl={3} className={`${styles.borderRight}`} style={{padding: 0}}>
+                                        <LeftSide messages={messages} authId={userInfo.id}/>
+                                    </Col>
+                                    <Col xl={8} className={styles.borderRightC} style={{padding: 0, width:'75%'}}>
+                                        {id === undefined ? (
+                                            <>
+                                                <div className={styles.messageContainer}>
+                                                    <i className="fab fa-facebook-messenger text-primary"/>
+                                                    <h4>Messenger</h4>
+                                                </div>
+                                            </>
+                                        ):(
+                                            <>
+                                                <RightSide messages={messages} authId={userInfo.id} id={id}/>
+                                            </>
+                                        )}
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
                     </div>
