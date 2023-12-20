@@ -8,11 +8,11 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
-    'indent': ['error', 2],
+    'indent': [ 'error', 2 ],
 
-    'object-curly-spacing': ['error', 'always'],
+    'object-curly-spacing': [ 'error', 'always' ],
 
-    'array-bracket-spacing': ['error', 'always'],
+    'array-bracket-spacing': [ 'error', 'always' ],
 
   },
 };

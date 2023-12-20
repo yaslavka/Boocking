@@ -1,17 +1,17 @@
-import React from "react";
-import MessagesDisplay from "../MessagesDisplay";
+import React from 'react';
+import MessagesDisplay from '../MessagesDisplay';
 
 function ChatList({messages, authId}) {
-    return(
+  return (
+    <>
+      {messages?.length > 0 && (
         <>
-            {messages?.length > 0 && (
-                <>
-                    {messages.map((msg, index)=>(
-                        <MessagesDisplay key={index} msg={msg} authId={authId}/>
-                    ))}
-                </>
-            )}
+          {messages.map((msg, index)=>(
+            <MessagesDisplay key={index} msg={msg} authId={authId}/>
+          ))}
         </>
-    )
+      )}
+    </>
+  );
 }
-export default ChatList
+export default ChatList;

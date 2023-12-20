@@ -1,3 +1,3 @@
-import {baseInstance} from "./index";
+import {baseInstance} from './index';
 
-export const userInfo = () => baseInstance.get('/user')
+export const userInfo = () => baseInstance.get('/user');

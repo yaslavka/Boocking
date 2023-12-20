@@ -1,4 +1,4 @@
-import {baseInstance} from "./index";
+import {baseInstance} from './index';
 
-export const numberInfo = (id) => baseInstance.get(`/number_id?id=${id}`)
+export const numberInfo = (id) => baseInstance.get(`/number_id?id=${id}`);
 
