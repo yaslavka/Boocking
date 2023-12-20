@@ -78,7 +78,7 @@ function NumberLists({item}) {
                   <section className={styles.albumPhoto}>
                     <Slider {...settings} ref={sliderRef}>
                       {item.albumNumber.map((img, index)=>(
-                        <img key={index} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${img.albumNumber}`}
+                        <img key={index} src={img.albumNumber}
                           alt={img.albumHotel} className={styles.albumHotel}
                           width={500} height={300}
                         />

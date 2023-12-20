@@ -14,7 +14,7 @@ function PhotoAlbums({hotelId, number, numberId}) {
                             return (
                               <>
                                 {index === i && (
-                                  <img key={index} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item.albumNumber}`} alt={item.albumNumber} height={100}/>
+                                  <img key={index} src={item.albumNumber} alt={item.albumNumber} height={100}/>
                                 )}
                               </>
                             );
@@ -25,7 +25,7 @@ function PhotoAlbums({hotelId, number, numberId}) {
                           {hotelId && hotelId?.albumHotel?.map((item, index)=>(
                             <>
                               {index === i && (
-                                <img key={index} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item.albumHotel}`} alt={item.albumHotel} height={100}/>
+                                <img key={index} src={item.albumHotel} alt={item.albumHotel} height={100}/>
                               )}
                             </>
                           ))}
@@ -51,7 +51,7 @@ function PhotoAlbums({hotelId, number, numberId}) {
                   {numberId && numberId.albumNumber?.length > 0 && (
                     <Slider {...settings} ref={sliderRef}>
                       {numberId.albumNumber.map((item, index)=>(
-                        <img key={index} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item.albumNumber}`} alt={item.albumNumber} height={500}/>
+                        <img key={index} src={item.albumNumber} alt={item.albumNumber} height={500}/>
                       ))}
                     </Slider>
                   )}
@@ -61,7 +61,7 @@ function PhotoAlbums({hotelId, number, numberId}) {
                   {hotelId.albumHotel?.length > 0 && (
                     <Slider {...settings} ref={sliderRef}>
                       {hotelId.albumHotel.map((item, index)=>(
-                        <img key={index} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item.albumHotel}`} alt={item.albumHotel} height={500}/>
+                        <img key={index} src={item.albumHotel} alt={item.albumHotel} height={500}/>
                       ))}
                     </Slider>
                   )}

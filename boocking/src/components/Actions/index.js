@@ -44,7 +44,7 @@ function Actions({actions, t}) {
               <div key={index} className={styles.actionsWrapperContainer}>
                 <div className={styles.actionsContent}>
                   <img src={
-                    `${process.env.REACT_APP_BASE_AVATAR_URL}/${item.imageHotel}`
+                    item.imageHotel
                   }
                   alt={item.nameHotel} className={styles.imageHotel}/>
                   <div className={styles.actionCardsTitle}>

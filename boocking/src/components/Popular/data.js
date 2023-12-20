@@ -49,50 +49,70 @@ export const populars =[
   },
   {
     id: 2,
+    label: 'Гостиница',
+    checked: false,
+  },
+  {
+    id: 3,
+    label: 'Мини-отель',
+    checked: false,
+  },
+  {
+    id: 4,
+    label: 'Гостевой дом',
+    checked: false,
+  },
+  {
+    id: 5,
+    label: 'Апарт-отель',
+    checked: false,
+  },
+  {
+    id: 6,
+    label: 'Апартаменты',
+    checked: false,
+  },
+  {
+    id: 7,
     label: 'Есть Wi-Fi',
     wifi: true,
     checked: false,
   },
   {
-    id: 3,
-    label: 'Завтрак включен',
-    zavtrak: true,
-    checked: false,
-  },
-  {
-    id: 4,
-    label: 'Завтрак включен',
-    checked: false,
-  },
-  {
-    id: 5,
-    label: 'Оценка Отлично 5+',
-    bal: 5,
-    checked: false,
-  },
-  {
-    id: 6,
-    label: 'Оценка Хорошо 4+',
-    bal: 4,
-    checked: false,
-  },
-  {
-    id: 7,
-    label: 'Лидер Продаж',
-    checked: false,
-  },
-  {
     id: 8,
-    label: 'Есть спецпредложения',
-    specpredlojeniya: true,
+    label: 'Завтрак включен',
+    breakfast: true,
     checked: false,
   },
-  {
-    id: 9,
-    label: 'Удобства в номере',
-    udobstva: true,
-    checked: false,
-  },
+  // {
+  //   id: 9,
+  //   label: 'Оценка Отлично 5+',
+  //   bal: 5,
+  //   checked: false,
+  // },
+  // {
+  //   id: 10,
+  //   label: 'Оценка Хорошо 4+',
+  //   bal: 4,
+  //   checked: false,
+  // },
+  // {
+  //   id: 11,
+  //   label: 'Лидер Продаж',
+  //   checked: false,
+  // },
+  // {
+  //   id: 12,
+  //   label: 'Есть спецпредложения',
+  //   specpredlojeniya: true,
+  //   checked: false,
+  // },
+  // {
+  //   id: 13,
+  //   label: 'Удобства в номере',
+  //   udobstva: true,
+  //   checked: false,
+  // },
 ];
 
 export const usloviyabroni =[

@@ -19,7 +19,7 @@ function MessagePages() {
         <PrivateNavbar>
           <Row className={styles.message}>
             <Col xl={3} className={`${styles.borderRight}`} style={{padding: 0}}>
-              <LeftSide messages={messages} authId={userInfo.id}/>
+              <LeftSide messages={messages} authId={userInfo.id} userInfo={userInfo}/>
             </Col>
             <Col xl={8} className={styles.borderRightC} style={{padding: 0, width: '75%'}}>
               {id === undefined ? (

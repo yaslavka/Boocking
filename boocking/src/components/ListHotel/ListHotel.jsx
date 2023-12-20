@@ -36,7 +36,7 @@ function ListHotel({hotel, index}) {
           {hotel.albumHotel.map((item, index)=>(
             <>
               {index === i && (
-                <img key={i +1} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item.albumHotel}`} alt={item.albumHotel} height={50} width={50}/>
+                <img key={i +1} src={item.albumHotel} alt={item.albumHotel} height={50} width={50}/>
               )}
             </>
           ))}
@@ -92,7 +92,7 @@ function ListHotel({hotel, index}) {
           <div className={styles.article}>
             <div className={`${styles.itemInnerImages}`}>
               <div className={`${styles.owlCarousel} `}>
-                <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${hotel.imageHotel}`} alt={hotel.nameHotel} className={styles.images} width={300} height={190}/>
+                <img src={hotel.imageHotel} alt={hotel.nameHotel} className={styles.images} width={300} height={190}/>
               </div>
               {statusFavorites?.status === true ? (
                 <div className={styles.addToFavoritesStatus} onClick={()=>{
@@ -214,7 +214,7 @@ function ListHotel({hotel, index}) {
                             <Slider {...settings} ref={sliderRef}>
                               {hotel.albumHotel.map((img, index)=>(
                                 <>
-                                  <img key={index} src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${img.albumHotel}`}
+                                  <img key={index} src={img.albumHotel}
                                     alt={img.albumHotel} className={styles.albumHotel}
                                     width={500} height={300}
                                   />

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import styles from '../../Pages/PrivatePages/MessagePages/messge.module.scss';
 import MessageUserList from '../MessageUserList';
 import ChatList from '../ChatList';
@@ -9,11 +9,12 @@ import ChatInput from '../ChatInput';
 import {getAccessToken} from '../../utils';
 
 
-function RightSide({messages, authId, id, help}) {
+function RightSide({authId, id, help}) {
   const userInfo = useSelector((state) => state.app.user);
   const dispatch = useDispatch();
   const token =getAccessToken();
   const user = useSelector((state) => state.messages.user);
+  const messages = useSelector((state) => state.messages.messages);
   const initialValues = useMemo(
       () => ({
         message: '',
@@ -26,7 +27,8 @@ function RightSide({messages, authId, id, help}) {
     } else {
       dispatch(messageActions.sendMessage({...message, id: id, userId: authId, recipient: user?.id, token: token}));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, authId, user?.id, token, userInfo?.isAdmin, messages]);
+
   return (
     <>
       <div className={styles.messageHeaderLeft}>
@@ -59,7 +61,7 @@ function RightSide({messages, authId, id, help}) {
               {messages.map((chat, index)=>{
                 const messagesSort = chat.message.filter((i)=>i.userId ===authId || i.recipient ===authId);
                 return (
-                  <ChatList key={index} messages={messagesSort} authId={authId}/>
+                  <ChatList key={index} messages={chat.message} authId={authId}/>
                 );
               })}
             </>

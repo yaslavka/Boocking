@@ -8,6 +8,7 @@ import * as actions from '../../actions/message.actions';
 function MessageUserList({user, messages, chat, left, help, children}) {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.app.user);
+  console.log(user);
   return (
     <>
       {userInfo.isAdmin ? (

@@ -36,7 +36,7 @@ function Number({number, broneceng, endDates, startDate}) {
           <Row className={styles.row}>
             <Col className={styles.col1}>
               <article className={styles.numberImages}>
-                <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${number.imageNumber}`} alt={number.imageNumber} width={200} height={'auto'}/>
+                <img src={number.imageNumber} alt={number.imageNumber} width={200} height={'auto'}/>
                 <div className={styles.nameNumber}>
                   {number.nameNumber}
                   <div className={styles.typeNumber}>

@@ -99,7 +99,7 @@ function HotelId() {
                 </section>
                 <section className={styles.section}>
                   <div style={{fontWeight: 800, fontSize: 30, color: '#6926ac'}}>
-                                        Все номера отеля
+                    Все номера отеля
                   </div>
                 </section>
                 <NumberChoice

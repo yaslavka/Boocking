@@ -10,7 +10,7 @@ class GeoControllers{
     }
   }
   async allCities(req, res){
-    const cities = await GeoCityModels.findAll()
+    const cities = await GeoCityModels.findAll({ limit: 12 })
     if (!cities.length){
       return res.status(409).json({ message: '' })
     }else {

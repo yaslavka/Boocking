@@ -5,6 +5,7 @@ import * as citiesActions from '../../actions/geo.actions';
 import Recommended from '../../components/Recommended';
 import SearchForm from '../../components/SearchForm';
 import {useTranslation} from 'react-i18next';
+import filter from 'lodash.filter';
 import styles from './index.module.scss';
 import routesLik from '../../constants/routes.constants';
 import {Col, Row} from 'react-bootstrap';
@@ -59,7 +60,6 @@ function CitiesId() {
   const [type, setType]= useState(0);
   const [title, setTitle]= useState(1);
   const cities = useSelector((state) => state.geo.cities);
-  const recommended = useSelector((state)=>state.recommended.recommended);
   const citiesId = useSelector((state) => state.geo.citiesId);
   const hotels = citiesId && citiesId.hotel;
   const [hotelFtFiltered, setHotelFiltered]=useState( []);
@@ -83,35 +83,45 @@ function CitiesId() {
     setPopular(changeCheckedCuisines);
   };
 
-
+  const containsHotel=(hotel, wifi, name, hostel, host, breakfast, mini, h, a, b)=>{
+    return (
+      hotel.wifi === wifi || hotel.typeHotel.toString() === name || hotel.typeHotel.toString() === hostel ||
+      hotel.typeHotel.toString() === host || hotel.breakfast === breakfast || hotel.typeHotel.toString() === mini ||
+      hotel.typeHotel.toString() === h || hotel.typeHotel.toString() === a || hotel.typeHotel.toString() === b
+    );
+  };
   useEffect(()=>{
-    (()=>{
-      if (!popular || !hotels) {
-        return;
-      }
+    const activeWifiFilters = popular.filter((item) => item.checked && item.wifi)[0]?.wifi;
+    const activeBreakfastFilters = popular.filter((item) => item.checked && item.breakfast)[0]?.breakfast;
+    const activeTypeHotel = popular.filter((item) => item.checked && item.label=== 'Отель')[0]?.label;
+    const activeTypeHostel = popular.filter((item) => item.checked && item.label=== 'Хостел')[0]?.label;
+    const activeTypeHost = popular.filter((item) => item.checked && item.label=== 'Гостиница')[0]?.label;
+    const activeMini = popular.filter((item) => item.checked && item.label=== 'Мини-отель')[0]?.label;
+    const activeH = popular.filter((item) => item.checked && item.label=== 'Гостевой дом')[0]?.label;
+    const activeA = popular.filter((item) => item.checked && item.label=== 'Апарт-отель')[0]?.label;
+    const activeAp = popular.filter((item) => item.checked && item.label=== 'Апартаменты')[0]?.label;
+    const filterValue= filter(hotels, (item)=>{
+      return containsHotel(
+          item,
+          activeWifiFilters,
+          activeTypeHotel,
+          activeTypeHostel,
+          activeTypeHost,
+          activeBreakfastFilters,
+          activeMini,
+          activeH,
+          activeA,
+          activeAp,
+      );
+    });
+    if (filterValue?.length === 0) {
+      setHotelFiltered(hotels);
+    } else {
+      setHotelFiltered(filterValue);
+    }
+  }, [hotels, popular]);
 
-      const activeWifiFilters = popular.filter((item) => item.checked && item.wifi).map((item) => item.wifi);
-      const activeTypeFilters = popular.filter((item) => item.checked && item.label).map((item) => item.label.toLowerCase());
 
-      let updateList;
-
-      if (activeWifiFilters.length > 0 || activeTypeFilters.length > 0) {
-        updateList = hotels.filter((item) => {
-          const wifiMatch = activeWifiFilters.length === 0 ||
-                        activeWifiFilters.includes(item.wifi) ||
-                        activeTypeFilters.includes(item.typeHotel.toLowerCase());
-          const typeMatch = activeTypeFilters.length === 0 ||
-                        activeTypeFilters.includes(item.typeHotel.toLowerCase()) ||
-                        activeWifiFilters.includes(item.wifi);
-          return wifiMatch && typeMatch;
-        });
-      } else {
-        updateList = hotels;
-      }
-
-      setHotelFiltered(updateList);
-    })();
-  }, [popular, hotels]);
   return (
     <>
       <div style={{marginBottom: 20}}/>
@@ -119,7 +129,6 @@ function CitiesId() {
         <div className={styles.searchContainer}>
           <SearchForm t={t} cities={cities} pathId={id}/>
         </div>
-        {recommended && <Recommended recommended={recommended} t={t}/>}
         {citiesId && (
           <>
             <div className={styles.pagesTitle}>

@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
 import styles from '../../Pages/PrivatePages/MessagePages/messge.module.scss';
 import MessageUserList from '../MessageUserList';
+import {useSelector} from 'react-redux';
 
-function LeftSide({messages, help}) {
+function LeftSide({help, authId}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [inputAction, setInputAction] = useState(false);
-
+  const messages = useSelector((state) => state.messages.messages);
   const filteredUsers = messages ?
     messages.filter((user) =>
-      user.users.username.toLowerCase().includes(searchTerm.toLowerCase()) || user.users.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.users.phone.toLowerCase().includes(searchTerm.toLowerCase()) || user.users.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.users.last_name.toLowerCase().includes(searchTerm.toLowerCase()),
+      user.user.username.toLowerCase().includes(searchTerm.toLowerCase()) || user.user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.user.phone.toLowerCase().includes(searchTerm.toLowerCase()) || user.user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.user.last_name.toLowerCase().includes(searchTerm.toLowerCase()),
     ) :
     [];
+  console.log(messages && messages);
   return (
     <>
       <form className={styles.messageHeader}>
@@ -30,15 +32,23 @@ function LeftSide({messages, help}) {
           <>
             {filteredUsers?.length > 0 && inputAction === true ? (
               <>
-                {filteredUsers.map((user, index) => (
+                {filteredUsers.filter((i)=>i.user.id ===authId || i.users.id !==authId).map((user, index) => (
                   <>
                     {help ? (
-                      <MessageUserList key={index} user={user.users} inputAction={inputAction} messages={user.message}
-                        chat={user} help/>
+                      <>
+                        {user.user.id !== authId ? (
+                          <MessageUserList key={index} user={user.user} messages={user.message} chat={user} help/>
+                        ):(
+                          <MessageUserList key={index} user={user.users} messages={user.message} chat={user} help/>
+                        )}
+                      </>
                     ):(
                       <>
-                        <MessageUserList key={index} user={user.users} inputAction={inputAction} messages={user.message}
-                          chat={user}/>
+                        {user.user.id !== authId ? (
+                          <MessageUserList key={index} user={user.user} messages={user.message} chat={user}/>
+                        ):(
+                          <MessageUserList key={index} user={user.users} messages={user.message} chat={user}/>
+                        )}
                       </>
                     )}
                   </>
@@ -51,9 +61,21 @@ function LeftSide({messages, help}) {
                     {messages.map((user, index) => (
                       <>
                         {help ?(
-                          <MessageUserList key={index} user={user.users} messages={user.message} chat={user} help/>
+                          <>
+                            {user.user.id !== authId ? (
+                              <MessageUserList key={index} user={user.user} messages={user.message} chat={user} help/>
+                            ):(
+                              <MessageUserList key={index} user={user.users} messages={user.message} chat={user} help/>
+                            )}
+                          </>
                         ):(
-                          <MessageUserList key={index} user={user.users} messages={user.message} chat={user}/>
+                          <>
+                            {user.user.id !== authId ? (
+                              <MessageUserList key={index} user={user.user} messages={user.message} chat={user}/>
+                            ):(
+                              <MessageUserList key={index} user={user.users} messages={user.message} chat={user}/>
+                            )}
+                          </>
                         )}
                       </>
                     ))}

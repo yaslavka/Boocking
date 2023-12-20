@@ -5,63 +5,32 @@ import * as actions from '../actions/message.actions';
 import {socket} from '../api';
 
 const allMessage =(action)=>{
-  return new Promise((resolve, reject)=>{
+  return new Promise(()=>{
     socket.emit('allMessage', action);
-    socket.on('allMessageRec', (data) =>{
-      if (data.error) {
-        reject(data.error);
-      } else {
-        resolve(data);
-      }
-    });
   });
 };
 
 const allMessageAdmin =(action)=>{
-  return new Promise((resolve, reject)=>{
+  return new Promise(()=>{
     socket.emit('allMessageHelp', action);
-    socket.on('allMessageHelpRec', (data) =>{
-      if (data.error) {
-        reject(data.error);
-      } else {
-        resolve(data);
-      }
-    });
   });
 };
 
 const sendMessage=(action)=>{
-  return new Promise((resolve, reject)=>{
+  return new Promise(()=>{
     socket.emit('sendMessage', action);
-    socket.on('allMessageRec', (data) =>{
-      if (data.error) {
-        reject(data.error);
-      } else {
-        resolve(data);
-      }
-    });
   });
 };
 
 const sendMessageAdmin=(action)=>{
-  return new Promise((resolve, reject)=>{
+  return new Promise(()=>{
     socket.emit('sendMessageAdmin', action);
-    socket.on('allMessageHelpRec', (data) =>{
-      if (data.error) {
-        reject(data.error);
-      } else {
-        resolve(data);
-      }
-    });
   });
 };
 
 export function* messageInfo(action) {
   try {
-    const response = yield call(allMessage, action.payload);
-    if (response) {
-      yield put(actions.messageInfoSuccess(response));
-    }
+    yield call(allMessage, action.payload);
   } catch (error) {
     yield put(actions.messageInfoError(error.message));
     toast.error(error.message);
@@ -70,11 +39,7 @@ export function* messageInfo(action) {
 
 export function* messageAdminInfo(action) {
   try {
-    const response = yield call(allMessageAdmin, action.payload);
-    console.log(response);
-    if (response) {
-      yield put(actions.messageAdminInfoSuccess(response));
-    }
+    yield call(allMessageAdmin, action.payload);
   } catch (error) {
     yield put(actions.messageAdminInfoError(error.message));
     toast.error(error.message);
@@ -83,10 +48,7 @@ export function* messageAdminInfo(action) {
 
 export function* sendMessagesAdmin(action) {
   try {
-    const response = yield call(sendMessageAdmin, action.payload);
-    if (response) {
-      yield put(actions.messageAdminInfoSuccess(response));
-    }
+    yield call(sendMessageAdmin, action.payload);
   } catch (error) {
     yield put(actions.messageAdminInfoError(error.message));
     toast.error(error.message);
@@ -96,10 +58,7 @@ export function* sendMessagesAdmin(action) {
 
 export function* sendMessages(action) {
   try {
-    const response = yield call(sendMessage, action.payload);
-    if (response) {
-      yield put(actions.messageInfoSuccess(response));
-    }
+    yield call(sendMessage, action.payload);
   } catch (error) {
     yield put(actions.messageInfoError(error.message));
     toast.error(error.message);
