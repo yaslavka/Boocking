@@ -167,7 +167,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
           </div>
           <div className={styles.navContainer}>
             <div className={styles.navLinkFlex}>
-              <Link to={routesLik.myReservation} className={styles.navLink}>
+              <Link to={routesLik.review} className={styles.navLink}>
                 <svg
                   fill="#FFFFFF"
                   width={30}

@@ -61,6 +61,12 @@ const hotelIdReducer = (state = initialState, action) =>{
         errors: {...state.errors, uploadImages: action.payload},
       };
     }
+    case ActionTypes.HOTEL_ADD_REQUEST: {
+      return {...state};
+    }
+    case ActionTypes.HOTEL_ID_EDIT_REQUEST: {
+      return {...state};
+    }
     default:
       return state;
   }

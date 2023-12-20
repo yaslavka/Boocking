@@ -18,17 +18,12 @@ export const hotelIdEdit = (values) => ({
   type: ActionTypes.HOTEL_ID_EDIT_REQUEST,
   payload: values,
 });
-export const hotelIdEditSuccess = (values) => ({
-  type: ActionTypes.HOTEL_ID_EDIT_SUCCESS,
-  payload: values,
-
-});
-export const hotelIdEditError = (error) => ({
-  type: ActionTypes.HOTEL_ID_EDIT_ERROR,
-  payload: error,
-});
 
 export const uploadImages = (values) => ({
   type: ActionTypes.UPLOAD_IMAGES_REQUEST,
+  payload: values,
+});
+export const hotelAdd = (values) => ({
+  type: ActionTypes.HOTEL_ADD_REQUEST,
   payload: values,
 });

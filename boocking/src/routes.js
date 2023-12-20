@@ -11,6 +11,8 @@ import MessagePages from './Pages/PrivatePages/MessagePages';
 import MyaHotels from './Pages/PrivatePages/MyaHotels';
 import MyaHotelEdit from './Pages/PrivatePages/MyaHotelEdit';
 import HelpMessagePages from './Pages/PrivatePages/HelpMessagePages';
+import HotelAdd from './Pages/PrivatePages/HotelAdd';
+import ReviewPages from './Pages/PrivatePages/ReviewPages';
 
 export const publicRouteConfig = [
   {
@@ -128,6 +130,18 @@ export const privateRouteConfig = [
     id: 12,
     path: routesLik.helpChatId,
     component: HelpMessagePages,
+    exact: true,
+  },
+  {
+    id: 13,
+    path: routesLik.hotelAdd,
+    component: HotelAdd,
+    exact: true,
+  },
+  {
+    id: 14,
+    path: routesLik.review,
+    component: ReviewPages,
     exact: true,
   },
 ];

@@ -25,5 +25,6 @@ const routesLik = Object.freeze({
   negative: '/negative',
   users: '/users',
   profileEdit: '/profile-edit',
+  review: '/review',
 });
 export default routesLik;

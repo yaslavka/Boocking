@@ -2,7 +2,9 @@ import {takeEvery, call, put, all} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 import * as ActionTypes from '../constants/hotelId.constants';
 import * as actions from '../actions/hotelId.actions';
+import * as actionsUser from '../actions/app.actions';
 import * as api from '../api/hotelId.api';
+import * as apiUser from '../api/app.api';
 
 const uploadFromData = (action)=>{
   return new Promise((resolve, reject)=>{
@@ -47,9 +49,42 @@ export function* uploadImages(action) {
   }
 }
 
+export function* hotelEdit(action) {
+  try {
+    const response = yield call(api.hotelEdit, action.payload);
+    if (response) {
+      toast.success(response.message);
+      const hotelId = yield call(api.hotelId, action.payload.id);
+      if (hotelId) {
+        yield put(actions.hotelIdSuccess(hotelId));
+      }
+    }
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
+
+export function* hotelAdd(action) {
+  try {
+    const response = yield call(api.hotelAdd, action.payload);
+    if (response) {
+      toast.success(response.message);
+      const user = yield call(apiUser.userInfo);
+      if (user) {
+        yield put(actionsUser.userInfoSuccess(user));
+      }
+    }
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
+
+
 export default function* hotelIdSaga() {
   yield all([
     takeEvery(ActionTypes.HOTEL_ID_REQUEST, hotelId),
     takeEvery(ActionTypes.UPLOAD_IMAGES_REQUEST, uploadImages),
+    takeEvery(ActionTypes.HOTEL_ADD_REQUEST, hotelAdd),
+    takeEvery(ActionTypes.HOTEL_ID_EDIT_REQUEST, hotelEdit),
   ]);
 }

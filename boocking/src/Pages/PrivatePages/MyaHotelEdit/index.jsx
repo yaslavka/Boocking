@@ -108,6 +108,7 @@ function MyaHotelEdit() {
       active: active,
       pay: pay,
       geoCityId: credentials.geoCityId || hotelId?.geoCityId,
+      id: id,
     }));
   }, [
     dispatch,
@@ -128,6 +129,7 @@ function MyaHotelEdit() {
     hotelId?.descriptionHotel,
     active, pay,
     hotelId?.geoCityId,
+    id,
   ]);
   useEffect(() => {
     // Проверяем поддерживается ли геолокация в текущем браузере
