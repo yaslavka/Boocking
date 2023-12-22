@@ -11,6 +11,7 @@ import reservationReducer from './reservation.reducer';
 import numberInfoReducer from './number.reducer';
 import messagesReducer from './message.reducer';
 import favoritesReducer from './favorites.reducer';
+import payReducer from './pay.reducer';
 
 const rootReducer = (history) =>
   combineReducers({
@@ -25,6 +26,7 @@ const rootReducer = (history) =>
     hotelId: hotelIdReducer,
     reservation: reservationReducer,
     numberInfo: numberInfoReducer,
+    pay: payReducer,
     router: connectRouter(history),
   });
 

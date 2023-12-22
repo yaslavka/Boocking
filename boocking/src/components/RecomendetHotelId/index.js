@@ -42,7 +42,7 @@ function RecomendetHotelId() {
             {recommended.map((item, index)=>(
               <div className={styles.container} key={index}>
                 <div className={styles.content}>
-                  <img src={`${process.env.REACT_APP_BASE_AVATAR_URL}/${item.imageHotel}`} alt={item.nameHotel} className={styles.imageHotel}/>
+                  <img src={item.imageHotel} alt={item.nameHotel} className={styles.imageHotel}/>
                   <div className={styles.typeHotel}>
                     <div className={styles.typeHotelText}>{item.typeHotel}</div>
                     <div className="items-center flex-row flex justify-between">

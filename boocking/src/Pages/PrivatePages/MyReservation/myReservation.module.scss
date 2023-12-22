@@ -121,6 +121,12 @@
   & small{
     color: #a5a5a5;
   }
+
+}
+.hover{
+  &:hover{
+    color: #19285d;
+  }
 }
 .statusF{
   color: black;

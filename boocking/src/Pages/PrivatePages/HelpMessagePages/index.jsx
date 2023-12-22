@@ -1,18 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './messge.module.scss';
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Col, Row} from 'reactstrap';
 import LeftSide from '../../../components/LeftSide';
 import RightSide from '../../../components/RightSide';
 import PrivateNavbar from '../../../components/PrivateNavbar';
+import * as messageActions from '../../../actions/message.actions';
 
 function HelpMessagePages() {
+  const dispatch = useDispatch();
   const {id}=useParams();
   const {t} = useTranslation('common');
   const userInfo = useSelector((state) => state.app.user);
   const messages = useSelector((state) => state.messages.messagesAdmin);
+
+  useEffect(()=>{
+    if (!userInfo?.isAdmin) {
+      dispatch(messageActions.messageAdminInfo(1));
+    } else {
+      dispatch(messageActions.messageAdminInfo(userInfo?.id));
+    }
+  }, [dispatch, userInfo?.id, userInfo?.isAdmin]);
   return (
     <>
       {userInfo && (

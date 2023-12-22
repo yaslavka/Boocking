@@ -27,8 +27,7 @@ function MyHotelsList({hotel}) {
               </div>
             </div>
             <img
-              src={
-                `${process.env.REACT_APP_BASE_AVATAR_URL}/${hotel.imageHotel}`}
+              src={hotel.imageHotel}
               alt={hotel.nameHotel} className={styles.images}/>
             <div className={`${styles.button_pr}`}>
               <svg

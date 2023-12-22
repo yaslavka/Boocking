@@ -58,7 +58,7 @@ export function* reservationBook(action) {
     const response = yield call(api.reservationBook, action.payload);
     if (response) {
       yield put(actions.reservationBookSuccess(response.message));
-      toast.error(response.message);
+      toast.success(response.message);
     }
     const reservation = yield call(api.reservation);
     if (reservation) {
@@ -69,6 +69,22 @@ export function* reservationBook(action) {
     toast.error(error.message);
   }
 }
+
+export function* reservationCancel(action) {
+  try {
+    const response = yield call(api.reservationCancel, action.payload);
+    if (response) {
+      toast.success(response.message);
+      const reservation = yield call(api.reservation);
+      if (reservation) {
+        yield put(actions.reservationSuccess(reservation));
+      }
+    }
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
+
 export default function* reservationSaga() {
   yield all([
     takeEvery(ActionTypes.RESERVATION_REQUEST, reservation),
@@ -76,5 +92,6 @@ export default function* reservationSaga() {
     takeEvery(ActionTypes.RESERVATION_ID_REQUEST, reservationId),
     takeEvery(ActionTypes.RESERVATION_INFO_REQUEST, reservationInfo),
     takeEvery(ActionTypes.RESERVATION_BOOK_REQUEST, reservationBook),
+    takeEvery(ActionTypes.RESERVATION_CANCEL_REQUEST, reservationCancel),
   ]);
 }

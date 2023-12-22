@@ -59,38 +59,38 @@ function PremiumModal({premium, premiumPackage, object, setPremium, objectManage
         <Modal.Header closeButton={()=> {
           setPremium(false);
         }}>
-                    Выделение
+          Выделение
         </Modal.Header>
         <Form onSubmit={(e)=>e.preventDefault()}>
           {value ? (
-                        <>
-                          <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                            <Input type="number" name="premium"
-                              value={premiumInput}
-                              placeholder="Количество дней" onChange={handleChange}/>
-                          </FormGroup>
-                        </>
-                    ):(
-                       <>
-                         {objectManager && (
-                           <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                             <select onChange={(e)=>setId(e.target.value)}>
-                               <option value="Выберите отель" disabled >Выберите отель</option>
-                               {objectManager.map((item) => (
-                                 <>
-                                   <option id={item.id} value={item.id}>{item.nameHotel}</option>
-                                 </>
-                               ))}
-                             </select>
-                           </FormGroup>
-                         )}
-                         <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                           <Input type="number" name="premium"
-                             value={premiumInput}
-                             placeholder="Количество дней" onChange={handleChange}/>
-                         </FormGroup>
-                       </>
-                    )}
+            <>
+              <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
+                <Input type="number" name="premium"
+                  value={premiumInput}
+                  placeholder="Количество дней" onChange={handleChange}/>
+              </FormGroup>
+            </>
+          ):(
+            <>
+              {objectManager && (
+                <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
+                  <select onChange={(e)=>setId(e.target.value)}>
+                    <option value="Выберите отель" disabled >Выберите отель</option>
+                    {objectManager.map((item) => (
+                      <>
+                        <option id={item.id} value={item.id}>{item.nameHotel}</option>
+                      </>
+                    ))}
+                  </select>
+                </FormGroup>
+              )}
+              <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
+                <Input type="number" name="premium"
+                  value={premiumInput}
+                  placeholder="Количество дней" onChange={handleChange}/>
+              </FormGroup>
+            </>
+          )}
           <Modal.Footer>
             <Button color={'primary'} type={'button'} onClick={value ? highlightConfirmValue : highlightConfirm}>Выделить</Button>
           </Modal.Footer>

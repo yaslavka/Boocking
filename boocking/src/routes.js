@@ -13,6 +13,8 @@ import MyaHotelEdit from './Pages/PrivatePages/MyaHotelEdit';
 import HelpMessagePages from './Pages/PrivatePages/HelpMessagePages';
 import HotelAdd from './Pages/PrivatePages/HotelAdd';
 import ReviewPages from './Pages/PrivatePages/ReviewPages';
+import EditProfile from './Pages/PrivatePages/EditProfile';
+import Wallet from './Pages/PrivatePages/Wallet';
 
 export const publicRouteConfig = [
   {
@@ -142,6 +144,18 @@ export const privateRouteConfig = [
     id: 14,
     path: routesLik.review,
     component: ReviewPages,
+    exact: true,
+  },
+  {
+    id: 15,
+    path: routesLik.profileEdit,
+    component: EditProfile,
+    exact: true,
+  },
+  {
+    id: 16,
+    path: routesLik.wallet,
+    component: Wallet,
     exact: true,
   },
 ];

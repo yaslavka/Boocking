@@ -9,9 +9,9 @@ function ProfileInfo({userInfo}) {
       <div className={styles.profilePages}>
         <div className={styles.profilePagesContainer}>
           <img src={
-                        userInfo.avatar ?
-                            `${process.env.REACT_APP_BASE_AVATAR_URL}/${userInfo.avatar}` :
-                            'https://www.w3schools.com/howto/img_avatar.png'
+            userInfo.avatar ?
+              `${process.env.REACT_APP_BASE_AVATAR_URL}/${userInfo.avatar}` :
+              'https://www.w3schools.com/howto/img_avatar.png'
           } alt={userInfo.first_name}/>
           <div className={styles.profilePagesInfo}>
             <div className={styles.marginBottom}>Профиль</div>
@@ -23,7 +23,7 @@ function ProfileInfo({userInfo}) {
               <div className={styles.profileInfo}>
                 <div>{userInfo.phone}</div>
               </div>
-                            |
+              |
               <div className={styles.profileInfo}>
                 <svg
                   fill="#1380C1"
@@ -36,7 +36,7 @@ function ProfileInfo({userInfo}) {
               <div className={styles.profileInfo}>
                 <div>{userInfo.email}</div>
               </div>
-                            |
+              |
               <div className={styles.profileInfo}>
                 <div>Баланс</div>
               </div>

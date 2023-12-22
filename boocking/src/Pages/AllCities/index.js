@@ -5,12 +5,12 @@ import {Row} from 'reactstrap';
 import * as pagesActions from '../../actions/app.actions';
 import CitiList from '../../components/CitiList';
 
+
 function AllCities() {
   const dispatch = useDispatch();
   const allCities = useSelector((state) => state.geo.allCities);
   const pages = useSelector((state) => state.app.pages);
   const [count]=useState(30);
-
   const pagesNumber = [];
   const lastTaskIndex = pages * count;
   const firstTaskIndex = lastTaskIndex - count;

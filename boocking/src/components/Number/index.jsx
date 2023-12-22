@@ -9,7 +9,7 @@ import korona from '../../assets/icon/korona.png';
 import smile from '../../assets/icon/smile.png';
 import bank from '../../assets/icon/icon-card-or-no-card-21px.png';
 
-function Number({number, broneceng, endDates, startDate}) {
+function Number({number, broneceng, endDates, startDate, room}) {
   const imagesMap = [
     {
       id: 0,
@@ -46,25 +46,25 @@ function Number({number, broneceng, endDates, startDate}) {
               </article>
               <article className={styles.description}>
                 <span className={styles.textDescription}>
-                                 Количество комнат:{' '}
+                  Количество комнат:{' '}
                   <span className={styles.text}>
                     {number.count}
                   </span>
                 </span>
                 <span className={styles.textDescription}>
-                                 Квадратура:{' '}
+                  Квадратура:{' '}
                   <span className={styles.text}>
                     {number.quadrature}
                   </span>
                 </span>
                 <span className={styles.textDescription}>
-                                 Кровати:{' '}
+                  Кровати:{' '}
                   <span className={styles.text}>
                     {number.sleepingPlaces}
                   </span>
                 </span>
                 <span className={styles.textDescription}>
-                                 Гостей:{' '}
+                  Гостей:{' '}
                   <span className={styles.text}>
                     {number.guests}
                     <i className="fa fa-info-circle" title="kdskdg"/>
@@ -84,27 +84,27 @@ function Number({number, broneceng, endDates, startDate}) {
               <article className={styles.service}>
                 <img src={smile} alt={smile}/>
                 <div className={styles.serviceText}>
-                                 Полный пансион  влючен
+                  Полный пансион  влючен
                 </div>
               </article>
               <article className={styles.service}>
                 <img src={bank} alt={bank}/>
                 <div className={styles.serviceText}>
-                                 Безналичная оплата
+                  Безналичная оплата
                 </div>
               </article>
               <Button color="primary" role={'link'} href={`/number/${number.id}`} className={styles.margiB}>
-                             Обзор номера
+                Обзор номера
               </Button>
               <h3 className={`${styles.margiB} ${styles.buttonText}`}>
-                             Доступен
+                Доступен
               </h3>
             </Col>
           </Row>
         </div>
       </Col>
       <Col xl={3} className={styles.col2}>
-        <BroneButton number={number} key={number.id} broneceng={broneceng} startDate={startDate} endDates={endDates}/>
+        <BroneButton room={room} number={number} key={number.id} broneceng={broneceng} startDate={startDate} endDates={endDates}/>
       </Col>
     </>
   );

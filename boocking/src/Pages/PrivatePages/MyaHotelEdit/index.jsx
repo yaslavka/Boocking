@@ -176,7 +176,7 @@ function MyaHotelEdit() {
                       image ?
                         <img src={image} alt={image} height={'auto'} width={300}/> :
                         <img src={hotelId.imageHotel ?
-                            `${process.env.REACT_APP_BASE_AVATAR_URL}/${hotelId.imageHotel}` :
+                          hotelId.imageHotel :
                             'https://www.w3schools.com/howto/img_avatar.png'} alt={''} height={'auto'} width={300}
                         />
 

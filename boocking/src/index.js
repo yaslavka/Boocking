@@ -20,11 +20,9 @@ export const store = configureStore();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store.store}>
-      <PersistGate loading={null} persistor={store.persistor}>
-        <React.StrictMode>
-          <App />
-          <ToastContainer />
-        </React.StrictMode>
+      <PersistGate loading={null} persistor={store.persist}>
+        <App />
+        <ToastContainer />
       </PersistGate>
     </Provider>,
 );

@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import {Button} from 'react-bootstrap';
 
-function BroneButton({number, broneceng, endDates, startDate}) {
+function BroneButton({number, broneceng, endDates, startDate, room}) {
   const date = new Date();
   const calendar = new Date(`${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`);
   return (
@@ -26,7 +26,7 @@ function BroneButton({number, broneceng, endDates, startDate}) {
               </div>
             </div>
           </div>
-          <h1 style={{color: '#555555', fontWeight: 'bold', fontSize: 12, marginBottom: 20}}>выбрано: {number.count}  Комната</h1>
+          <h1 style={{color: '#555555', fontWeight: 'bold', fontSize: 12, marginBottom: 20}}>выбрано: {room}  Комнат</h1>
           <h1 style={{color: '#090808', fontWeight: 'bold', fontSize: 33, marginBottom: 30}}>{number.price}
             <span style={{fontWeight: 500, fontSize: 20, color: '#7C7C7C'}}>
                 ₽

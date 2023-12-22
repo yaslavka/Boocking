@@ -40,12 +40,12 @@ function Dashboard() {
             <div className={styles.selectObjectText}>
               {userInfo.isManager && (
                 <>
-                                    Мои Отели
+                  Мои Отели
                 </>
               )}
               {!userInfo.isManager && (
                 <>
-                                    Мои брони
+                  Мои брони
                 </>
               )}
             </div>
@@ -53,86 +53,86 @@ function Dashboard() {
               <select onChange={(e)=>setValue(JSON.parse(e.target.value))}>
                 <option disabled defaultValue={'название Отеля'} value='название Отеля'>название Отеля</option>
                 {userInfo.isManager ? (
-                                    <>
-                                      {userInfo.hotel.map((hotel, index)=>(
-                                        <option key={index} id={hotel.id} value={JSON.stringify(hotel)}>{hotel.nameHotel}</option>
-                                      ))}
-                                    </>
-                                ):(
-                                    <>
-                                      {reservation?.length > 0 && (
-                                        <>
-                                          {reservation.map((hotel, index)=>(
-                                            <option key={index} id={hotel.number.id} value={JSON.stringify(hotel)}>{hotel.number.nameNumber}</option>
-                                          ))}
-                                        </>
-                                      )}
-                                    </>
-                                )}
+                  <>
+                    {userInfo.hotel.map((hotel, index)=>(
+                      <option key={index} id={hotel.id} value={JSON.stringify(hotel)}>{hotel.nameHotel}</option>
+                    ))}
+                  </>
+                ):(
+                  <>
+                    {reservation?.length > 0 && (
+                      <>
+                        {reservation.map((hotel, index)=>(
+                          <option key={index} id={hotel.number.id} value={JSON.stringify(hotel)}>{hotel.number.nameNumber}</option>
+                        ))}
+                      </>
+                    )}
+                  </>
+                )}
               </select>
             </div>
           </div>
           {userInfo.isManager === true ? (
+            <>
+              <div className={styles.selectObject}>
+                <div className={styles.selectObjectText}>
+                  процент наполнения:
+                </div>
+                <Box sx={{flexGrow: 1}} style={{marginBottom: 10}}>
+                  <BorderLinearProgress variant="determinate" value={50} />
+                </Box>
+              </div>
+              {value === undefined ? (
+                <>
+                  <div className={styles.itemContainer}>
+                    <ul className={styles.list}>
+                      {objectManager &&(
                         <>
-                          <div className={styles.selectObject}>
-                            <div className={styles.selectObjectText}>
-                                    процент наполнения:
-                            </div>
-                            <Box sx={{flexGrow: 1}} style={{marginBottom: 10}}>
-                              <BorderLinearProgress variant="determinate" value={50} />
-                            </Box>
-                          </div>
-                          {value === undefined ? (
-                                <>
-                                  <div className={styles.itemContainer}>
-                                    <ul className={styles.list}>
-                                      {objectManager &&(
-                                        <>
-                                          {objectManager.map((item, index)=>(
-                                            <SelectObject index={index} object={item} key={index} reservationManager={reservationManager} objectManager={objectManager} userInfo={userInfo}/>
-                                          ))}
-                                        </>
-                                      )}
-                                    </ul>
-                                  </div>
-                                </>
-                            ):(
-                                <>
-                                  <div className={styles.itemContainer}>
-                                    <ul className={styles.list}>
-                                      <SelectObject object={value} reservationManager={reservationManager} userInfo={userInfo}/>
-                                    </ul>
-                                  </div>
-                                </>
-                            )}
+                          {objectManager.map((item, index)=>(
+                            <SelectObject index={index} object={item} key={index} reservationManager={reservationManager} objectManager={objectManager} userInfo={userInfo}/>
+                          ))}
                         </>
-                    ):(
+                      )}
+                    </ul>
+                  </div>
+                </>
+              ):(
+                <>
+                  <div className={styles.itemContainer}>
+                    <ul className={styles.list}>
+                      <SelectObject object={value} reservationManager={reservationManager} userInfo={userInfo}/>
+                    </ul>
+                  </div>
+                </>
+              )}
+            </>
+          ):(
+            <>
+              {value === undefined ? (
+                <>
+                  <div className={styles.itemContainer}>
+                    <ul className={styles.list}>
+                      {reservationSlice?.length > 0 &&(
                         <>
-                          {value === undefined ? (
-                                <>
-                                  <div className={styles.itemContainer}>
-                                    <ul className={styles.list}>
-                                      {reservationSlice?.length > 0 &&(
-                                        <>
-                                          {reservationSlice.map((item, index)=>(
-                                            <SelectObject index={index} object={item} key={index} reservationManager={reservation} userInfo={userInfo} user/>
-                                          ))}
-                                        </>
-                                      )}
-                                    </ul>
-                                  </div>
-                                </>
-                            ):(
-                                <>
-                                  <div className={styles.itemContainer}>
-                                    <ul className={styles.list}>
-                                      <SelectObject object={value} reservationManager={reservation} userInfo={userInfo} user/>
-                                    </ul>
-                                  </div>
-                                </>
-                            )}
+                          {reservationSlice.map((item, index)=>(
+                            <SelectObject index={index} object={item} key={index} reservationManager={reservation} userInfo={userInfo} user/>
+                          ))}
                         </>
-                    )}
+                      )}
+                    </ul>
+                  </div>
+                </>
+              ):(
+                <>
+                  <div className={styles.itemContainer}>
+                    <ul className={styles.list}>
+                      <SelectObject object={value} reservationManager={reservation} userInfo={userInfo} user/>
+                    </ul>
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </PrivateNavbar>
       )}
     </>

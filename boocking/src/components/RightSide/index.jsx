@@ -9,12 +9,11 @@ import ChatInput from '../ChatInput';
 import {getAccessToken} from '../../utils';
 
 
-function RightSide({authId, id, help}) {
+function RightSide({authId, id, help, messages}) {
   const userInfo = useSelector((state) => state.app.user);
   const dispatch = useDispatch();
   const token =getAccessToken();
   const user = useSelector((state) => state.messages.user);
-  const messages = useSelector((state) => state.messages.messages);
   const initialValues = useMemo(
       () => ({
         message: '',
@@ -59,7 +58,6 @@ function RightSide({authId, id, help}) {
           {messages?.length > 0 && (
             <>
               {messages.map((chat, index)=>{
-                const messagesSort = chat.message.filter((i)=>i.userId ===authId || i.recipient ===authId);
                 return (
                   <ChatList key={index} messages={chat.message} authId={authId}/>
                 );

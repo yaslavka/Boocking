@@ -31,6 +31,8 @@ function HotelId() {
   const [morReview, setMorReview] = useState(3);
   const [endDates, setEndDates] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [room, setRoom] = useState(1);
+  const [go, setGo] = useState(1);
   useEffect(()=>{
     dispatch(hotelIdActions.hotelId(id));
   }, [dispatch, id]);
@@ -44,7 +46,7 @@ function HotelId() {
     setMorReview(morReview + hotelId.review.length);
   };
   const broneceng = async (count, price, index, startDate, endDates)=>{
-    const planetLength = +count;
+    const planetLength = +room;
     const result = await confirm({
       title: `${t('Подтвердите бронь')}`,
       message: `${t('Бронирование номера сколичеством')} ${planetLength} ${declOfNum(planetLength, [
@@ -62,13 +64,15 @@ function HotelId() {
       dispatch(reservationActions.reservationBook(
           {
             id: index,
-            count: count,
+            count: room,
             sum: planetLength * +price,
             startDate: startDate,
             endDates: endDates,
+            go: go,
           }));
     }
   };
+
   return (
     <>
       <div className={styles.root}>
@@ -107,6 +111,7 @@ function HotelId() {
                   setEndDates={setEndDates}
                   startDate={startDate}
                   setStartDate={setStartDate}
+                  setRoom={setRoom} setGo={setGo}
                 />
                 <section className={styles.section}>
                   {slice && (
@@ -121,6 +126,7 @@ function HotelId() {
                               hotelId={hotelId}
                               startDate={startDate}
                               endDates={endDates}
+                              room={room}
                             />
                           </>
                         );

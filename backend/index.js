@@ -1,5 +1,3 @@
-const axios = require('axios')
-
 require("dotenv").config();
 //const fs = require("fs");
 const http = require("http");
@@ -18,10 +16,7 @@ const HotelControllers = require('./src/Controllers/HotelControllers')
 const NumberControllers = require('./src/Controllers/NumberControllers')
 const ReservationControllers = require('./src/Controllers/ReservationControllers')
 const FavoritesControllers = require('./src/Controllers/FavoritesControllers')
-const { AlbumNumbers } = require('./src/models/AllbumNumbers')
-const { NumbersModels } = require('./src/models/NumbersModels')
-//const { AlbumHotel } = require('./src/models/AllbumHotel')
-//const { HotelModals } = require('./src/models/HotelModals')
+const PayControllers = require('./src/Controllers/PayControllers')
 
 
 const storage = multer.diskStorage({
@@ -59,8 +54,10 @@ app.get('/api/reservation_manager', ReservationControllers.reservationManager)
 app.post('/api/reservation_info', ReservationControllers.reservationInfo)
 app.get('/api/reservation_id', ReservationControllers.reservationId)
 app.post('/api/reservation_book', ReservationControllers.reservationBook)
+app.post('/api/reservation_cancel', ReservationControllers.reservationCancel)
 app.get('/api/all_favorites', FavoritesControllers.allFavorites)
 app.post('/api/add_favorites', FavoritesControllers.addToFavorites)
+app.get('/api/pay-history', PayControllers.payHistory)
 const start = async () => {
   try {
     await sequelize.authenticate();
@@ -70,27 +67,6 @@ const start = async () => {
     })
     server.listen(80, () => console.log(`server started on port 80`));
     //httpsServer.listen(443, () => console.log(`server started on port 443`));
-    const response = await axios.get('https://hotel.tutu.ru/offers/api/roomOffers?geoId=7649628&checkInDate=2023-12-29&checkOutDate=2023-12-30&guestsList[]=%7B%22adultCount%22:1,%22childrenList%22:[]%7D&isBusinessTrip=false&searchId=475201ed-880e-477d-b09a-e21a3db4b67f&token=&tariffsId=&tariffsGroupId=&priceCurrency=&priceAmount=&detailsQueryParams=a%3D2&timeZone=%2B0300')
-    // if (response.data.roomOffers.length > 0){
-    //   response.data.roomOffers.map(async (item)=>{
-    //     const id = await NumbersModels.create({
-    //       nameNumber:item.roomContent.roomName,
-    //       typeNumber:item.roomContent.roomName,
-    //       rooms: 1,
-    //       descriptionNumber:item.roomContent.description,
-    //       imageNumber:item.roomContent.imagesList[0].x500,
-    //       hotelId:7,
-    //       price: 1900
-    //     })
-    //     item.roomContent.imagesList.map(async img=>{
-    //       await AlbumNumbers.create({
-    //         albumNumber: img.x1024,
-    //         numberId:id?.id,
-    //       })
-    //     })
-    //   })
-    // }
-
   }catch (error){
     console.log(error);
   }

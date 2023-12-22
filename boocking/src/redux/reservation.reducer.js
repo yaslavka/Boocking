@@ -142,6 +142,9 @@ const reservationReducer = (state = initialState, action) =>{
         errors: {...state.errors, reservationManager: action.payload},
       };
     }
+    case ActionTypes.RESERVATION_CANCEL_REQUEST: {
+      return {...state};
+    }
     default:
       return state;
   }

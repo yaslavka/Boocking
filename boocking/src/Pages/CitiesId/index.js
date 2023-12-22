@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
+import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
 import {useDispatch, useSelector} from 'react-redux';
 import * as citiesActions from '../../actions/geo.actions';
-import Recommended from '../../components/Recommended';
 import SearchForm from '../../components/SearchForm';
 import {useTranslation} from 'react-i18next';
 import filter from 'lodash.filter';
@@ -53,6 +54,10 @@ const viewBox = [
   },
 ];
 
+function valuetext(value) {
+  return `${value} р`;
+}
+
 function CitiesId() {
   const dispatch = useDispatch();
   const {id}= useParams();
@@ -65,6 +70,7 @@ function CitiesId() {
   const [hotelFtFiltered, setHotelFiltered]=useState( []);
   const [isWifi, seIsWif]=useState(null);
   const [popular, setPopular]=useState([]);
+  const [value, setValue] = useState([300, 0]);
 
   useEffect(()=>{
     dispatch(citiesActions.citiesIdInfo(id));
@@ -83,13 +89,16 @@ function CitiesId() {
     setPopular(changeCheckedCuisines);
   };
 
-  const containsHotel=(hotel, wifi, name, hostel, host, breakfast, mini, h, a, b)=>{
+  const containsHotel=(hotel, price, wifi, name, hostel, host, breakfast, mini, h, a, b)=>{
     return (
+      hotel.price >= price[0] && hotel.price <= price[1] ||
       hotel.wifi === wifi || hotel.typeHotel.toString() === name || hotel.typeHotel.toString() === hostel ||
       hotel.typeHotel.toString() === host || hotel.breakfast === breakfast || hotel.typeHotel.toString() === mini ||
       hotel.typeHotel.toString() === h || hotel.typeHotel.toString() === a || hotel.typeHotel.toString() === b
+
     );
   };
+
   useEffect(()=>{
     const activeWifiFilters = popular.filter((item) => item.checked && item.wifi)[0]?.wifi;
     const activeBreakfastFilters = popular.filter((item) => item.checked && item.breakfast)[0]?.breakfast;
@@ -103,6 +112,7 @@ function CitiesId() {
     const filterValue= filter(hotels, (item)=>{
       return containsHotel(
           item,
+          value,
           activeWifiFilters,
           activeTypeHotel,
           activeTypeHostel,
@@ -119,9 +129,10 @@ function CitiesId() {
     } else {
       setHotelFiltered(filterValue);
     }
-  }, [hotels, popular]);
-
-
+  }, [hotels, popular, value]);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <>
       <div style={{marginBottom: 20}}/>
@@ -145,12 +156,22 @@ function CitiesId() {
               </Link>
             </div>
             <div className={styles.pagesSubTitle}>
-                Отели {citiesId.geo_region.geo_region}
+                Отели {citiesId.geo_city}
             </div>
           </>
         )}
         <Row>
           <Col xl={3}>
+            <h5 style={{paddingInline: 30, paddingTop: 30}}>По цене</h5>
+            <Box sx={{width: 250}} style={{padding: 30}}>
+              <Slider min={300} max={20000}
+                getAriaLabel={() => 'Цена'}
+                value={value}
+                onChange={handleChange}
+                valueLabelDisplay="auto"
+                getAriaValueText={valuetext}
+              />
+            </Box>
             <NavBarFilters
               isWifi={isWifi}
               seIsWif={seIsWif}
