@@ -1,13 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { ReviewModels } = require("../../models/ReviewModels");
-const { PromotionHotelModels } = require("../../models/PromotionHotelModels");
 const { PromotionModels } = require("../../models/PromotionModels");
-const { AlbumNumbers } = require("../../models/AllbumNumbers");
-const { NumbersModels } = require("../../models/NumbersModels");
-const { AlbumHotel } = require("../../models/AllbumHotel");
 const { GeoCityModels } = require("../../models/GeoCityModels");
-const { HotelModals } = require("../../models/HotelModals");
 const { UserModels } = require("../../models/UserModels");
 
 const decode='random_key'
@@ -125,13 +119,12 @@ class UserControllers{
       try {
         const { username } = jwt.decode(token);
         let user = await UserModels.findOne({ where: { username:username }, include:[ 'inviter', { model: GeoCityModels, as: 'geo_city' } ] });
-        let hotel = await HotelModals.findAll({ where:{ userId:user.id }, include:[ { model:ReviewModels, as:'review' },{ model: PromotionHotelModels, as: 'promotionHotel' },{ model: GeoCityModels, as: 'geo_city' }, { model: AlbumHotel, as:'albumHotel' }, { model: NumbersModels, as: 'number', include:[ { model: AlbumNumbers, as: 'albumNumber' } ] } ] })
+        //let hotel = await HotelModals.findAll({ where:{ userId:user.id }, include:[ { model:ReviewModels, as:'review' },{ model: PromotionHotelModels, as: 'promotionHotel' },{ model: GeoCityModels, as: 'geo_city' }, { model: AlbumHotel, as:'albumHotel' }, { model: NumbersModels, as: 'number', include:[ { model: AlbumNumbers, as: 'albumNumber' } ] } ] })
         const promotion = await PromotionModels.findAll()
         if (!user) {
           return res.status(409).json({ message:"Ошибка авторизации" });
         }else {
           user.dataValues.promotion = promotion
-          user.dataValues.hotel =hotel
           return res.status(200).json(user);
         }
       }catch (error){

@@ -36,11 +36,11 @@ function Number({number, broneceng, endDates, startDate, room}) {
           <Row className={styles.row}>
             <Col className={styles.col1}>
               <article className={styles.numberImages}>
-                <img src={number.imageNumber} alt={number.imageNumber} width={200} height={'auto'}/>
+                {number?.imageNumber && (<img src={number?.imageNumber} alt={number.imageNumber} width={200} height={'auto'}/>)}
                 <div className={styles.nameNumber}>
-                  {number.nameNumber}
+                  {number?.nameNumber}
                   <div className={styles.typeNumber}>
-                    {number.typeNumber}
+                    {number?.typeNumber}
                   </div>
                 </div>
               </article>
@@ -48,25 +48,25 @@ function Number({number, broneceng, endDates, startDate, room}) {
                 <span className={styles.textDescription}>
                   Количество комнат:{' '}
                   <span className={styles.text}>
-                    {number.count}
+                    {number?.count}
                   </span>
                 </span>
                 <span className={styles.textDescription}>
                   Квадратура:{' '}
                   <span className={styles.text}>
-                    {number.quadrature}
+                    {number?.quadrature}
                   </span>
                 </span>
                 <span className={styles.textDescription}>
                   Кровати:{' '}
                   <span className={styles.text}>
-                    {number.sleepingPlaces}
+                    {number?.sleepingPlaces}
                   </span>
                 </span>
                 <span className={styles.textDescription}>
                   Гостей:{' '}
                   <span className={styles.text}>
-                    {number.guests}
+                    {number?.guests}
                     <i className="fa fa-info-circle" title="kdskdg"/>
                   </span>
                 </span>
@@ -76,7 +76,7 @@ function Number({number, broneceng, endDates, startDate, room}) {
                   ))}
                 </section>
                 <div style={{marginBottom: 20}}>
-                  <span style={{fontWeight: 'bold', fontSize: 30}}>{number.price} <span style={{fontWeight: 500, fontSize: 20, color: '#7C7C7C'}}>₽</span> <span style={{fontWeight: 500, fontSize: 20, color: '#7C7C7C'}}>/</span> <span style={{fontWeight: 500, fontSize: 20, color: '#7C7C7C'}}>Сутки</span> </span>
+                  <span style={{fontWeight: 'bold', fontSize: 30}}>{number?.price} <span style={{fontWeight: 500, fontSize: 20, color: '#7C7C7C'}}>₽</span> <span style={{fontWeight: 500, fontSize: 20, color: '#7C7C7C'}}>/</span> <span style={{fontWeight: 500, fontSize: 20, color: '#7C7C7C'}}>Сутки</span> </span>
                 </div>
               </article>
             </Col>
@@ -93,7 +93,7 @@ function Number({number, broneceng, endDates, startDate, room}) {
                   Безналичная оплата
                 </div>
               </article>
-              <Button color="primary" role={'link'} href={`/number/${number.id}`} className={styles.margiB}>
+              <Button color="primary" role={'link'} href={`/number/${number?.id}`} className={styles.margiB}>
                 Обзор номера
               </Button>
               <h3 className={`${styles.margiB} ${styles.buttonText}`}>
@@ -104,7 +104,7 @@ function Number({number, broneceng, endDates, startDate, room}) {
         </div>
       </Col>
       <Col xl={3} className={styles.col2}>
-        <BroneButton room={room} number={number} key={number.id} broneceng={broneceng} startDate={startDate} endDates={endDates}/>
+        <BroneButton room={room} number={number} key={number?.id} broneceng={broneceng} startDate={startDate} endDates={endDates}/>
       </Col>
     </>
   );

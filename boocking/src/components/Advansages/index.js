@@ -6,7 +6,7 @@ function Advansages({t}) {
     <>
       <div className={styles.advansagesPages}>
         <div className={styles.advansagesPagesTitle}>
-                    6 ФАКТОВ О НАС
+          6 ФАКТОВ О НАС
         </div>
         <div className={styles.advansagesSubPagesTitle}>
           {t('ПРЕИМУЩЕСТВА БРОНИРОВАНИЯ У НАС')}

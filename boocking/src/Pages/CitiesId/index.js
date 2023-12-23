@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,6 +13,7 @@ import {Col, Row} from 'react-bootstrap';
 import NavBarFilters from '../../components/NavBarFilters';
 import {populars} from '../../components/Popular/data';
 import ListHotel from '../../components/ListHotel/ListHotel';
+
 
 const linkMap = [
   {
@@ -61,6 +62,7 @@ function valuetext(value) {
 function CitiesId() {
   const dispatch = useDispatch();
   const {id}= useParams();
+  const location = useHistory();
   const {t} = useTranslation('common');
   const [type, setType]= useState(0);
   const [title, setTitle]= useState(1);
@@ -70,6 +72,7 @@ function CitiesId() {
   const [hotelFtFiltered, setHotelFiltered]=useState( []);
   const [isWifi, seIsWif]=useState(null);
   const [popular, setPopular]=useState([]);
+  const [filterActive, setFilterActive]=useState(false);
   const [value, setValue] = useState([300, 0]);
 
   useEffect(()=>{
@@ -84,18 +87,35 @@ function CitiesId() {
   const Populars = (i)=>{
     const stateList = popular && popular;
     const changeCheckedCuisines = stateList.map((item) =>
-      (item.id === i ? {...item, checked: !item.checked} : item),
+      item.id === i ? {...item, checked: !item.checked} : item,
     );
+    const allCheckedValues = changeCheckedCuisines.map((item) => item.checked === true);
     setPopular(changeCheckedCuisines);
+    setFilterActive(allCheckedValues.includes(true));
   };
 
-  const containsHotel=(hotel, price, wifi, name, hostel, host, breakfast, mini, h, a, b)=>{
+  const containsHotel=(hotel, price, wifi, name, hostel, host, breakfast, mini, h, a, b, child, startDate, endDates, people)=>{
+    const hasChildRoom = hotel.number && hotel.number.some((item) => {
+      return +item.count === Number(child);
+    });
+
+    const withinDateRange = hotel.number && hotel.number.some((item) => {
+      const itemStartDate = +new Date(item.startDate);
+      const itemEndDate = +new Date(item.endDates);
+      const selectedStartDate = +new Date(startDate);
+      const selectedEndDate = +new Date(endDates);
+      return itemStartDate >= selectedStartDate && itemEndDate <= selectedEndDate;
+    });
+
+    const guests = hotel.number && hotel.number.some((item) => {
+      return +item.guests === Number(people);
+    });
     return (
+      hasChildRoom && withinDateRange && guests||
       hotel.price >= price[0] && hotel.price <= price[1] ||
       hotel.wifi === wifi || hotel.typeHotel.toString() === name || hotel.typeHotel.toString() === hostel ||
       hotel.typeHotel.toString() === host || hotel.breakfast === breakfast || hotel.typeHotel.toString() === mini ||
       hotel.typeHotel.toString() === h || hotel.typeHotel.toString() === a || hotel.typeHotel.toString() === b
-
     );
   };
 
@@ -122,105 +142,142 @@ function CitiesId() {
           activeH,
           activeA,
           activeAp,
+          location?.location.state?.child?.value,
+          location?.location?.state?.startDate,
+          location?.location?.state?.endDates,
+          location?.location?.state?.people?.value,
       );
     });
-    if (filterValue?.length === 0) {
-      setHotelFiltered(hotels);
-    } else {
-      setHotelFiltered(filterValue);
+    if (filterActive === true) {
+      if (filterValue?.length === 0) {
+        setHotelFiltered([]);
+      } else {
+        setHotelFiltered(filterValue);
+      }
     }
-  }, [hotels, popular, value]);
+  }, [hotels, popular, value, location.location.state?.child?.value, location?.location?.state?.endDates, location?.location?.state?.startDate, location?.location?.state?.people?.value]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  useEffect(()=>{
+    if (value[1] >0 || location?.location.state?.child?.value > 0 && location?.location?.state?.startDate && location?.location?.state?.endDates && location?.location?.state?.people?.value > 0) {
+      setFilterActive(true);
+    } else {
+      setFilterActive(false);
+    }
+  }, [hotelFtFiltered, filterActive, value[1], value, location?.location.state?.child?.value, location?.location?.state?.startDate, location?.location?.state?.endDates, location?.location?.state?.people?.value, location.location.state]);
   return (
     <>
-      <div style={{marginBottom: 20}}/>
-      <div className={styles.root}>
-        <div className={styles.searchContainer}>
-          <SearchForm t={t} cities={cities} pathId={id}/>
-        </div>
-        {citiesId && (
-          <>
-            <div className={styles.pagesTitle}>
-              <Link className={styles.pagesLinks} to={routesLik.root}>
+      <div className={styles.bg}>
+        <div className={styles.root}>
+          <div style={{marginBottom: 20}}/>
+          <div className={styles.searchContainer}>
+            <SearchForm t={t} cities={cities} pathId={id}/>
+          </div>
+          {citiesId && (
+            <>
+              <div className={styles.pagesTitle}>
+                <Link className={styles.pagesLinks} to={routesLik.root}>
                   Главная
-              </Link>
-              <div className={styles.pagesArrow}> {'>'} </div>
-              <Link className={styles.pagesLinks} to={routesLik.root}>
-                {citiesId.geo_region.geo_region}
-              </Link>
-              <div className={styles.pagesArrow}> {'>'} </div>
-              <Link className={styles.pagesLinks} to={`/search_hotel_home/${citiesId.id}`}>
-                {citiesId.geo_city}
-              </Link>
-            </div>
-            <div className={styles.pagesSubTitle}>
+                </Link>
+                <div className={styles.pagesArrow}> {'>'} </div>
+                <Link className={styles.pagesLinks} to={routesLik.root}>
+                  {citiesId.geo_region.geo_region}
+                </Link>
+                <div className={styles.pagesArrow}> {'>'} </div>
+                <Link className={styles.pagesLinks} to={`/search_hotel_home/${citiesId.id}`}>
+                  {citiesId.geo_city}
+                </Link>
+              </div>
+              <div className={styles.pagesSubTitle}>
                 Отели {citiesId.geo_city}
-            </div>
-          </>
-        )}
-        <Row>
-          <Col xl={3}>
-            <h5 style={{paddingInline: 30, paddingTop: 30}}>По цене</h5>
-            <Box sx={{width: 250}} style={{padding: 30}}>
-              <Slider min={300} max={20000}
-                getAriaLabel={() => 'Цена'}
-                value={value}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-                getAriaValueText={valuetext}
+              </div>
+            </>
+          )}
+          <Row>
+            <Col xl={3}>
+              <h5 style={{paddingInline: 30, paddingTop: 30}}>По цене</h5>
+              <Box sx={{width: 250}} style={{padding: 30}}>
+                <Slider min={300} max={20000}
+                  getAriaLabel={() => 'Цена'}
+                  value={value}
+                  onChange={handleChange}
+                  valueLabelDisplay="auto"
+                  getAriaValueText={valuetext}
+                />
+              </Box>
+              <NavBarFilters
+                isWifi={isWifi}
+                seIsWif={seIsWif}
+                popular={popular} Populars={Populars}
               />
-            </Box>
-            <NavBarFilters
-              isWifi={isWifi}
-              seIsWif={seIsWif}
-              popular={popular} Populars={Populars}
-            />
-          </Col>
-          <Col xl={9}>
-            <div className={styles.listLayout}>
-              <div className={styles.toolBox}>
-                <div className={styles.sortBox}>
-                  <ul className={styles.ulBox}>
-                    <li className={styles.label}>Сортировать:</li>
-                    {linkMap.map((item, index)=>(
-                      <button key={index} type="button"
-                        className={type === index ? styles.active: styles.link}
-                        onClick={() => setType(index)}>
-                        {item.title}
-                      </button>
-                    ))}
-                  </ul>
-                </div>
-                <div className={styles.sortBox}>
-                  <ul className={styles.ulBox}>
-                    {viewBox.map((item, index)=>(
-                      <>
+            </Col>
+            <Col xl={9}>
+              <div className={styles.listLayout}>
+                <div className={styles.toolBox}>
+                  <div className={styles.sortBox}>
+                    <ul className={styles.ulBox}>
+                      <li className={styles.label}>Сортировать:</li>
+                      {linkMap.map((item, index)=>(
                         <button key={index} type="button"
-                          className={title === index ? styles.active: styles.link}
-                          onClick={() => setTitle(index)}>
-                          <span className={item.className}>
-                          </span>
+                          className={type === index ? styles.active: styles.link}
+                          onClick={() => setType(index)}>
                           {item.title}
                         </button>
-                      </>
-                    ))}
-                  </ul>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className={styles.sortBox}>
+                    <ul className={styles.ulBox}>
+                      {viewBox.map((item, index)=>(
+                        <>
+                          <button key={index} type="button"
+                            className={title === index ? styles.active: styles.link}
+                            onClick={() => setTitle(index)}>
+                            <span className={item.className}>
+                            </span>
+                            {item.title}
+                          </button>
+                        </>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
+                {filterActive ?(
+                  <>
+                    {hotelFtFiltered?.length > 0 ? (
+                      <div className={styles.itemContainer}>
+                        <ul className={styles.list} style={{display: title === 0 ? 'flex' : 'block'}}>
+                          {hotelFtFiltered.map((item, index)=>(
+                            <ListHotel key={index} hotel={item} index={index}/>
+                          ))}
+                        </ul>
+                      </div>
+                    ):(
+                      <div className={styles.itemContainer}>
+                        <ul className={styles.list} style={{display: title === 0 ? 'flex' : 'block'}}>
+                          <h1>По вашему запросу ничего не найденно измените параметры поиска</h1>
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                ):(
+                  <>
+                    {hotels?.length > 0 && (
+                      <div className={styles.itemContainer}>
+                        <ul className={styles.list} style={{display: title === 0 ? 'flex' : 'block'}}>
+                          {hotels.map((item, index)=>(
+                            <ListHotel key={index} hotel={item} index={index}/>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
-              {hotelFtFiltered?.length > 0 && (
-                <div className={styles.itemContainer}>
-                  <ul className={styles.list} style={{display: title === 0 ? 'flex' : 'block'}}>
-                    {hotelFtFiltered.map((item, index)=>(
-                      <ListHotel key={item.id} hotel={item} index={index}/>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </div>
       </div>
     </>
   );

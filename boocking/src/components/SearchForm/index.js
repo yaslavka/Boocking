@@ -1,30 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styles from './search.module.scss';
 import {Form} from 'reactstrap';
-import DatePicker from 'react-datepicker';
 import './index.css';
 import {Button} from 'react-bootstrap';
 import {useSelector} from 'react-redux';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
+import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
+import 'dayjs/locale/ru';
 
 function SearchForm({t, pathId}) {
   const match = useHistory();
   const cities = useSelector((state) => state.geo.allCities);
-  const [people, setPeople] = useState({label: '', value: 0});
-  const [child, setChild] = useState({label: '', value: 0});
-  const [search, setSearch] = useState({search: ''});
-  const [id, setId]=useState('');
+  const [people, setPeople] = useState({label: match?.location?.state?.people?.label || '', value: match?.location?.state?.people?.value || 0});
+  const [child, setChild] = useState({label: match.location.state?.child?.label || '', value: match.location.state?.child?.value || 0});
+  const [search, setSearch] = useState({search: match.location.state?.search || ''});
+  const [id, setId]=useState(match?.location?.state?.id ||'');
   const [startDateVisible, setStartDateVisible] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDates, setEndDates] = useState('');
+  const [startDate, setStartDate] = useState( match?.location?.state?.startDate||undefined);
+  const [endDates, setEndDates] = useState(match?.location?.state?.endDates ||undefined);
   const [inputAction, setInputAction] = useState(false);
   const path = match.location.pathname;
   const submitSignInForm =()=>{
-    match.push(`/search_hotel_home/${id}`, {endDates, startDate, people, child});
+    match.push(`/search_hotel_home/${id}`, {search: search.search, endDates: endDates?.$d, startDate: startDate?.$d, people, child, id: id});
   };
   const filterCiti = cities ?
         cities.filter((citi)=>citi.geo_city.toLowerCase().includes(search.search.toLowerCase())):[];
 
+  const reset = () => {
+    setId('');
+    setPeople({label: '', value: 0});
+    setChild({label: '', value: 0});
+    setStartDate(undefined);
+    setEndDates(undefined);
+    setSearch({search: ''});
+    match.replace({
+      pathname: match.location.pathname,
+      state: undefined,
+    });
+  };
+  useEffect(()=>{}, [startDate, endDates]);
   return (
     <>
       <div className={path !== `/search_hotel_home/${pathId}`? styles.search : styles.search2}>
@@ -43,37 +60,36 @@ function SearchForm({t, pathId}) {
               }}/>
             </div>
             <div>
-                            |
+              |
             </div>
-            <svg fill="#0094FF"
-              width="26"
-              focusable="false" viewBox="0 0 24 24"
-              data-testid="CalendarMonthOutlinedIcon">
-              <path
-                d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
-            </svg>
-            <DatePicker
-              selected={startDate}
-              placeholderText={t('searchForm.dateIn')}
-              onChange={(date) => setStartDate(date)}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'ru'}>
+              <DemoContainer components={[
+                'MobileDateTimePicker',
+              ]}>
+                <MobileDateTimePicker
+                  views={['day', 'month', 'year', 'hours', 'minutes', 'seconds']}
+                  label="Дата Заезда"
+                  onChange={setStartDate}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <div>
-                            |
+              |
             </div>
-            <svg fill="#0094FF"
-              width="26"
-              focusable="false" viewBox="0 0 24 24"
-              data-testid="CalendarMonthOutlinedIcon">
-              <path
-                d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
-            </svg>
-            <DatePicker
-              selected={endDates}
-              placeholderText={t('searchForm.dateOut')}
-              onChange={(date) => setEndDates(date)}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'ru'}>
+              <DemoContainer components={[
+                'MobileDateTimePicker',
+              ]}>
+                <MobileDateTimePicker
+                  views={['day', 'month', 'year', 'hours', 'minutes', 'seconds']}
+                  locale="ru"
+                  label="Дата Выезда"
+                  onChange={setEndDates}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <div>
-                            |
+              |
             </div>
             <div className={styles.main_search}>
               <div className={startDateVisible? 'dropdown dropdown--show':'dropdown'}>
@@ -172,8 +188,13 @@ function SearchForm({t, pathId}) {
               </div>
             </div>
             <Button type="button" color={'primary'} onClick={submitSignInForm}>
-                            найти
+              найти
             </Button>
+            {match.location.pathname !== '/' && (
+              <Button type="button" color={'primary'} onClick={reset}>
+                сброс
+              </Button>
+            )}
           </Form>
         </div>
         <section className={`${styles.section}`} style={ {display: inputAction ? 'flex': 'none'}}>

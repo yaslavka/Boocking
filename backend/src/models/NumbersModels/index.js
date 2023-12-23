@@ -6,6 +6,8 @@ const NumbersModels = sequelize.define('number', {
   nameNumber:{ type: DataTypes.STRING, allowNull: false },
   descriptionNumber:{ type: DataTypes.TEXT, defaultValue: null },
   imageNumber:{ type: DataTypes.STRING, defaultValue: null },
+  startDate:{ type: DataTypes.TEXT, defaultValue: null },
+  endDates:{ type: DataTypes.TEXT, defaultValue: null },
   typeNumber:{ type: DataTypes.STRING, allowNull: false },
   sleepingPlaces:{ type: DataTypes.DECIMAL(61), defaultValue: 0 },
   rooms:{ type: DataTypes.DECIMAL(61), defaultValue: 0 },

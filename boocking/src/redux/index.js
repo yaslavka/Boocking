@@ -12,6 +12,7 @@ import numberInfoReducer from './number.reducer';
 import messagesReducer from './message.reducer';
 import favoritesReducer from './favorites.reducer';
 import payReducer from './pay.reducer';
+import myObjectReducer from './myObject.reducer';
 
 const rootReducer = (history) =>
   combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = (history) =>
     reservation: reservationReducer,
     numberInfo: numberInfoReducer,
     pay: payReducer,
+    myObject: myObjectReducer,
     router: connectRouter(history),
   });
 

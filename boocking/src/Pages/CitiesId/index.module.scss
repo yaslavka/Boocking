@@ -1,3 +1,14 @@
+.bg{
+  width: auto;
+  $image-path:'../../assets/AM-015.jpg';
+  background:{
+    image: url($image-path);
+    size: cover;
+    position: center center;
+    repeat: no-repeat;
+    attachment: fixed;
+  }
+}
 .root{
   overflow: hidden;
 }

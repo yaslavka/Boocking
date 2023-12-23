@@ -54,6 +54,7 @@ class ReservationControllers {
   }
   async reservationBook(req, res){
     const { id, count, sum, startDate, endDates }=req.body
+    console.log(startDate)
     const { authorization } = req.headers;
     if(!authorization){
       return res.status(409).json({ message: 'вы не авторизованы' });

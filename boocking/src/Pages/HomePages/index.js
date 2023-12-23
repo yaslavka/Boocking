@@ -3,7 +3,6 @@ import {useSelector} from 'react-redux';
 import styles from './index.module.scss';
 import SearchForm from '../../components/SearchForm';
 import {useTranslation} from 'react-i18next';
-import bg from '../../assets/bg/sebastian-staines-uT6T6kernVo-unsplash.png';
 import Cities from '../../components/Cities';
 import Recommended from '../../components/Recommended';
 import Actions from '../../components/Actions';
@@ -16,14 +15,16 @@ function Home() {
   const actions = useSelector((state)=>state.recommended.actions);
   return (
     <>
-      <div style={{marginBottom: 150}}/>
-      <div className={styles.root}>
-        <img src={bg} alt={'tobook'} className={styles.root_pages}/>
-        <SearchForm t={t} cities={cities}/>
-        {cities && <Cities cities={cities} t={t}/>}
-        {recommended && <Recommended recommended={recommended} t={t}/>}
-        {actions && <Actions actions={actions} t={t}/>}
-        <Advansages t={t}/>
+      <div className={styles.bg}>
+        <div className={styles.root}>
+          <div className={styles.bg2}/>
+          <div style={{marginBottom: 150}}/>
+          <SearchForm t={t} cities={cities}/>
+          {cities && <Cities cities={cities} t={t}/>}
+          {recommended && <Recommended recommended={recommended} t={t}/>}
+          {actions && <Actions actions={actions} t={t}/>}
+          <Advansages t={t}/>
+        </div>
       </div>
     </>
   );

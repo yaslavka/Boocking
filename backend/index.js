@@ -1,5 +1,6 @@
 require("dotenv").config();
 //const fs = require("fs");
+const moment = require('moment')
 const http = require("http");
 const express = require("express");
 const app = express();
@@ -17,6 +18,7 @@ const NumberControllers = require('./src/Controllers/NumberControllers')
 const ReservationControllers = require('./src/Controllers/ReservationControllers')
 const FavoritesControllers = require('./src/Controllers/FavoritesControllers')
 const PayControllers = require('./src/Controllers/PayControllers')
+const { NumbersModels } = require('./src/models/NumbersModels')
 
 
 const storage = multer.diskStorage({
@@ -67,6 +69,23 @@ const start = async () => {
     })
     server.listen(80, () => console.log(`server started on port 80`));
     //httpsServer.listen(443, () => console.log(`server started on port 443`));
+    const allRecords = await NumbersModels.findAll();
+
+    const updates = allRecords.map((record) => {
+      const startOfDay = moment.utc(new Date(record.startDate)).add(1,'hours');
+      const endDate = moment.utc(new Date(record.startDate)).add(24, 'hours');
+
+      return NumbersModels.update(
+        {
+          startDate: startOfDay.format('llll').replace(/\s[APMapm]{2}$/, ''),
+          endDates: endDate.format('llll').replace(/\s[APMapm]{2}$/, '')
+        },
+        { where: { id: record.id } }
+      );
+    });
+
+    // Дождитесь завершения всех обновлений
+    await Promise.all(updates);
   }catch (error){
     console.log(error);
   }

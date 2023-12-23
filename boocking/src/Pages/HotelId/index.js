@@ -19,7 +19,9 @@ import {declOfNum} from '../../utils';
 import Number from '../../components/Number';
 import NumberChoice from '../../components/NumberChoice';
 import ReviewComponent from '../../components/ReviewComponent';
-import 'moment/locale/ru';
+import moment from 'moment';
+import 'moment/locale/en-in';
+import filter from 'lodash.filter';
 
 
 function HotelId() {
@@ -29,10 +31,12 @@ function HotelId() {
   const hotelId = useSelector((state) => state.hotelId.hotelId);
   const [morItem, setMorItem] = useState(3);
   const [morReview, setMorReview] = useState(3);
-  const [endDates, setEndDates] = useState('');
-  const [startDate, setStartDate] = useState('');
+  const [endDates, setEndDates] = useState();
+  const [startDate, setStartDate] = useState();
   const [room, setRoom] = useState(1);
   const [go, setGo] = useState(1);
+  const [filterActive, setFilterActive]=useState(false);
+  const [hotelFtFiltered, setHotelFiltered]=useState( []);
   useEffect(()=>{
     dispatch(hotelIdActions.hotelId(id));
   }, [dispatch, id]);
@@ -45,7 +49,7 @@ function HotelId() {
   const loadMorReview=()=>{
     setMorReview(morReview + hotelId.review.length);
   };
-  const broneceng = async (count, price, index, startDate, endDates)=>{
+  const broneceng = async (count, price, index, endDates)=>{
     const planetLength = +room;
     const result = await confirm({
       title: `${t('Подтвердите бронь')}`,
@@ -66,13 +70,50 @@ function HotelId() {
             id: index,
             count: room,
             sum: planetLength * +price,
-            startDate: startDate,
-            endDates: endDates,
+            startDate: moment(startDate?.$d).format('ddd, MMM D, YYYY h:mm A').replace(/\s[APMapm]{2}$/, ''),
+            endDates: moment(endDates?.$d).format('ddd, MMM D, YYYY h:mm A').replace(/\s[APMapm]{2}$/, ''),
             go: go,
           }));
     }
   };
+  const containsHotel=(hotel, child, startDate, endDates, people)=>{
+    const itemStartDate = +new Date(hotel.startDate);
+    const itemEndDate = +new Date(hotel.endDates);
+    const selectedStartDate = +new Date(startDate);
+    const selectedEndDate = +new Date(endDates);
+    return (
+      +hotel.count === Number(child) &&
+      itemStartDate >= selectedStartDate && itemEndDate <= selectedEndDate &&
+      +hotel.guests === people
+    );
+  };
 
+  useEffect(()=>{
+    const filterValue= filter(hotelId?.number, (item)=>{
+      return containsHotel(
+          item,
+          room,
+          startDate,
+          endDates,
+          go,
+      );
+    });
+    if (filterActive === true) {
+      if (filterValue?.length === 0) {
+        setHotelFiltered([]);
+      } else {
+        setHotelFiltered(filterValue);
+      }
+    }
+  }, [hotelId?.number, room, startDate, endDates, go]);
+
+  useEffect(()=>{
+    if (startDate && endDates) {
+      setFilterActive(true);
+    } else {
+      setFilterActive(false);
+    }
+  }, [startDate, endDates]);
   return (
     <>
       <div className={styles.root}>
@@ -114,33 +155,72 @@ function HotelId() {
                   setRoom={setRoom} setGo={setGo}
                 />
                 <section className={styles.section}>
-                  {slice && (
-                    <Row>
-                      {slice.map((number)=>{
-                        return (
-                          <>
-                            <Number
-                              key={number.id}
-                              number={number}
-                              broneceng={broneceng}
-                              hotelId={hotelId}
-                              startDate={startDate}
-                              endDates={endDates}
-                              room={room}
-                            />
-                          </>
-                        );
-                      })}
-                      <Button
-                        color={'primary'}
-                        type={'button'}
-                        onClick={LoadMor}
-                        className={styles.loadMor}>
-                        Показать все номера{' '}
-                        ({hotelId?.number.length} шт.){' '}
-                        <span className="fa fa-arrow-down"/>
-                      </Button>
-                    </Row>
+                  {filterActive ? (
+                    <>
+                      {hotelFtFiltered.length > 0 ? (
+                        <>
+                          <Row>
+                            {hotelFtFiltered.map((number)=>{
+                              return (
+                                <>
+                                  <Number
+                                    key={number.id}
+                                    number={number}
+                                    broneceng={broneceng}
+                                    hotelId={hotelId}
+                                    startDate={startDate}
+                                    endDates={endDates}
+                                    room={room}
+                                  />
+                                </>
+                              );
+                            })}
+                            <Button
+                              color={'primary'}
+                              type={'button'}
+                              onClick={LoadMor}
+                              className={styles.loadMor}>
+                              Показать все номера{' '}
+                              ({hotelId?.number.length} шт.){' '}
+                              <span className="fa fa-arrow-down"/>
+                            </Button>
+                          </Row>
+                        </>
+                      ):(
+                        <h1>По вашему запросу ничего не найденно измените параметры поиска</h1>
+                      )}
+                    </>
+                  ):(
+                    <>
+                      {slice && (
+                        <Row>
+                          {slice.map((number)=>{
+                            return (
+                              <>
+                                <Number
+                                  key={number.id}
+                                  number={number}
+                                  broneceng={broneceng}
+                                  hotelId={hotelId}
+                                  startDate={startDate}
+                                  endDates={endDates}
+                                  room={room}
+                                />
+                              </>
+                            );
+                          })}
+                          <Button
+                            color={'primary'}
+                            type={'button'}
+                            onClick={LoadMor}
+                            className={styles.loadMor}>
+                            Показать все номера{' '}
+                            ({hotelId?.number.length} шт.){' '}
+                            <span className="fa fa-arrow-down"/>
+                          </Button>
+                        </Row>
+                      )}
+                    </>
                   )}
                 </section>
                 <div style={{fontWeight: 800, fontSize: 30, color: '#6926ac', textAlign: 'center'}}>

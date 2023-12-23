@@ -9,7 +9,7 @@ function NavBarHotelId() {
   return (
     <>
       <div>
-        <SearchFormHotelId/>
+        {/* <SearchFormHotelId/>*/}
         <div className={styles.sidebarSearchForms}>
           <YMaps>
             <Map style={{borderWidth: 2, borderColor: '#0d6efd4a', maxWidth: 285, width: '100%', height: 500, borderRadius: 10, overflow: 'hidden'}} defaultState={{center: [55.751574, 37.573856], zoom: 9}}/>

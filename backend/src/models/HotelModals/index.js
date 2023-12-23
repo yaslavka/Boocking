@@ -9,6 +9,8 @@ const HotelModals =sequelize.define('hotel',{
   requisitesPay:{ type: DataTypes.STRING, allowNull: false },
   phonePay:{ type: DataTypes.STRING, allowNull: false },
   imageHotel:{ type: DataTypes.STRING, allowNull: false },
+  startDate:{ type: DataTypes.TEXT, defaultValue: null },
+  endDates:{ type: DataTypes.TEXT, defaultValue: null },
   wifi:{ type: DataTypes.BOOLEAN, defaultValue: false },
   breakfast:{ type: DataTypes.BOOLEAN, defaultValue: false },
   swimmingPool:{ type: DataTypes.BOOLEAN, defaultValue: false },

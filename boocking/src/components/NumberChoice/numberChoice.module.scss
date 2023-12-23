@@ -15,7 +15,25 @@
 }
 .dtaPicker{
   border: 1px solid #0d6efd;
-  padding: 12px;
+  padding: 15px;
+  margin-inline: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  & input{
+    padding-inline: 10px;
+  }
+  & select{
+    padding-inline: 10px;
+    border: none;
+    & option{
+      border: none;
+    }
+  }
+}
+
+.dtatPicker{
+  padding: 8px;
   margin-inline: 10px;
   border-radius: 10px;
   display: flex;
