@@ -22,11 +22,8 @@ const { NumbersModels } = require('./src/models/NumbersModels')
 
 
 const storage = multer.diskStorage({
-  destination(req, file, callback) {
-    callback(null, './files/images');
-  },
   filename(req, file, callback) {
-    callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
+    callback(null, file.originalname);
   },
 });
 const upload = multer({ storage });
@@ -50,8 +47,16 @@ app.get('/api/actions', RecommendedControllers.actions)
 app.get('/api/hotel_id', HotelControllers.hotelId)
 app.get('/api/citi_id', HotelControllers.citiId)
 app.get('/api/object', HotelControllers.myObject)
+app.post('/api/hotel_add', HotelControllers.myObjectAdd)
+app.post('/api/hotel_edit', HotelControllers.hotelEdit)
 app.post('/api/upload_mages_hotel', upload.single('file'), HotelControllers.uploadImagesHotel)
+app.post('/api/upload_album_hotel', upload.array('images'), HotelControllers.uploadAlbumImagesHotel)
 app.get('/api/number_id', NumberControllers.numberId)
+app.get('/api/number_manager', NumberControllers.numbersManager)
+app.post('/api/number_edit', NumberControllers.numberEdit)
+app.post('/api/number_add', NumberControllers.numberAdd)
+app.post('/api/number_manager_image', upload.single('file'), NumberControllers.uploadImageNumber)
+app.post('/api/number_manager_album', upload.array('images'), NumberControllers.uploadAlbumNumber)
 app.get('/api/reservation', ReservationControllers.reservation)
 app.get('/api/reservation_manager', ReservationControllers.reservationManager)
 app.post('/api/reservation_info', ReservationControllers.reservationInfo)
@@ -70,23 +75,23 @@ const start = async () => {
     })
     server.listen(80, () => console.log(`server started on port 80`));
     //httpsServer.listen(443, () => console.log(`server started on port 443`));
-    const allRecords = await NumbersModels.findAll();
-
-    const updates = allRecords.map((record) => {
-      const startOfDay = moment.utc(new Date(record.startDate)).add(1,'hours');
-      const endDate = moment.utc(new Date(record.startDate)).add(24, 'hours');
-
-      return NumbersModels.update(
-        {
-          startDate: startOfDay.format('llll').replace(/\s[APMapm]{2}$/, ''),
-          endDates: endDate.format('llll').replace(/\s[APMapm]{2}$/, '')
-        },
-        { where: { id: record.id } }
-      );
-    });
-
-    // Дождитесь завершения всех обновлений
-    await Promise.all(updates);
+    // const allRecords = await NumbersModels.findAll();
+    //
+    // const updates = allRecords.map((record) => {
+    //   const startOfDay = moment.utc(new Date(record.startDate)).add(1,'hours');
+    //   const endDate = moment.utc(new Date(record.startDate)).add(24, 'hours');
+    //
+    //   return NumbersModels.update(
+    //     {
+    //       startDate: startOfDay.format('llll').replace(/\s[APMapm]{2}$/, ''),
+    //       endDates: endDate.format('llll').replace(/\s[APMapm]{2}$/, '')
+    //     },
+    //     { where: { id: record.id } }
+    //   );
+    // });
+    //
+    // // Дождитесь завершения всех обновлений
+    // await Promise.all(updates);
   }catch (error){
     console.log(error);
   }

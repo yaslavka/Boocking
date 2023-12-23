@@ -1,3 +1,19 @@
+.fi{
+  & fieldset{
+    border-color: white;
+    color: white;
+    width: 100%;
+  }
+  & label{
+    color: white;
+  }
+  & input {
+    color: white;
+  }
+  border-color: white;
+  color: white;
+}
+
 .title{
   text-align: center;
   font-weight: bold;
@@ -7,7 +23,6 @@
 .imagesWrapper{
   display: flex;
   align-items: center;
-  flex-direction: column;
   justify-content: center;
   margin-bottom: 15px;
 }
@@ -16,7 +31,7 @@
   width: 100%;
 }
 .imagesWrapperUpload{
-  margin: 0 auto;
+
 }
 .imagesContainer {
   font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -41,7 +56,6 @@
   border-radius: 4px;
   cursor: pointer;
   padding:14px;
-  margin: 0 auto;
 }
 .radioContainer{
   display: flex;

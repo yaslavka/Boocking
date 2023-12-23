@@ -12,6 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .hover_zoom:before{z-index: 1}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

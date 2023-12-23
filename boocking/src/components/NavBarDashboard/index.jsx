@@ -109,7 +109,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
               <div className={styles.subNav}>
                 <div className={styles.subNavLink}><Link to={routesLik.myHotel}>Мои отели</Link></div>
                 <div className={styles.subNavLink}><Link to={routesLik.hotelAdd}>Добавить отель</Link></div>
-                <div className={styles.subNavLink}><Link to={routesLik.myHotelAddNumber}>Мои номера</Link></div>
+                <div className={styles.subNavLink}><Link to={routesLik.myHotelAllNumber}>Мои номера</Link></div>
                 <div className={styles.subNavLink}><Link to={routesLik.myHotelAddNumber}>добавить номера</Link></div>
               </div>
             )}

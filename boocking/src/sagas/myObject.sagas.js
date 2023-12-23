@@ -15,8 +15,25 @@ export function* myObject() {
     toast.error(error.message);
   }
 }
+
+export function* myObjectAdd(action) {
+  try {
+    const response = yield call(api.myObjectAdd, action.payload);
+    if (response) {
+      toast.success(response.message);
+      if (response.message === 'Новый отель успешно добавлен теперь добавте номера и фото') {
+        yield put(actions.myObjectAddSuccess({id: response.id}));
+        const myObject = yield call(api.myObject);
+        yield put(actions.myObjectInfoSuccess(myObject));
+      }
+    }
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
 export default function* myObjectSaga() {
   yield all([
     takeEvery(ActionTypes.MY_OBJECT_INFO_REQUEST, myObject),
+    takeEvery(ActionTypes.MY_OBJECT_ADD_REQUEST, myObjectAdd),
   ]);
 }

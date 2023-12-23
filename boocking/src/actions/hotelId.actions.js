@@ -27,3 +27,8 @@ export const hotelAdd = (values) => ({
   type: ActionTypes.HOTEL_ADD_REQUEST,
   payload: values,
 });
+
+export const uploadImagesAlbum = (values) => ({
+  type: ActionTypes.UPLOAD_ALBUM_REQUEST,
+  payload: values,
+});

@@ -2,9 +2,9 @@ import {takeEvery, call, put, all} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 import * as ActionTypes from '../constants/hotelId.constants';
 import * as actions from '../actions/hotelId.actions';
-import * as actionsUser from '../actions/app.actions';
+import * as actionsUser from '../actions/myObject.actions';
 import * as api from '../api/hotelId.api';
-import * as apiUser from '../api/app.api';
+import * as apiUser from '../api/myObject.api';
 
 const uploadFromData = (action)=>{
   return new Promise((resolve, reject)=>{
@@ -12,6 +12,22 @@ const uploadFromData = (action)=>{
     formData.append('file', action.imageHotel);
     formData.append('dataHotel', JSON.stringify({id: action.id}));
     const response = api.uploadImages(formData);
+    if (response.message === 'Ошибка загрузки Изображения') {
+      reject(response);
+    } else {
+      resolve(response);
+    }
+  });
+};
+
+const uploadAlbumFromData = (action)=>{
+  return new Promise((resolve, reject)=>{
+    const formData = new FormData();
+    action.album.forEach((file)=>{
+      formData.append('images', file);
+    });
+    formData.append('dataHotel', JSON.stringify({id: action.id}));
+    const response = api.uploadAlbumImages(formData);
     if (response.message === 'Ошибка загрузки Изображения') {
       reject(response);
     } else {
@@ -49,6 +65,23 @@ export function* uploadImages(action) {
   }
 }
 
+export function* uploadAlbumImag(action) {
+  try {
+    const response = yield call(uploadAlbumFromData, action.payload);
+    if (response.message === 'Изображения успешно добавленны') {
+      toast.success(response.message);
+      const hotelId = yield call(api.hotelId, action.payload.id);
+      if (hotelId) {
+        yield put(actions.hotelIdSuccess(hotelId));
+      }
+    } else {
+      toast.error(response.message);
+    }
+  } catch (error) {
+    toast.error('Ошибка сервера', error.message);
+  }
+}
+
 export function* hotelEdit(action) {
   try {
     const response = yield call(api.hotelEdit, action.payload);
@@ -69,9 +102,9 @@ export function* hotelAdd(action) {
     const response = yield call(api.hotelAdd, action.payload);
     if (response) {
       toast.success(response.message);
-      const user = yield call(apiUser.userInfo);
+      const user = yield call(apiUser.myObject);
       if (user) {
-        yield put(actionsUser.userInfoSuccess(user));
+        yield put(actionsUser.myObjectInfoSuccess(user));
       }
     }
   } catch (error) {
@@ -86,5 +119,6 @@ export default function* hotelIdSaga() {
     takeEvery(ActionTypes.UPLOAD_IMAGES_REQUEST, uploadImages),
     takeEvery(ActionTypes.HOTEL_ADD_REQUEST, hotelAdd),
     takeEvery(ActionTypes.HOTEL_ID_EDIT_REQUEST, hotelEdit),
+    takeEvery(ActionTypes.UPLOAD_ALBUM_REQUEST, uploadAlbumImag),
   ]);
 }

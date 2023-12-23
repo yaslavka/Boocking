@@ -15,6 +15,9 @@ import HotelAdd from './Pages/PrivatePages/HotelAdd';
 import ReviewPages from './Pages/PrivatePages/ReviewPages';
 import EditProfile from './Pages/PrivatePages/EditProfile';
 import Wallet from './Pages/PrivatePages/Wallet';
+import MyNumbers from './Pages/PrivatePages/MyNumbers';
+import MyNumbersEdit from './Pages/PrivatePages/MyNumbersEdit';
+import NumberAdd from './Pages/PrivatePages/NumberAdd';
 
 export const publicRouteConfig = [
   {
@@ -156,6 +159,25 @@ export const privateRouteConfig = [
     id: 16,
     path: routesLik.wallet,
     component: Wallet,
+    exact: true,
+  },
+  {
+    id: 17,
+    path: routesLik.myHotelAllNumber,
+    component: MyNumbers,
+    exact: true,
+  },
+  {
+    id: 18,
+    path: routesLik.myHotelAddNumberEditId,
+    component: MyNumbersEdit,
+    exact: true,
+  },
+
+  {
+    id: 18,
+    path: routesLik.myHotelAddNumber,
+    component: NumberAdd,
     exact: true,
   },
 ];

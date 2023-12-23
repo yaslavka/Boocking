@@ -12,7 +12,7 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 import RadioInput from '../../../components/RadioInput';
 import {toast} from 'react-toastify';
-import {Button} from 'reactstrap';
+import {Button, Col, Row} from 'reactstrap';
 // import CustomizedHook from '../../../components/AutoComplette/Autucomlet';
 // import CustomizedHookno from '../../../components/AutoComplette/no';
 
@@ -33,6 +33,8 @@ function MyaHotelEdit() {
   const [addressValue, setAddressValue]=useState('');
   const [pay, setPay]=useState(hotelId && hotelId.pay);
   const [error, setError] = useState(null);
+  const [albumsphoto, setAlbumsphoto] = useState([]);
+  const [album, setAlbum] = useState([]);
 
   useEffect(()=>{
     if (imageHotel !== null) {
@@ -77,9 +79,47 @@ function MyaHotelEdit() {
     setLatitude(lat.lng);
     setAddress(res[0].formatted_address);
   };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    const selectedFilesArray = Array.from(files);
+    setAlbum((prevState) => prevState.concat(files));
+    const imagesArray = selectedFilesArray.map((file) => {
+      return URL.createObjectURL(file);
+    });
+    setAlbumsphoto((previousImages) => previousImages.concat(imagesArray));
+  };
+
+  const onSelectFile = (event) => {
+    event.preventDefault();
+    const selectedFiles = event.target.files;
+    const selectedFilesArray = Array.from(selectedFiles);
+    setAlbum((prevState) => prevState.concat(selectedFilesArray));
+    const imagesArray = selectedFilesArray.map((file) => {
+      return URL.createObjectURL(file);
+    });
+    setAlbumsphoto((previousImages) => previousImages.concat(imagesArray));
+
+
+    // FOR BUG IN CHROME
+    event.target.value = '';
+  };
+
+  const albumUpload = (e)=>{
+    e.preventDefault();
+    dispatch(hotelIdActions.uploadImagesAlbum({id: id, album: album}));
+  };
+
+  function deleteHandler(image) {
+    setAlbumsphoto(albumsphoto.filter((e) => e !== image));
+    URL.revokeObjectURL(image);
+  }
+
   const handleChange = (e) => {
     setAddressValue(e);
   };
+  console.log(album);
   const onSubmit =useCallback((credentials)=>{
     dispatch(hotelIdActions.hotelIdEdit({
       nameHotel: credentials.nameHotel || hotelId?.nameHotel,
@@ -199,7 +239,7 @@ function MyaHotelEdit() {
           </div>
           <Formik initialValues={initialValues} onSubmit={onSubmit}>
             {()=>(
-              <Form>
+              <Form style={{marginBottom: 20}}>
                 <TextInput
                   name="nameHotel"
                   title={'Имя Отеля'}
@@ -364,6 +404,62 @@ function MyaHotelEdit() {
               </Form>
             )}
           </Formik>
+          <form>
+            <div>
+              {albumsphoto.length > 0 && (
+                <Row>
+                  {albumsphoto.map((item, index)=>(
+                    <Col lg={4} md={5} key={index} style={{marginBottom: 10}}>
+                      <div className={styles.imagesWrapperUpload}>
+                        <div className={styles.imagesContainer}>
+                          <div className={styles.images}
+                            onClick={() => {
+                              deleteHandler(item);
+                            }}
+                          >
+                            <img src={item} alt={image} height={'auto'} width={300}/>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              )}
+            </div>
+            <div className={styles.imagesWrapper} onDrop={handleDrop}
+              onDragOver={(e) => e.preventDefault()}>
+              <div>
+                <div className={styles.imagesWrapperTitle}>
+                  <p className="css-1pyrx33"
+                    style={
+                      {fontWeight: 400, fontSize: 'calc(1.142rem)', textTransform: 'none', textAlign: 'center'}}
+                  >
+                    Добавте фото в альбом отеля/или перетащите с пк
+                  </p>
+                </div>
+                <div className={styles.imagesWrapperUpload}>
+                  <div className={styles.imagesContainer}>
+                    <div className={styles.images}
+                      onClick={() => document.querySelector('.input-upload-album').click()}
+                    >
+                      <img src={'https://www.w3schools.com/howto/img_avatar.png'} alt={''} height={'auto'} width={200} />
+                    </div>
+                    <input
+                      hidden
+                      type={'file'}
+                      accept="image/*"
+                      className="input-upload-album"
+                      multiple
+                      onChange={onSelectFile}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Button color={'primary'} block type={'submit'} onClick={albumUpload}>
+              Загрузить
+            </Button>
+          </form>
         </>
       )}
     </PrivateNavbar>

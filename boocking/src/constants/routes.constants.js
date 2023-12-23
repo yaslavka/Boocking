@@ -11,7 +11,7 @@ const routesLik = Object.freeze({
   myHotel: '/my_hotel',
   myHotelAddNumber: '/my_hotel/add_number',
   myHotelAddNumberEdit: '/my_hotel/add_number-edit',
-  myHotelAddNumberEditId: '/my_hotel/add_number-edit/:id',
+  myHotelAddNumberEditId: '/my_hotel/number-edit/:id',
   myHotelAllNumber: '/my_hotel/all_number',
   reservation: '/reservation/:id',
   mySites: '/my-sites',

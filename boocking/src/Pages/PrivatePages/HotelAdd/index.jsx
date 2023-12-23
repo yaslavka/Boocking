@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PrivateNavbar from '../../../components/PrivateNavbar';
 import {Formik, Form} from 'formik';
 import styles from './myHotelEdit.module.scss';
@@ -12,12 +12,15 @@ import PlacesAutocomplete, {
 import RadioInput from '../../../components/RadioInput';
 import {toast} from 'react-toastify';
 import {Button} from 'reactstrap';
+import {useHistory} from 'react-router-dom';
 // import CustomizedHook from '../../../components/AutoComplette/Autucomlet';
 // import CustomizedHookno from '../../../components/AutoComplette/no';
 
 function HotelAdd() {
   const dispatch =useDispatch();
   const pRef = useRef();
+  const location = useHistory();
+  const addSuccess = useSelector((state) => state.myObject.addSuccess);
   const [active, setActive]=useState(false);
   const [wifi, setWifi]=useState(false);
   const [breakfast, setBreakfast]=useState(false);
@@ -28,6 +31,12 @@ function HotelAdd() {
   const [geoCityId, setGeoCityId]=useState(null);
   const [pay, setPay]=useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(()=>{
+    if (addSuccess && addSuccess?.id) {
+      location.push(`/hotel_edit/${addSuccess?.id}`);
+    }
+  }, [addSuccess?.id]);
 
   const initialValues = useMemo(
       () => ({
