@@ -1,17 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './navBarDashboard.module.scss';
 import {Link} from 'react-router-dom';
 import routesLik from '../../constants/routes.constants';
 import * as actions from '../../actions/auth.actions';
-import {useDispatch} from 'react-redux';
+import * as objectActions from '../../actions/myObject.actions';
+import {useDispatch, useSelector} from 'react-redux';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 function NavBarDashboard({userInfo, reservation, messages, reservationManager, setLifting, setHighlight, setPremium, setPackage, setVip, messagesAdmin}) {
   const dispatch = useDispatch();
+  const objects = useSelector((state) => state.myObject.object);
   const [object, setObject] =useState(false);
   const [mySites, setMySites] =useState(false);
   const [promotions, setPromotions] =useState(false);
-  const reviewLength = userInfo && userInfo?.hotel[0]?.review;
+  const reviewLength = objects && objects[0]?.review;
+
+  useEffect(()=>{
+    dispatch(objectActions.myObjectInfo());
+  }, [dispatch]);
+
   const LogOuts = () => {
     dispatch(actions.signOutSuccess());
     localStorage.clear();
@@ -78,7 +85,7 @@ function NavBarDashboard({userInfo, reservation, messages, reservationManager, s
               </Link>
               <div className={styles.navLinkFlexArrow}>
                 <div className={styles.navLinkSpan}>
-                  <span>{userInfo.hotel.length}</span>
+                  <span>{objects && objects?.length}</span>
                 </div>
                 {!object ? (
                   <svg onClick={()=>setObject(true)}

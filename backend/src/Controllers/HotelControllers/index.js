@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { PromotionHotelModels } = require('../../models/PromotionHotelModels')
 const { Op } = require("sequelize");
 const { UserModels } = require("../../models/UserModels");
 const { ReviewModels } = require("../../models/ReviewModels");
@@ -50,6 +51,26 @@ class HotelControllers{
           let update = { imageHotel: filename }
           await HotelModals.update(update, { where:{ id:hotel.id } })
           return res.status(200).json({ message: 'Изображение успешно обновленно' })
+        }
+      }
+    }
+  }
+  async myObject(req, res){
+    const { authorization } = req.headers;
+    if(!authorization){
+      return res.status(409).json({ message: 'Ошибка загрузки Изображения' });
+    }else {
+      const token = authorization.slice(7);
+      const { username } = jwt.decode(token);
+      let user = await UserModels.findOne({ where:{ username: username, isManager: true } });
+      if (!user) {
+        return res.status(409).json({ message: "Ошибка загрузки Изображения" })
+      }else {
+        const hotel = await HotelModals.findAll({ where:{ userId:user.id }, include:[ { model: ReviewModels, as:'review' }, { model: PromotionHotelModels, as: 'promotionHotel' }, { model: AlbumHotel, as:'albumHotel' }, { model: NumbersModels, as: 'number', include:[ { model: AlbumNumbers, as: 'albumNumber' } ] } ] })
+        if (!hotel.length){
+          return res.status(200).json([])
+        }else {
+          return res.status(200).json(hotel)
         }
       }
     }

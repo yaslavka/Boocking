@@ -6,14 +6,14 @@ import {Row} from 'reactstrap';
 import MyHotelsList from '../../../components/MyHotelsList';
 
 function MyaHotels() {
-  const userInfo = useSelector((state) => state.app.user);
+  const objects = useSelector((state) => state.myObject.object);
   return (
     <>
       <PrivateNavbar>
-        {userInfo?.hotel?.length > 0 && (
+        {objects?.length > 0 && (
           <div className={styles.hotels}>
             <Row className={styles.row_images}>
-              {userInfo.hotel.map((hotel, index)=>(
+              {objects.map((hotel, index)=>(
                 <MyHotelsList key={index} hotel={hotel}/>
               ))}
             </Row>

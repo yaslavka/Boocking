@@ -9,6 +9,7 @@ import numberInfoSaga from './number.sagas';
 import messageSaga from './message.sagas';
 import favoritesSaga from './favorites.sagas';
 import paySaga from './pay.sagas';
+import myObjectSaga from './myObject.sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     messageSaga(),
     favoritesSaga(),
     paySaga(),
+    myObjectSaga(),
   ]);
 }

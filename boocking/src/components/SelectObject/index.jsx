@@ -13,7 +13,6 @@ import ReservationList from '../ReservationList';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function SelectObject({object, index, reservationManager, userInfo, user}) {
-  console.log(object && object);
   const [lifting, setLifting] = useState(false);
   const [highlight, setHighlight] = useState(false);
   const [premium, setPremium] = useState(false);
@@ -70,15 +69,15 @@ function SelectObject({object, index, reservationManager, userInfo, user}) {
       <Row>
         <Col xl={user ? 11 : 9}>
           {user ?(
-                            <section className={`${styles.fullRow}`}>
-                              <div className={styles.container}>
-                                <ReservationList item={object} key={index}/>
-                              </div>
-                            </section>
+            <section className={`${styles.fullRow}`}>
+              <div className={styles.container}>
+                <ReservationList item={object} key={index}/>
+              </div>
+            </section>
 
-                    ):(
-                        <ListHotel key={index} hotel={object} index={index}/>
-                    )}
+          ):(
+            <ListHotel key={index} hotel={object} index={index}/>
+            )}
         </Col>
         {!user && (
           <>

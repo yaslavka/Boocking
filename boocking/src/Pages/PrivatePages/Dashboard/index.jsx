@@ -26,11 +26,11 @@ function Dashboard() {
   const userInfo = useSelector((state) => state.app.user);
   const reservation = useSelector((state) => state.reservation.reservation);
   const reservationManager = useSelector((state) => state.reservation.reservationManager);
+  const object = useSelector((state) => state.myObject.object);
   const [value, setValue] =useState();
   const [valueSlice] =useState(1);
-  const objectManager = userInfo && userInfo.hotel.slice(0, valueSlice);
+  const objectManager = object && object.slice(0, valueSlice);
   const reservationSlice = reservation?.length > 0 && reservation.slice(0, valueSlice);
-
   return (
     <>
       {userInfo && (
@@ -54,7 +54,7 @@ function Dashboard() {
                 <option disabled defaultValue={'название Отеля'} value='название Отеля'>название Отеля</option>
                 {userInfo.isManager ? (
                   <>
-                    {userInfo.hotel.map((hotel, index)=>(
+                    {object && object.map((hotel, index)=>(
                       <option key={index} id={hotel.id} value={JSON.stringify(hotel)}>{hotel.nameHotel}</option>
                     ))}
                   </>
