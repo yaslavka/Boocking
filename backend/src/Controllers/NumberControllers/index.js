@@ -187,11 +187,9 @@ class NumberControllers {
               if (result && result.secure_url) {
                 let update = { imageNumber: result.secure_url }
                 await NumbersModels.update(update, { where: { id: number.id } })
-                return res.status(200).json({ message: 'Изображение успешно обновленно' })
-              }else {
-                return res.status(409).json(error)
               }
             });
+            return res.status(200).json({ message: 'Изображение успешно обновленно' })
           }
         }
       }catch (error){
@@ -230,15 +228,13 @@ class NumberControllers {
                     albumNumber:result.secure_url,
                     numberId:number.id,
                   })
-                  return res.status(200).json(
-                    { message: 'изображения успешно добавленны' }
-                    )
-                }else {
-                  console.log(error)
-                  return res.status(409).json(error)
                 }
               });
+
             }
+            return res.status(200).json(
+              { message: 'изображения успешно добавленны' }
+            )
           }
         }
       }catch (error){

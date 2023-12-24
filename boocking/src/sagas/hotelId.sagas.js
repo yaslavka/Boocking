@@ -51,14 +51,12 @@ export function* hotelId(action) {
 export function* uploadImages(action) {
   try {
     const response = yield call(uploadFromData, action.payload);
-    if (response.message === 'Изображение успешно обновленно') {
+    if (response) {
       toast.success(response.message);
       const hotelId = yield call(api.hotelId, action.payload.id);
       if (hotelId) {
         yield put(actions.hotelIdSuccess(hotelId));
       }
-    } else {
-      toast.error(response.message);
     }
   } catch (error) {
     toast.error('Ошибка сервера', error.message);
@@ -68,7 +66,7 @@ export function* uploadImages(action) {
 export function* uploadAlbumImag(action) {
   try {
     const response = yield call(uploadAlbumFromData, action.payload);
-    if (response.message === 'Изображения успешно добавленны') {
+    if (response) {
       toast.success(response.message);
       const hotelId = yield call(api.hotelId, action.payload.id);
       if (hotelId) {

@@ -69,10 +69,9 @@ class HotelControllers{
                 let update = { imageHotel: result.secure_url }
                 await HotelModals.update(update, { where: { id: hotel.id } })
                 return res.status(200).json({ message: 'Изображение успешно обновленно' })
-              }else {
-                return res.status(409).json(error)
               }
             });
+            return res.status(200).json({ message: 'Изображение успешно обновленно' })
           }
         }
       }catch (error){

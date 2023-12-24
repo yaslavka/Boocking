@@ -160,12 +160,13 @@ function CitiesId() {
     setValue(newValue);
   };
   useEffect(()=>{
-    if (value[1] >0 || location?.location.state?.child?.value > 0 && location?.location?.state?.startDate && location?.location?.state?.endDates && location?.location?.state?.people?.value > 0) {
+    if (value[1] >0 || hotelFtFiltered?.length > 0 || location?.location.state?.child?.value > 0 && location?.location?.state?.startDate && location?.location?.state?.endDates && location?.location?.state?.people?.value > 0) {
       setFilterActive(true);
     } else {
       setFilterActive(false);
     }
-  }, [hotelFtFiltered, filterActive, value[1], value, location?.location.state?.child?.value, location?.location?.state?.startDate, location?.location?.state?.endDates, location?.location?.state?.people?.value, location.location.state]);
+  }, [value[1], hotelFtFiltered?.length, value, location?.location.state?.child?.value, location?.location?.state?.startDate, location?.location?.state?.endDates, location?.location?.state?.people?.value, location.location.state]);
+
   return (
     <>
       <div className={styles.bg}>
