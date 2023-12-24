@@ -84,7 +84,7 @@ function MyaHotelEdit() {
     event.preventDefault();
     const files = event.dataTransfer.files;
     const selectedFilesArray = Array.from(files);
-    setAlbum((prevState) => prevState.concat(files));
+    setAlbum((prevState) => prevState.concat(selectedFilesArray));
     const imagesArray = selectedFilesArray.map((file) => {
       return URL.createObjectURL(file);
     });

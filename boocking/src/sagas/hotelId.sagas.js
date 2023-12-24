@@ -74,8 +74,6 @@ export function* uploadAlbumImag(action) {
       if (hotelId) {
         yield put(actions.hotelIdSuccess(hotelId));
       }
-    } else {
-      toast.error(response.message);
     }
   } catch (error) {
     toast.error('Ошибка сервера', error.message);

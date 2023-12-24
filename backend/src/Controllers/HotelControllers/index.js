@@ -194,13 +194,10 @@ class HotelControllers{
                     albumHotel:result.secure_url,
                     hotelId:hotel.id,
                   })
-                  return res.status(200).json({ message: 'изображения успешно добавленны' })
-                }else {
-                  console.log(error)
-                  return res.status(409).json(error)
                 }
               });
             }
+            return  res.status(200).json({ message: 'изображения успешно добавленны' })
           }
         }
       }catch (error){
