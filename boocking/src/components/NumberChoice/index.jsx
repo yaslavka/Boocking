@@ -1,18 +1,15 @@
 import React from 'react'
 import styles from './numberChoice.module.scss'
 import { Button, Form } from 'reactstrap'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
 //import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
+import DatePicker from 'react-datepicker'
 
 function NumberChoice({
   setEndDates,
-  //endDates,
+  endDates,
   setStartDate,
-  //startDate,
+  startDate,
   setGo,
 }) {
   const reset = () => {
@@ -25,48 +22,21 @@ function NumberChoice({
       <section className={styles.numberChoiceContainer}>
         <div className={styles.numberChoiceTitle}>Выбор номера:</div>
         <Form className={styles.numberChoiceForm}>
-          <article className={styles.dtatPicker}>
-            <LocalizationProvider
-              dateAdapter={AdapterDayjs}
-              adapterLocale={'ru'}
-            >
-              <DemoContainer components={['MobileDateTimePicker']}>
-                <MobileDateTimePicker
-                  views={[
-                    'day',
-                    'month',
-                    'year',
-                    'hours',
-                    'minutes',
-                    'seconds',
-                  ]}
-                  label="Дата Заезда"
-                  onChange={setStartDate}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
+          <article className={styles.dtaPicker}>
+            <DatePicker
+              locale="ru"
+              selected={startDate}
+              placeholderText="Дата Заезда"
+              onChange={(date) => setStartDate(date)}
+            />
           </article>
-          <article>
-            <LocalizationProvider
-              dateAdapter={AdapterDayjs}
-              adapterLocale={'ru'}
-            >
-              <DemoContainer components={['MobileDateTimePicker']}>
-                <MobileDateTimePicker
-                  views={[
-                    'day',
-                    'month',
-                    'year',
-                    'hours',
-                    'minutes',
-                    'seconds',
-                  ]}
-                  locale="ru"
-                  label="Дата Выезда"
-                  onChange={setEndDates}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
+          <article className={styles.dtaPicker}>
+            <DatePicker
+              locale="ru"
+              selected={endDates}
+              placeholderText="Дата Выезда"
+              onChange={(date) => setEndDates(date)}
+            />
           </article>
           <article className={styles.dtaPicker}>
             <svg
