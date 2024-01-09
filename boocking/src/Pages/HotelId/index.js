@@ -79,6 +79,7 @@ function HotelId() {
             .format('ll')
             .replace(/\s[APMapm]{2}$/, ''),
           go: go,
+          hotelId: hotelId.id,
         }),
       )
     }

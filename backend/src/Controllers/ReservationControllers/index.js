@@ -54,7 +54,6 @@ class ReservationControllers {
   }
   async reservationBook(req, res){
     const { id, count, sum, startDate, endDates }=req.body
-    console.log(startDate)
     const { authorization } = req.headers;
     if(!authorization){
       return res.status(409).json({ message: 'вы не авторизованы' });
@@ -66,10 +65,11 @@ class ReservationControllers {
         if (!user) {
           return res.status(409).json({ message: 'вы не авторизованы' });
         }else {
-          const numberId = await NumbersModels.findOne({ where:{ id:id } })
+          const numberId = await NumbersModels.findOne({ where:{ id:id, active: true } })
           if (!numberId){
             return res.status(409).json({ message: 'Невозможно выполнить' });
           }else {
+            await NumbersModels.update({ active: false }, { where:{ id:numberId.id } })
             const hotel = await HotelModals.findOne({ where:{ id: numberId.hotelId } })
             if (+user.balance < +sum){
               const emailLogin = 'ivakinSergo91@yandex.ru'
@@ -104,7 +104,6 @@ class ReservationControllers {
                   console.log(error);
                   return res.status(500).json({ message:error })
                 } else {
-                  console.log('Email sent: ' + info.response);
                   return res.status(500).json({ message:'Email sent: ' + info.response })
                 }
               });
@@ -147,6 +146,7 @@ class ReservationControllers {
           if (!reservation){
             return res.status(409).json({ message: 'вы не авторизованы' });
           }else {
+            await NumbersModels.update({ active:true }, { where:{ id:reservation.numberId } })
             await reservation.destroy()
             return res.status(200).json({ message: 'Бронь отменена' });
           }

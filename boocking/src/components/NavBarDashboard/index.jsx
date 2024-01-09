@@ -27,7 +27,9 @@ function NavBarDashboard({
   const reviewLength = objects && objects[0]?.review
 
   useEffect(() => {
-    dispatch(objectActions.myObjectInfo())
+    if (userInfo.isManager === true) {
+      dispatch(objectActions.myObjectInfo())
+    }
   }, [dispatch])
 
   const LogOuts = () => {

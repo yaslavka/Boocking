@@ -32,7 +32,7 @@ class HotelControllers{
     const review = await ReviewModels.findAll({where:{hotelId:hotelId.id}, include:[ { model: UserModels, as: 'user', include:[ { model: GeoCityModels, as:'geo_city' } ] } ] })
     const geo_city = await GeoCityModels.findOne({where: {id: hotelId.geoCityId}})
     const albumHotel = await AlbumHotel.findAll({where: {hotelId: hotelId.id}})
-    const number = await NumbersModels.findAll({where: {hotelId: hotelId.id}, include:[ { model: AlbumNumbers, as: 'albumNumber' } ] })
+    const number = await NumbersModels.findAll({where: {hotelId: hotelId.id, active: true}, include:[ { model: AlbumNumbers, as: 'albumNumber' } ] })
     if (!hotelId){
       return res.status(409).json({ message: '' })
     }else {
@@ -53,7 +53,7 @@ class HotelControllers{
               hotelId:hotel.id
             }})
           const number = await NumbersModels.findAll({where:{
-              hotelId:hotel.id
+              hotelId:hotel.id, active: true
             }})
           const numbers = await Promise.all(
               number.map(async (item)=>{

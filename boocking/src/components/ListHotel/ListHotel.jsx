@@ -21,6 +21,7 @@ import NumberLists from '../NumberLists'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../actions/favorites.actions'
 import { toast } from 'react-toastify'
+import { declOfNum } from '../../utils'
 
 function ListHotel({ hotel, index }) {
   const dispatch = useDispatch()
@@ -299,7 +300,17 @@ function ListHotel({ hotel, index }) {
                 />
               </div>
               <div className={styles.toggleRoomDescription2}>
-                Осталось {hotel.NumberOfRooms} номера
+                {`${declOfNum(hotel.number?.length, [
+                  'Остался',
+                  'Осталось',
+                  'Осталось',
+                ])}`}{' '}
+                {hotel.number?.length}{' '}
+                {`${declOfNum(hotel.number?.length, [
+                  'Номер',
+                  'Номера',
+                  'Номеров',
+                ])}`}
               </div>
             </div>
             {description && (

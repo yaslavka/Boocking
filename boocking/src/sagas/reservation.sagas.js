@@ -3,6 +3,8 @@ import { toast } from 'react-toastify'
 import * as ActionTypes from '../constants/reservation.constants'
 import * as actions from '../actions/reservation.actions'
 import * as api from '../api/reservation.api'
+import * as actio from '../actions/hotelId.actions'
+import * as apis from '../api/hotelId.api'
 
 export function* reservation() {
   try {
@@ -58,10 +60,10 @@ export function* reservationBook(action) {
     if (response) {
       yield put(actions.reservationBookSuccess(response.message))
       toast.success(response.message)
-    }
-    const reservation = yield call(api.reservation)
-    if (reservation) {
-      yield put(actions.reservationSuccess(reservation))
+      const reservation = yield call(apis.hotelId, action.payload.hotelId)
+      if (reservation) {
+        yield put(actio.hotelIdSuccess(reservation))
+      }
     }
   } catch (error) {
     yield put(actions.reservationBookError(error.message))
@@ -77,6 +79,10 @@ export function* reservationCancel(action) {
       const reservation = yield call(api.reservation)
       if (reservation) {
         yield put(actions.reservationSuccess(reservation))
+      }
+      const reservationM = yield call(api.reservationManager)
+      if (reservationM) {
+        yield put(actions.reservationManagerSuccess(reservationM))
       }
     }
   } catch (error) {
