@@ -2,6 +2,7 @@ require("dotenv").config();
 //const fs = require("fs");
 //const moment = require('moment')
 const http = require("http");
+//const https = require("https");
 const express = require("express");
 const app = express();
 const sequelize = require("./db");
@@ -20,6 +21,25 @@ const FavoritesControllers = require('./src/Controllers/FavoritesControllers')
 const PayControllers = require('./src/Controllers/PayControllers')
 //const { NumbersModels } = require('./src/models/NumbersModels')
 
+// const privateKey = fs.readFileSync(
+//   "/etc/letsencrypt/live/my-backend.ru/privkey.pem",
+//   "utf8"
+// );
+// const certificate = fs.readFileSync(
+//   "/etc/letsencrypt/live/my-backend.ru/cert.pem",
+//   "utf8"
+// );
+// const ca = fs.readFileSync(
+//   "/etc/letsencrypt/live/my-backend.ru/chain.pem",
+//   "utf8"
+// );
+//
+//
+// const credentials = {
+//   key: privateKey,
+//   cert: certificate,
+//   ca: ca,
+// };
 
 const storage = multer.diskStorage({
   filename(req, file, callback) {
@@ -33,6 +53,7 @@ app.use(bodyParser.json());
 app.use("/api/images", express.static(path.resolve(__dirname, "files", "images")));
 app.use("/api/sites/", express.static(path.resolve(__dirname, "clientsites")));
 const server = http.createServer(app);
+//const httpsServer = https.createServer(credentials, app);
 require('./utils/io.js').init(server);
 const io = require('./utils/io.js').get();
 
