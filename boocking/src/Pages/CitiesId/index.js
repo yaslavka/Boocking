@@ -331,7 +331,7 @@ function CitiesId() {
                             }
                             onClick={() => setTitle(index)}
                           >
-                            <span className={item.className}></span>
+                            <span className={item.className} />
                             {item.title}
                           </button>
                         </>
