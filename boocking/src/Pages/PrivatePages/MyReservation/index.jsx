@@ -1,24 +1,25 @@
-import React, {useEffect} from 'react';
-import styles from './myReservation.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import ReservationList from '../../../components/ReservationList';
-import PrivateNavbar from '../../../components/PrivateNavbar';
-import * as actionReservation from '../../../actions/reservation.actions';
-import * as reservationManagerActions from '../../../actions/reservation.actions';
-
+import React, { useEffect } from 'react'
+import styles from './myReservation.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import ReservationList from '../../../components/ReservationList'
+import PrivateNavbar from '../../../components/PrivateNavbar'
+import * as actionReservation from '../../../actions/reservation.actions'
+import * as reservationManagerActions from '../../../actions/reservation.actions'
 
 function MyReservation() {
-  const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.app.user);
-  const reservation = useSelector((state) => state.reservation.reservation);
-  const reservationManager = useSelector((state) => state.reservation.reservationManager);
-  useEffect(()=>{
+  const dispatch = useDispatch()
+  const userInfo = useSelector((state) => state.app.user)
+  const reservation = useSelector((state) => state.reservation.reservation)
+  const reservationManager = useSelector(
+    (state) => state.reservation.reservationManager,
+  )
+  useEffect(() => {
     if (userInfo && userInfo.isManager === true) {
-      dispatch(reservationManagerActions.reservationManager());
+      dispatch(reservationManagerActions.reservationManager())
     } else {
-      dispatch(actionReservation.reservation());
+      dispatch(actionReservation.reservation())
     }
-  }, [dispatch, userInfo.isManager]);
+  }, [dispatch, userInfo.isManager])
 
   return (
     <>
@@ -30,21 +31,30 @@ function MyReservation() {
               {reservation && (
                 <section className={`${styles.fullRow}`}>
                   <div className={styles.container}>
-                    {reservation.map((item, index)=>(
-                      <ReservationList item={item} key={index} userInfo={userInfo}/>
+                    {reservation.map((item, index) => (
+                      <ReservationList
+                        item={item}
+                        key={index}
+                        userInfo={userInfo}
+                      />
                     ))}
                   </div>
                 </section>
               )}
             </>
-          ):(
+          ) : (
             <>
               <h1 className={styles.title}>Брони</h1>
               {reservationManager && (
                 <section className={styles.fullRow}>
                   <div className={styles.container}>
-                    {reservationManager.map((item, index)=>(
-                      <ReservationList item={item} key={index} userInfo={userInfo} manager/>
+                    {reservationManager.map((item, index) => (
+                      <ReservationList
+                        item={item}
+                        key={index}
+                        userInfo={userInfo}
+                        manager
+                      />
                     ))}
                   </div>
                 </section>
@@ -54,6 +64,6 @@ function MyReservation() {
         </PrivateNavbar>
       )}
     </>
-  );
+  )
 }
-export default MyReservation;
+export default MyReservation

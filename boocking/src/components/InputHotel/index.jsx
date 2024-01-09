@@ -1,11 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-function InputHotel({field, form, ...props}) {
+function InputHotel({ field, form, ...props }) {
   return (
     <>
-      <textarea {...field} {...props} style={{height: props.heightTextarea}} />
+      <textarea
+        {...field}
+        {...props}
+        style={{ height: props.heightTextarea }}
+      />
     </>
-  );
+  )
 }
 
-export default InputHotel;
+export default InputHotel

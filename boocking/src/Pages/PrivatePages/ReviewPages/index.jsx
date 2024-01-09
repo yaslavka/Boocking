@@ -1,13 +1,11 @@
-import React from 'react';
-import PrivateNavbar from '../../../components/PrivateNavbar';
+import React from 'react'
+import PrivateNavbar from '../../../components/PrivateNavbar'
 
 function ReviewPages() {
   return (
     <>
-      <PrivateNavbar>
-        ReviewPages
-      </PrivateNavbar>
+      <PrivateNavbar>ReviewPages</PrivateNavbar>
     </>
-  );
+  )
 }
-export default ReviewPages;
+export default ReviewPages

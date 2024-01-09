@@ -5,6 +5,9 @@ const { GeoCityModels } = require("../GeoCityModels");
 
 const HotelModals =sequelize.define('hotel',{
   id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: 11 },
+  apartmentsCount: { type: DataTypes.INTEGER, defaultValue: null },
+  luxCount: { type: DataTypes.INTEGER, defaultValue: null },
+  standardCount: { type: DataTypes.INTEGER, defaultValue: null },
   nameHotel:{ type: DataTypes.STRING, allowNull: false },
   requisitesPay:{ type: DataTypes.STRING, allowNull: false },
   phonePay:{ type: DataTypes.STRING, allowNull: false },

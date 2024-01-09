@@ -1,21 +1,28 @@
-import React, {useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import confirm from 'reactstrap-confirm';
-import Modal from 'react-bootstrap/Modal';
-import {Form} from 'react-bootstrap';
-import {declOfNum} from '../../utils';
-import {Button, FormGroup, Input} from 'reactstrap';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import confirm from 'reactstrap-confirm'
+import Modal from 'react-bootstrap/Modal'
+import { Form } from 'react-bootstrap'
+import { declOfNum } from '../../utils'
+import { Button, FormGroup, Input } from 'reactstrap'
 
-function PremiumModal({premium, premiumPackage, object, setPremium, objectManager, value}) {
-  const {t} = useTranslation('common');
-  const [premiumInput, setPremiumInput] = useState(null);
-  const [id, setId] = useState(null);
-  const handleChange =(e)=>{
-    setPremiumInput(Number(e.target.value));
-  };
-  const highlightConfirmValue = async ()=>{
-    setPremium(false);
-    const days = Number(premiumInput);
+function PremiumModal({
+  premium,
+  premiumPackage,
+  object,
+  setPremium,
+  objectManager,
+  value,
+}) {
+  const { t } = useTranslation('common')
+  const [premiumInput, setPremiumInput] = useState(null)
+  const [id, setId] = useState(null)
+  const handleChange = (e) => {
+    setPremiumInput(Number(e.target.value))
+  }
+  const highlightConfirmValue = async () => {
+    setPremium(false)
+    const days = Number(premiumInput)
     const result = await confirm({
       title: `${t('Подтвердите Поднятие')}`,
       message: `${t('Поднятие в списке на')} ${days} ${declOfNum(days, [
@@ -27,14 +34,13 @@ function PremiumModal({premium, premiumPackage, object, setPremium, objectManage
       confirmColor: 'danger',
       cancelText: `${t('Отменить')}`,
       cancelColor: 'link text-muted',
-    });
+    })
     if (result) {
-
     }
-  };
-  const highlightConfirm = async ()=>{
-    setPremium(false);
-    const days = Number(premiumInput);
+  }
+  const highlightConfirm = async () => {
+    setPremium(false)
+    const days = Number(premiumInput)
     const result = await confirm({
       title: `${t('Подтвердите Поднятие')}`,
       message: `${t('Поднятие в списке на')} ${days} ${declOfNum(days, [
@@ -46,57 +52,79 @@ function PremiumModal({premium, premiumPackage, object, setPremium, objectManage
       confirmColor: 'danger',
       cancelText: `${t('Отменить')}`,
       cancelColor: 'link text-muted',
-    });
+    })
     if (result) {
-
     }
-  };
+  }
   return (
     <>
-      <Modal show={premium} onHide={()=> {
-        setPremium(false);
-      }}>
-        <Modal.Header closeButton={()=> {
-          setPremium(false);
-        }}>
+      <Modal
+        show={premium}
+        onHide={() => {
+          setPremium(false)
+        }}
+      >
+        <Modal.Header
+          closeButton={() => {
+            setPremium(false)
+          }}
+        >
           Выделение
         </Modal.Header>
-        <Form onSubmit={(e)=>e.preventDefault()}>
+        <Form onSubmit={(e) => e.preventDefault()}>
           {value ? (
             <>
-              <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                <Input type="number" name="premium"
+              <FormGroup style={{ paddingInline: 25, paddingTop: 10 }}>
+                <Input
+                  type="number"
+                  name="premium"
                   value={premiumInput}
-                  placeholder="Количество дней" onChange={handleChange}/>
+                  placeholder="Количество дней"
+                  onChange={handleChange}
+                />
               </FormGroup>
             </>
-          ):(
+          ) : (
             <>
               {objectManager && (
-                <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                  <select onChange={(e)=>setId(e.target.value)}>
-                    <option value="Выберите отель" disabled >Выберите отель</option>
+                <FormGroup style={{ paddingInline: 25, paddingTop: 10 }}>
+                  <select onChange={(e) => setId(e.target.value)}>
+                    <option value="Выберите отель" disabled>
+                      Выберите отель
+                    </option>
                     {objectManager.map((item) => (
                       <>
-                        <option id={item.id} value={item.id}>{item.nameHotel}</option>
+                        <option id={item.id} value={item.id}>
+                          {item.nameHotel}
+                        </option>
                       </>
                     ))}
                   </select>
                 </FormGroup>
               )}
-              <FormGroup style={{paddingInline: 25, paddingTop: 10}}>
-                <Input type="number" name="premium"
+              <FormGroup style={{ paddingInline: 25, paddingTop: 10 }}>
+                <Input
+                  type="number"
+                  name="premium"
                   value={premiumInput}
-                  placeholder="Количество дней" onChange={handleChange}/>
+                  placeholder="Количество дней"
+                  onChange={handleChange}
+                />
               </FormGroup>
             </>
           )}
           <Modal.Footer>
-            <Button color={'primary'} type={'button'} onClick={value ? highlightConfirmValue : highlightConfirm}>Выделить</Button>
+            <Button
+              color={'primary'}
+              type={'button'}
+              onClick={value ? highlightConfirmValue : highlightConfirm}
+            >
+              Выделить
+            </Button>
           </Modal.Footer>
         </Form>
       </Modal>
     </>
-  );
+  )
 }
-export default PremiumModal;
+export default PremiumModal

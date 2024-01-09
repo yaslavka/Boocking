@@ -1,23 +1,23 @@
-import routesLik from './constants/routes.constants';
-import Home from './Pages/HomePages';
-import HotelId from './Pages/HotelId';
-import CitiesId from './Pages/CitiesId';
-import AllCities from './Pages/AllCities';
-import NumbersId from './Pages/NumbersId';
-import Dashboard from './Pages/PrivatePages/Dashboard';
-import MyReservation from './Pages/PrivatePages/MyReservation';
-import MyFavorites from './Pages/PrivatePages/MyFavorites';
-import MessagePages from './Pages/PrivatePages/MessagePages';
-import MyaHotels from './Pages/PrivatePages/MyaHotels';
-import MyaHotelEdit from './Pages/PrivatePages/MyaHotelEdit';
-import HelpMessagePages from './Pages/PrivatePages/HelpMessagePages';
-import HotelAdd from './Pages/PrivatePages/HotelAdd';
-import ReviewPages from './Pages/PrivatePages/ReviewPages';
-import EditProfile from './Pages/PrivatePages/EditProfile';
-import Wallet from './Pages/PrivatePages/Wallet';
-import MyNumbers from './Pages/PrivatePages/MyNumbers';
-import MyNumbersEdit from './Pages/PrivatePages/MyNumbersEdit';
-import NumberAdd from './Pages/PrivatePages/NumberAdd';
+import routesLik from './constants/routes.constants'
+import Home from './Pages/HomePages'
+import HotelId from './Pages/HotelId'
+import CitiesId from './Pages/CitiesId'
+import AllCities from './Pages/AllCities'
+import NumbersId from './Pages/NumbersId'
+import Dashboard from './Pages/PrivatePages/Dashboard'
+import MyReservation from './Pages/PrivatePages/MyReservation'
+import MyFavorites from './Pages/PrivatePages/MyFavorites'
+import MessagePages from './Pages/PrivatePages/MessagePages'
+import MyaHotels from './Pages/PrivatePages/MyaHotels'
+import MyaHotelEdit from './Pages/PrivatePages/MyaHotelEdit'
+import HelpMessagePages from './Pages/PrivatePages/HelpMessagePages'
+import HotelAdd from './Pages/PrivatePages/HotelAdd'
+import ReviewPages from './Pages/PrivatePages/ReviewPages'
+import EditProfile from './Pages/PrivatePages/EditProfile'
+import Wallet from './Pages/PrivatePages/Wallet'
+import MyNumbers from './Pages/PrivatePages/MyNumbers'
+import MyNumbersEdit from './Pages/PrivatePages/MyNumbersEdit'
+import NumberAdd from './Pages/PrivatePages/NumberAdd'
 
 export const publicRouteConfig = [
   {
@@ -50,7 +50,7 @@ export const publicRouteConfig = [
     component: NumbersId,
     exact: true,
   },
-];
+]
 
 export const privateRouteConfig = [
   {
@@ -180,4 +180,4 @@ export const privateRouteConfig = [
     component: NumberAdd,
     exact: true,
   },
-];
+]

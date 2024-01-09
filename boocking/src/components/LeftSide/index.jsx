@@ -1,20 +1,25 @@
-import React, {useState} from 'react';
-import styles from '../../Pages/PrivatePages/MessagePages/messge.module.scss';
-import MessageUserList from '../MessageUserList';
-import {useSelector} from 'react-redux';
+import React, { useState } from 'react'
+import styles from '../../Pages/PrivatePages/MessagePages/messge.module.scss'
+import MessageUserList from '../MessageUserList'
+import { useSelector } from 'react-redux'
 
-function LeftSide({help, authId}) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [inputAction, setInputAction] = useState(false);
-  const messages = useSelector((state) => state.messages.messages);
-  const filteredUsers = messages ?
-    messages.filter((user) =>
-      user.user.username.toLowerCase().includes(searchTerm.toLowerCase()) || user.user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.user.phone.toLowerCase().includes(searchTerm.toLowerCase()) || user.user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.user.last_name.toLowerCase().includes(searchTerm.toLowerCase()),
-    ) :
-    [];
-  console.log(messages && messages);
+function LeftSide({ help, authId }) {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [inputAction, setInputAction] = useState(false)
+  const messages = useSelector((state) => state.messages.messages)
+  const filteredUsers = messages
+    ? messages.filter(
+        (user) =>
+          user.user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.user.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.user.first_name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          user.user.last_name.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+    : []
+  console.log(messages && messages)
   return (
     <>
       <form className={styles.messageHeader}>
@@ -22,8 +27,8 @@ function LeftSide({help, authId}) {
           type={'text'}
           placeholder={'Enter to Search...'}
           onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setInputAction(true);
+            setSearchTerm(e.target.value)
+            setInputAction(true)
           }}
         />
       </form>
@@ -32,27 +37,51 @@ function LeftSide({help, authId}) {
           <>
             {filteredUsers?.length > 0 && inputAction === true ? (
               <>
-                {filteredUsers.filter((i)=>i.user.id ===authId || i.users.id !==authId).map((user, index) => (
-                  <>
-                    {help ? (
-                      <>
-                        {user.user.id !== authId ? (
-                          <MessageUserList key={index} user={user.user} messages={user.message} chat={user} help/>
-                        ):(
-                          <MessageUserList key={index} user={user.users} messages={user.message} chat={user} help/>
-                        )}
-                      </>
-                    ):(
-                      <>
-                        {user.user.id !== authId ? (
-                          <MessageUserList key={index} user={user.user} messages={user.message} chat={user}/>
-                        ):(
-                          <MessageUserList key={index} user={user.users} messages={user.message} chat={user}/>
-                        )}
-                      </>
-                    )}
-                  </>
-                ))}
+                {filteredUsers
+                  .filter((i) => i.user.id === authId || i.users.id !== authId)
+                  .map((user, index) => (
+                    <>
+                      {help ? (
+                        <>
+                          {user.user.id !== authId ? (
+                            <MessageUserList
+                              key={index}
+                              user={user.user}
+                              messages={user.message}
+                              chat={user}
+                              help
+                            />
+                          ) : (
+                            <MessageUserList
+                              key={index}
+                              user={user.users}
+                              messages={user.message}
+                              chat={user}
+                              help
+                            />
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {user.user.id !== authId ? (
+                            <MessageUserList
+                              key={index}
+                              user={user.user}
+                              messages={user.message}
+                              chat={user}
+                            />
+                          ) : (
+                            <MessageUserList
+                              key={index}
+                              user={user.users}
+                              messages={user.message}
+                              chat={user}
+                            />
+                          )}
+                        </>
+                      )}
+                    </>
+                  ))}
               </>
             ) : (
               <>
@@ -60,20 +89,42 @@ function LeftSide({help, authId}) {
                   <>
                     {messages.map((user, index) => (
                       <>
-                        {help ?(
+                        {help ? (
                           <>
                             {user.user.id !== authId ? (
-                              <MessageUserList key={index} user={user.user} messages={user.message} chat={user} help/>
-                            ):(
-                              <MessageUserList key={index} user={user.users} messages={user.message} chat={user} help/>
+                              <MessageUserList
+                                key={index}
+                                user={user.user}
+                                messages={user.message}
+                                chat={user}
+                                help
+                              />
+                            ) : (
+                              <MessageUserList
+                                key={index}
+                                user={user.users}
+                                messages={user.message}
+                                chat={user}
+                                help
+                              />
                             )}
                           </>
-                        ):(
+                        ) : (
                           <>
                             {user.user.id !== authId ? (
-                              <MessageUserList key={index} user={user.user} messages={user.message} chat={user}/>
-                            ):(
-                              <MessageUserList key={index} user={user.users} messages={user.message} chat={user}/>
+                              <MessageUserList
+                                key={index}
+                                user={user.user}
+                                messages={user.message}
+                                chat={user}
+                              />
+                            ) : (
+                              <MessageUserList
+                                key={index}
+                                user={user.users}
+                                messages={user.message}
+                                chat={user}
+                              />
                             )}
                           </>
                         )}
@@ -87,7 +138,7 @@ function LeftSide({help, authId}) {
         )}
       </div>
     </>
-  );
+  )
 }
 
-export default LeftSide;
+export default LeftSide

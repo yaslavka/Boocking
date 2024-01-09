@@ -1,18 +1,23 @@
-import React from 'react';
-import styles from '../../Pages/PrivatePages/MyaHotelEdit/myHotelEdit.module.scss';
+import React from 'react'
+import styles from '../../Pages/PrivatePages/MyaHotelEdit/myHotelEdit.module.scss'
 
-function RadioInput({title, value, checked, valueFalse, yes='Есть', no='Нету', onChange}) {
+function RadioInput({
+  title,
+  value,
+  checked,
+  valueFalse,
+  yes = 'Есть',
+  no = 'Нету',
+  onChange,
+}) {
   return (
     <>
       <div className={styles.radioContainer}>
         <div className={styles.radioTitle}>
-          <p>
-            {title}
-          </p>
+          <p>{title}</p>
         </div>
         <section className={styles.radioContainer}>
-          <label
-            className={`label-box ${checked === true ? 'selected' : ''}`}>
+          <label className={`label-box ${checked === true ? 'selected' : ''}`}>
             <input
               type="radio"
               value={value}
@@ -21,8 +26,7 @@ function RadioInput({title, value, checked, valueFalse, yes='Есть', no='Не
             />
             <span>{yes}</span>
           </label>
-          <label
-            className={`label-box ${checked === false ? 'selected' : ''}`}>
+          <label className={`label-box ${checked === false ? 'selected' : ''}`}>
             <input
               type="radio"
               value={valueFalse}
@@ -34,6 +38,6 @@ function RadioInput({title, value, checked, valueFalse, yes='Есть', no='Не
         </section>
       </div>
     </>
-  );
+  )
 }
-export default RadioInput;
+export default RadioInput

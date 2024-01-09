@@ -1,80 +1,84 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import PrivateNavbar from '../../../components/PrivateNavbar';
-import {Formik, Form} from 'formik';
-import styles from './myHotelEdit.module.scss';
-import * as numberActions from '../../../actions/number.actions';
-import TextInput from '../../../components/TextInput';
-import RadioInput from '../../../components/RadioInput';
-import {Button} from 'reactstrap';
-import {useHistory} from 'react-router-dom';
-import moment from 'moment';
-import 'moment/locale/ru';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
-import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import PrivateNavbar from '../../../components/PrivateNavbar'
+import { Formik, Form } from 'formik'
+import styles from './myHotelEdit.module.scss'
+import * as numberActions from '../../../actions/number.actions'
+import TextInput from '../../../components/TextInput'
+import RadioInput from '../../../components/RadioInput'
+import { Button } from 'reactstrap'
+import { useHistory } from 'react-router-dom'
+import moment from 'moment'
+import 'moment/locale/ru'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
 // import CustomizedHook from '../../../components/AutoComplette/Autucomlet';
 // import CustomizedHookno from '../../../components/AutoComplette/no';
 
 function NumberAdd() {
-  const dispatch =useDispatch();
-  const pRef = useRef();
-  const location = useHistory();
-  const objects = useSelector((state) => state.myObject.object);
-  const [hotelId, setHotelId]=useState(null);
-  const addSuccess = useSelector((state) => state.numberInfo.numberAdd);
-  const [active, setActive]=useState(false);
-  const [wifi, setWifi]=useState(false);
-  const [breakfast, setBreakfast]=useState(false);
-  const [startDate, setStartDate] = useState( );
-  const [endDates, setEndDates] = useState();
+  const dispatch = useDispatch()
+  const pRef = useRef()
+  const location = useHistory()
+  const objects = useSelector((state) => state.myObject.object)
+  const [hotelId, setHotelId] = useState(null)
+  const addSuccess = useSelector((state) => state.numberInfo.numberAdd)
+  const [active, setActive] = useState(false)
+  const [wifi, setWifi] = useState(false)
+  const [breakfast, setBreakfast] = useState(false)
+  const [startDate, setStartDate] = useState()
+  const [endDates, setEndDates] = useState()
 
-  useEffect(()=>{
+  useEffect(() => {
     if (addSuccess && addSuccess?.id) {
-      location.push(`/my_hotel/number-edit/${addSuccess?.id}`);
+      location.push(`/my_hotel/number-edit/${addSuccess?.id}`)
     }
-  }, [addSuccess?.id]);
+  }, [addSuccess?.id])
 
   const initialValues = useMemo(
-      () => ({
-        nameNumber: '',
-        descriptionNumber: '',
-        typeNumber: '',
-        sleepingPlaces: null,
-        rooms: null,
-        quadrature: null,
-        guests: null,
-        discount: null,
-        price: null,
-        count: null,
-      }),
-      [],
-  );
+    () => ({
+      nameNumber: '',
+      descriptionNumber: '',
+      typeNumber: '',
+      sleepingPlaces: null,
+      rooms: null,
+      quadrature: null,
+      guests: null,
+      discount: null,
+      price: null,
+      count: null,
+    }),
+    [],
+  )
 
-  const onSubmit =useCallback((credentials)=>{
-    dispatch(numberActions.numberAdd({
-      ...credentials, wifi, breakfast, active, hotelId,
-      startDate: moment(startDate?.$d).format('ddd, MMM D, YYYY h:mm').replace(/\s[APMapm]{2}$/, ''),
-      endDates: moment(endDates?.$d).format('ddd, MMM D, YYYY h:mm').replace(/\s[APMapm]{2}$/, ''),
-    }));
-  }, [
-    dispatch,
-    wifi, breakfast,
-    active,
-    startDate?.$d,
-    endDates?.$d,
-    hotelId,
-  ]);
+  const onSubmit = useCallback(
+    (credentials) => {
+      dispatch(
+        numberActions.numberAdd({
+          ...credentials,
+          wifi,
+          breakfast,
+          active,
+          hotelId,
+          startDate: moment(startDate?.$d)
+            .format('ddd, MMM D, YYYY h:mm')
+            .replace(/\s[APMapm]{2}$/, ''),
+          endDates: moment(endDates?.$d)
+            .format('ddd, MMM D, YYYY h:mm')
+            .replace(/\s[APMapm]{2}$/, ''),
+        }),
+      )
+    },
+    [dispatch, wifi, breakfast, active, startDate?.$d, endDates?.$d, hotelId],
+  )
 
   return (
     <PrivateNavbar>
       <>
-        <h5 className={styles.title}>
-          Добаление Номера
-        </h5>
+        <h5 className={styles.title}>Добаление Номера</h5>
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {()=>(
+          {() => (
             <Form>
               <section className={styles.wrapperTextarea}>
                 <p className={styles.descriptionTextarea} ref={pRef}>
@@ -83,14 +87,25 @@ function NumberAdd() {
                 <p className={styles.descriptionTextarea} ref={pRef}>
                   {'Выбирете отель для которого добавляем номер'}
                 </p>
-                <select style={{height: pRef.current?.clientHeight}} onChange={(e)=>{
-                  setHotelId(e.target.value);
-                }}>
-                  <option disabled defaultValue={'название Отеля'} value='название Отеля'>название Отеля</option>
+                <select
+                  style={{ height: pRef.current?.clientHeight }}
+                  onChange={(e) => {
+                    setHotelId(e.target.value)
+                  }}
+                >
+                  <option
+                    disabled
+                    defaultValue={'название Отеля'}
+                    value="название Отеля"
+                  >
+                    название Отеля
+                  </option>
                   {objects?.length > 0 && (
                     <>
-                      {objects.map((item, index)=>(
-                        <option key={index} value={item.id}>{item.nameHotel}</option>
+                      {objects.map((item, index) => (
+                        <option key={index} value={item.id}>
+                          {item.nameHotel}
+                        </option>
                       ))}
                     </>
                   )}
@@ -103,12 +118,21 @@ function NumberAdd() {
                 <p className={styles.descriptionTextarea} ref={pRef}>
                   {'Укажите Дату начала заселения'}
                 </p>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'ru'}>
-                  <DemoContainer components={[
-                    'MobileDateTimePicker',
-                  ]}>
-                    <MobileDateTimePicker className={styles.fi}
-                      views={['day', 'month', 'year', 'hours', 'minutes', 'seconds']}
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale={'ru'}
+                >
+                  <DemoContainer components={['MobileDateTimePicker']}>
+                    <MobileDateTimePicker
+                      className={styles.fi}
+                      views={[
+                        'day',
+                        'month',
+                        'year',
+                        'hours',
+                        'minutes',
+                        'seconds',
+                      ]}
                       label="Дата Заезда"
                       onChange={setStartDate}
                     />
@@ -122,12 +146,21 @@ function NumberAdd() {
                 <p className={styles.descriptionTextarea} ref={pRef}>
                   {'Укажите Дату начала выезда'}
                 </p>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'ru'}>
-                  <DemoContainer components={[
-                    'MobileDateTimePicker',
-                  ]}>
-                    <MobileDateTimePicker className={styles.fi}
-                      views={['day', 'month', 'year', 'hours', 'minutes', 'seconds']}
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale={'ru'}
+                >
+                  <DemoContainer components={['MobileDateTimePicker']}>
+                    <MobileDateTimePicker
+                      className={styles.fi}
+                      views={[
+                        'day',
+                        'month',
+                        'year',
+                        'hours',
+                        'minutes',
+                        'seconds',
+                      ]}
                       locale="ru"
                       label="Дата Выезда"
                       onChange={setEndDates}
@@ -145,16 +178,18 @@ function NumberAdd() {
                 valueFalse={false}
                 title={'WI-FI'}
                 checked={wifi}
-                onChange={()=>setWifi(!wifi)}
-                yes={'Есть'} no={'Нету'}
+                onChange={() => setWifi(!wifi)}
+                yes={'Есть'}
+                no={'Нету'}
               />
               <RadioInput
                 value={true}
                 valueFalse={false}
                 title={'Завтрак'}
                 checked={breakfast}
-                onChange={()=>setBreakfast(!breakfast)}
-                yes={'Есть'} no={'Нету'}
+                onChange={() => setBreakfast(!breakfast)}
+                yes={'Есть'}
+                no={'Нету'}
               />
               <TextInput
                 name="discount"
@@ -189,7 +224,9 @@ function NumberAdd() {
               <TextInput
                 name="typeNumber"
                 title={'Тип Номера'}
-                subTitle={'Тип вашего отеля отеля ? Люкс || апартаменты || комната на двоих и т.д'}
+                subTitle={
+                  'Тип вашего отеля отеля ? Люкс || апартаменты || комната на двоих и т.д'
+                }
               />
               <TextInput
                 name="count"
@@ -206,8 +243,9 @@ function NumberAdd() {
                 valueFalse={false}
                 title={'Статус'}
                 checked={active}
-                onChange={()=>setActive(!active)}
-                yes={'Активен'} no={'Не Активен'}
+                onChange={() => setActive(!active)}
+                yes={'Активен'}
+                no={'Не Активен'}
               />
               <Button color={'primary'} block type={'submit'}>
                 Добавить
@@ -217,6 +255,6 @@ function NumberAdd() {
         </Formik>
       </>
     </PrivateNavbar>
-  );
+  )
 }
-export default NumberAdd;
+export default NumberAdd

@@ -1,17 +1,17 @@
-import React, {useEffect} from 'react';
-import styles from './favorites.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import ListHotel from '../../../components/ListHotel/ListHotel';
-import PrivateNavbar from '../../../components/PrivateNavbar';
-import * as actionFavorite from '../../../actions/favorites.actions';
+import React, { useEffect } from 'react'
+import styles from './favorites.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import ListHotel from '../../../components/ListHotel/ListHotel'
+import PrivateNavbar from '../../../components/PrivateNavbar'
+import * as actionFavorite from '../../../actions/favorites.actions'
 
 function MyFavorites() {
-  const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.app.user);
-  const favorites = useSelector((state) => state.favorites.favorites);
-  useEffect(()=>{
-    dispatch(actionFavorite.favorites());
-  }, [dispatch]);
+  const dispatch = useDispatch()
+  const userInfo = useSelector((state) => state.app.user)
+  const favorites = useSelector((state) => state.favorites.favorites)
+  useEffect(() => {
+    dispatch(actionFavorite.favorites())
+  }, [dispatch])
   return (
     <>
       {userInfo && (
@@ -22,10 +22,14 @@ function MyFavorites() {
               {favorites.length > 0 && (
                 <section className={`${styles.fullRow}`}>
                   <div className={styles.container}>
-                    {favorites.map((item, index)=>(
+                    {favorites.map((item, index) => (
                       <>
                         {item.status === true && (
-                          <ListHotel hotel={item.hotel} index={index} key={index}/>
+                          <ListHotel
+                            hotel={item.hotel}
+                            index={index}
+                            key={index}
+                          />
                         )}
                       </>
                     ))}
@@ -33,14 +37,12 @@ function MyFavorites() {
                 </section>
               )}
             </>
-          ):(
-            <>
-
-            </>
+          ) : (
+            <></>
           )}
         </PrivateNavbar>
       )}
     </>
-  );
+  )
 }
-export default MyFavorites;
+export default MyFavorites

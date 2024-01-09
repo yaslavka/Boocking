@@ -1,20 +1,21 @@
-import React from 'react';
-import styles from './navBarFilter.module.scss';
-import Popular from '../Popular';
-function NavBarFilters({isWifi, seIsWif, popular, Populars}) {
+import React from 'react'
+import styles from './navBarFilter.module.scss'
+import Popular from '../Popular'
+function NavBarFilters({ isWifi, seIsWif, popular, Populars }) {
   return (
     <>
       <div className={styles.sidebar}>
         <div className={styles.sidebarBox}>
-          <fieldset style={{opacity: 1}}>
+          <fieldset style={{ opacity: 1 }}>
             <div className="set-header">Популярные</div>
             <div className="set-content">
-              {popular.map((i, index)=>(
+              {popular.map((i, index) => (
                 <Popular
                   key={index}
                   i={i}
                   isWifi={isWifi}
-                  seIsWif={seIsWif} Populars={Populars}
+                  seIsWif={seIsWif}
+                  Populars={Populars}
                 />
               ))}
             </div>
@@ -22,6 +23,6 @@ function NavBarFilters({isWifi, seIsWif, popular, Populars}) {
         </div>
       </div>
     </>
-  );
+  )
 }
-export default NavBarFilters;
+export default NavBarFilters

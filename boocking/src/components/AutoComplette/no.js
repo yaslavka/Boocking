@@ -1,25 +1,25 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react'
+import PropTypes from 'prop-types'
 
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import {styled} from '@mui/material/styles';
-import {autocompleteClasses} from '@mui/material/Autocomplete';
-import {useState} from 'react';
-import {no} from './yes';
-import {useAutocomplete} from '@mui/base';
+import CheckIcon from '@mui/icons-material/Check'
+import CloseIcon from '@mui/icons-material/Close'
+import { styled } from '@mui/material/styles'
+import { autocompleteClasses } from '@mui/material/Autocomplete'
+import { useState } from 'react'
+import { no } from './yes'
+import { useAutocomplete } from '@mui/base'
 
 const Root = styled('div')(
-    ({theme}) => `
+  ({ theme }) => `
   color: ${
-        theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
-};
+    theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
+  };
   font-size: 14px;
 `,
-);
+)
 
 const InputWrapper = styled('div')(
-    ({theme}) => `
+  ({ theme }) => `
   width: 60vh;
   border: 1px solid ${theme.palette.mode === 'dark' ? '#0d6efd' : '#0d6efd'};
   background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
@@ -40,8 +40,10 @@ const InputWrapper = styled('div')(
   & input {
     background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
     color: ${
-        theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
-};
+      theme.palette.mode === 'dark'
+        ? 'rgba(255,255,255,0.65)'
+        : 'rgba(0,0,0,.85)'
+    };
   
     box-sizing: border-box;
      padding: 10px;
@@ -53,33 +55,33 @@ const InputWrapper = styled('div')(
     outline: 0;
   }
 `,
-);
+)
 
 function Tag(props) {
-  const {label, onDelete, ...other} = props;
+  const { label, onDelete, ...other } = props
   return (
     <div {...other}>
       <span>{label}</span>
       <CloseIcon onClick={onDelete} />
     </div>
-  );
+  )
 }
 
 Tag.propTypes = {
   label: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
-};
+}
 
 const StyledTag = styled(Tag)(
-    ({theme}) => `
+  ({ theme }) => `
   display: flex;
   align-items: center;
   height: 24px;
   margin: 2px;
   line-height: 22px;
   background-color: ${
-        theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : '#fafafa'
-};
+    theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : '#fafafa'
+  };
   border: 1px solid ${theme.palette.mode === 'dark' ? '#303030' : '#e8e8e8'};
   border-radius: 2px;
   box-sizing: content-box;
@@ -104,10 +106,10 @@ const StyledTag = styled(Tag)(
     padding: 4px;
   }
 `,
-);
+)
 
 const Listbox = styled('ul')(
-    ({theme}) => `
+  ({ theme }) => `
   width: 60vh;
   margin: 2px 0 0;
   padding: 0;
@@ -152,16 +154,16 @@ const Listbox = styled('ul')(
     }
   }
 `,
-);
+)
 
 export default function CustomizedHookno() {
-  const [values, setValues]=useState(no);
-  const chengedopuslu =(id)=>{
+  const [values, setValues] = useState(no)
+  const chengedopuslu = (id) => {
     const changeCheckedCuisines = values.map((item) =>
-            item.id === id ? {...item, ariaChecked: !item.ariaChecked} : item,
-    );
-    setValues(changeCheckedCuisines);
-  };
+      item.id === id ? { ...item, ariaChecked: !item.ariaChecked } : item,
+    )
+    setValues(changeCheckedCuisines)
+  }
   const {
     getRootProps,
     getInputProps,
@@ -177,33 +179,38 @@ export default function CustomizedHookno() {
     multiple: true,
     options: values,
     getOptionLabel: (option) => option.title,
-  });
-
+  })
 
   return (
     <Root>
-      <div {...getRootProps()} >
+      <div {...getRootProps()}>
         <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
           {value.map((option, index) => (
             <>
-              <StyledTag label={option.title} {...getTagProps({index})} />
+              <StyledTag label={option.title} {...getTagProps({ index })} />
             </>
           ))}
-          <input {...getInputProps()} placeholder='Разрешено в номере' />
+          <input {...getInputProps()} placeholder="Разрешено в номере" />
         </InputWrapper>
       </div>
       {groupedOptions.length > 0 ? (
-                <Listbox {...getListboxProps()}>
-                  {groupedOptions.map((option, index) => (
-                    <>
-                      <li {...getOptionProps({option, index})}>
-                        <span id={option.id} aria-checked={option.ariaChecked} onClick={()=>chengedopuslu(option.id)}>{option.title}</span>
-                        <CheckIcon fontSize="small"/>
-                      </li>
-                    </>
-                  ))}
-                </Listbox>
-            ) : null}
+        <Listbox {...getListboxProps()}>
+          {groupedOptions.map((option, index) => (
+            <>
+              <li {...getOptionProps({ option, index })}>
+                <span
+                  id={option.id}
+                  aria-checked={option.ariaChecked}
+                  onClick={() => chengedopuslu(option.id)}
+                >
+                  {option.title}
+                </span>
+                <CheckIcon fontSize="small" />
+              </li>
+            </>
+          ))}
+        </Listbox>
+      ) : null}
     </Root>
-  );
+  )
 }

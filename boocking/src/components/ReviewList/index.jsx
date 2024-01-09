@@ -1,10 +1,6 @@
-import React from 'react';
+import React from 'react'
 
 function ReviewList() {
-  return (
-    <>
-
-    </>
-  );
+  return <></>
 }
-export default ReviewList;
+export default ReviewList

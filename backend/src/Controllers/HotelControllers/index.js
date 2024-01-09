@@ -28,26 +28,117 @@ const options = {
 class HotelControllers{
   async hotelId(req,res){
     const { id }=req.query
-    let hotelId = await HotelModals.findOne({ where:{ id:id }, include:[ { model: ReviewModels, as: 'review', include:[ { model: UserModels, as: 'user', include:[ { model: GeoCityModels, as:'geo_city' } ] } ] },{ model: GeoCityModels, as: 'geo_city' },{ model: AlbumHotel, as:'albumHotel' }, { model: NumbersModels, as: 'number', include:[ { model: AlbumNumbers, as: 'albumNumber' } ] } ] })
+    let hotelId = await HotelModals.findOne({ where:{ id:id }})
+    const review = await ReviewModels.findAll({where:{hotelId:hotelId.id}, include:[ { model: UserModels, as: 'user', include:[ { model: GeoCityModels, as:'geo_city' } ] } ] })
+    const geo_city = await GeoCityModels.findOne({where: {id: hotelId.geoCityId}})
+    const albumHotel = await AlbumHotel.findAll({where: {hotelId: hotelId.id}})
+    const number = await NumbersModels.findAll({where: {hotelId: hotelId.id}, include:[ { model: AlbumNumbers, as: 'albumNumber' } ] })
     if (!hotelId){
       return res.status(409).json({ message: '' })
     }else {
+      hotelId.dataValues.review = review
+      hotelId.dataValues.geo_city = geo_city
+      hotelId.dataValues.albumHotel = albumHotel
+      hotelId.dataValues.number = number
       return res.status(200).json(hotelId)
     }
   }
   async citiId(req, res){
     const { id }=req.query
     let cities = await GeoCityModels.findOne({ where:{ id:id }, include:[ { model:GeoRegionsModels, as: 'geo_region' } ] })
-    const hotel = await HotelModals.findAll({ where:{ geoCityId:cities.id }, include:[ { model: AlbumHotel, as:'albumHotel' }, { model: NumbersModels, as: 'number', include:[ { model: AlbumNumbers, as: 'albumNumber' } ] } ] })
+    const hotels = await HotelModals.findAll({ where:{ geoCityId:cities.id }})
+    const result = await Promise.all(
+        hotels.map(async (hotel)=>{
+          const albumHotel = await AlbumHotel.findAll({where: {
+              hotelId:hotel.id
+            }})
+          const number = await NumbersModels.findAll({where:{
+              hotelId:hotel.id
+            }})
+          const numbers = await Promise.all(
+              number.map(async (item)=>{
+                const album = await AlbumNumbers.findAll({where:{
+                    numberId:item.id
+                  }})
+                return {
+                  id: item.id,
+                  nameNumber:item.nameNumber,
+                  descriptionNumber:item.descriptionNumber,
+                  imageNumber:item.imageNumber,
+                  startDate:item.startDate,
+                  endDates:item.endDates,
+                  typeNumber:item.typeNumber,
+                  sleepingPlaces:item.sleepingPlaces,
+                  rooms:item.rooms,
+                  quadrature:item.quadrature,
+                  guests:item.guests,
+                  tv:item.tv,
+                  breakfast:item.breakfast,
+                  wifi:item.wifi,
+                  swimmingPool:item.swimmingPool,
+                  discount:item.discount,
+                  boardingHouse:item.boardingHouse,
+                  price:item.price,
+                  active:item.active,
+                  bal:item.bal,
+                  HotelModals:item.HotelModals,
+                  count:item.count,
+                  nutrition:item.nutrition,
+                  clean:item.clean,
+                  son:item.son,
+                  hotelId:item.hotelId,
+                  albumNumber:album
+                }
+              })
+          )
+          return {
+            id: hotel.id,
+            apartmentsCount: hotel.apartmentsCount,
+            luxCount: hotel.luxCount,
+            standardCount: hotel.standardCount,
+            nameHotel:hotel.nameHotel,
+            requisitesPay:hotel.requisitesPay,
+            phonePay:hotel.phonePay,
+            imageHotel:hotel.imageHotel,
+            startDate:hotel.startDate,
+            endDates:hotel.endDates,
+            wifi:hotel.wifi,
+            breakfast:hotel.breakfast,
+            swimmingPool:hotel.swimmingPool,
+            discount:hotel.discount,
+            latitude:hotel.latitude,
+            longitude:hotel.longitude,
+            address:hotel.address,
+            phone:hotel.phone,
+            email:hotel.email,
+            bal: hotel.bal,
+            price:hotel.price,
+            NumberOfRooms:hotel.NumberOfRooms,
+            rating:hotel.rating,
+            distanceTo:hotel.distanceTo,
+            distanceOut:hotel.distanceOut,
+            distanceCenter:hotel.distanceCenter,
+            distanceRailwayStation:hotel.distanceRailwayStation,
+            typeHotel:hotel.typeHotel,
+            typeOfRooms:hotel.typeOfRooms,
+            descriptionHotel:hotel.descriptionHotel,
+            active:hotel.active,
+            pay:hotel.pay,
+            geoCityId: hotel.geoCityId,
+            userId: hotel.userId,
+            albumHotel:albumHotel,
+            number:numbers
+          }
+        })
+    )
     if (!cities){
       return res.status(409).json({ message: '' })
     }else {
-      cities.dataValues.hotel = hotel
+      cities.dataValues.hotel = result
       return res.status(200).json(cities)
     }
   }
   async uploadImagesHotel(req, res){
-    console.log(req.file)
     const { id }=JSON.parse(req.body.dataHotel)
     const { authorization } = req.headers;
     if(!authorization){
@@ -100,7 +191,6 @@ class HotelControllers{
     }
   }
   async myObjectAdd(req, res){
-    console.log(req.body)
     const {
       nameHotel,
       requisitesPay,
@@ -125,6 +215,9 @@ class HotelControllers{
       descriptionHotel,
       active,
       pay,
+      standardCount,
+      luxCount,
+      apartmentsCount
     } = req.body
     const { authorization } = req.headers;
     if(!authorization){
@@ -137,6 +230,9 @@ class HotelControllers{
         return res.status(409).json({ message: "Вы не являетесь менеджером" })
       }else {
         const id = await HotelModals.create({
+          apartmentsCount: apartmentsCount,
+          luxCount: luxCount,
+          standardCount: standardCount,
           nameHotel:nameHotel,
           requisitesPay:requisitesPay,
           phonePay:phonePay,
@@ -168,7 +264,6 @@ class HotelControllers{
     }
   }
   async uploadAlbumImagesHotel(req, res){
-    console.log(req.files)
     const { id }=JSON.parse(req.body.dataHotel)
     const files = req.files;
     const { authorization } = req.headers;
@@ -206,6 +301,9 @@ class HotelControllers{
   }
   async hotelEdit(req, res){
     const {
+      standardCount,
+      luxCount,
+      apartmentsCount,
       nameHotel,
       requisitesPay,
       phonePay,
@@ -249,6 +347,9 @@ class HotelControllers{
           return res.status(409).json({ message: "Вы не являетесь менеджером" })
         }else {
           let update = {
+            standardCount,
+            luxCount,
+            apartmentsCount,
             nameHotel,
             requisitesPay,
             phonePay,

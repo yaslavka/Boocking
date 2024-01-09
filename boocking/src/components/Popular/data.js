@@ -1,4 +1,4 @@
-export const ratings =[
+export const ratings = [
   {
     id: 0,
     value: '1',
@@ -35,8 +35,8 @@ export const ratings =[
     label: 'Без звезд',
     checked: false,
   },
-];
-export const populars =[
+]
+export const populars = [
   {
     id: 0,
     label: 'Отель',
@@ -113,9 +113,9 @@ export const populars =[
   //   udobstva: true,
   //   checked: false,
   // },
-];
+]
 
-export const usloviyabroni =[
+export const usloviyabroni = [
   {
     id: 1,
     label: 'Бронирование без карты',
@@ -140,8 +140,8 @@ export const usloviyabroni =[
     payschet: true,
     checked: false,
   },
-];
-export const poocenke =[
+]
+export const poocenke = [
   {
     id: 1,
     label: '9+ Отлично',
@@ -160,8 +160,8 @@ export const poocenke =[
     bal: 7,
     checked: false,
   },
-];
-export const pitanie =[
+]
+export const pitanie = [
   {
     id: 1,
     label: 'Завтрак',
@@ -192,8 +192,8 @@ export const pitanie =[
     kuhnya: true,
     checked: false,
   },
-];
-export const dopuslugi ={
+]
+export const dopuslugi = {
   uslugis: [
     {
       id: 1,
@@ -358,7 +358,7 @@ export const dopuslugi ={
       checked: false,
     },
   ],
-};
+}
 export const typehotels = [
   {
     id: 1,
@@ -401,4 +401,4 @@ export const typehotels = [
     payschet: true,
     checked: false,
   },
-];
+]

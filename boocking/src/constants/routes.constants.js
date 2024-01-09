@@ -27,5 +27,5 @@ const routesLik = Object.freeze({
   profileEdit: '/profile-edit',
   review: '/review',
   wallet: '/wallet',
-});
-export default routesLik;
+})
+export default routesLik

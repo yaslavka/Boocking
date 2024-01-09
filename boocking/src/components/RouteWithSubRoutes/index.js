@@ -1,5 +1,5 @@
-import React from 'react';
-import {Route} from 'react-router-dom';
+import React from 'react'
+import { Route } from 'react-router-dom'
 
 const RouteWithSubRoutes = (route) => {
   return (
@@ -7,10 +7,10 @@ const RouteWithSubRoutes = (route) => {
       path={route.path}
       render={(props) => (
         // pass the sub-routes down to keep nesting
-        <route.component {...props} routes={route.routes} id={route.id}/>
+        <route.component {...props} routes={route.routes} id={route.id} />
       )}
     />
-  );
-};
+  )
+}
 
-export default RouteWithSubRoutes;
+export default RouteWithSubRoutes

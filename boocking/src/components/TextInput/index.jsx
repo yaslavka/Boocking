@@ -1,9 +1,9 @@
-import React, {useRef} from 'react';
-import {Field} from 'formik';
-import InputHotel from '../InputHotel';
-import styles from './input.module.scss';
-function TextInput({title, name, subTitle}) {
-  const pRef = useRef();
+import React, { useRef } from 'react'
+import { Field } from 'formik'
+import InputHotel from '../InputHotel'
+import styles from './input.module.scss'
+function TextInput({ title, name, subTitle }) {
+  const pRef = useRef()
   return (
     <>
       <section className={styles.wrapperTextarea}>
@@ -22,6 +22,6 @@ function TextInput({title, name, subTitle}) {
         />
       </section>
     </>
-  );
+  )
 }
-export default TextInput;
+export default TextInput
