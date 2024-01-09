@@ -22,6 +22,7 @@ import ReviewComponent from '../../components/ReviewComponent'
 import moment from 'moment'
 import 'moment/locale/en-in'
 import filter from 'lodash.filter'
+import { date } from 'yup'
 
 function HotelId() {
   const dispatch = useDispatch()
@@ -71,11 +72,11 @@ function HotelId() {
           id: index,
           count: room,
           sum: planetLength * +price,
-          startDate: moment(startDate?.$d)
-            .format('ddd, MMM D, YYYY h:mm A')
+          startDate: moment(startDate)
+            .format('ll')
             .replace(/\s[APMapm]{2}$/, ''),
-          endDates: moment(endDates?.$d)
-            .format('ddd, MMM D, YYYY h:mm A')
+          endDates: moment(endDates)
+            .format('ll')
             .replace(/\s[APMapm]{2}$/, ''),
           go: go,
         }),
@@ -83,14 +84,18 @@ function HotelId() {
     }
   }
   const containsHotel = (hotel, child, startDate, endDates, people) => {
-    const itemStartDate = +new Date(hotel.startDate)
-    const itemEndDate = +new Date(hotel.endDates)
-    const selectedStartDate = +new Date(startDate)
-    const selectedEndDate = +new Date(endDates)
+    const itemStartDate = hotel.startDate
+    const itemEndDate = hotel.endDates
+    const selectedStartDate = moment(startDate)
+      .format('DD MMM YYYY')
+      .replace(/\s[APMapm]{2}$/, '')
+    const selectedEndDate = moment(endDates)
+      .format('DD MMM YYYY')
+      .replace(/\s[APMapm]{2}$/, '')
+    console.log(selectedStartDate)
     return (
-      +hotel.count === Number(child) &&
-      itemStartDate >= selectedStartDate &&
-      itemEndDate <= selectedEndDate &&
+      (itemStartDate === selectedStartDate &&
+        itemEndDate === selectedEndDate) ||
       +hotel.guests === people
     )
   }

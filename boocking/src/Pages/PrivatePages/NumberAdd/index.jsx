@@ -10,10 +10,7 @@ import { Button } from 'reactstrap'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
 import 'moment/locale/ru'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
+import DatePicker from 'react-datepicker'
 // import CustomizedHook from '../../../components/AutoComplette/Autucomlet';
 // import CustomizedHookno from '../../../components/AutoComplette/no';
 
@@ -61,16 +58,16 @@ function NumberAdd() {
           breakfast,
           active,
           hotelId,
-          startDate: moment(startDate?.$d)
-            .format('ddd, MMM D, YYYY h:mm')
+          startDate: moment(startDate)
+            .format('ll')
             .replace(/\s[APMapm]{2}$/, ''),
-          endDates: moment(endDates?.$d)
-            .format('ddd, MMM D, YYYY h:mm')
+          endDates: moment(endDates)
+            .format('ll')
             .replace(/\s[APMapm]{2}$/, ''),
         }),
       )
     },
-    [dispatch, wifi, breakfast, active, startDate?.$d, endDates?.$d, hotelId],
+    [dispatch, wifi, breakfast, active, startDate, endDates, hotelId],
   )
 
   return (
@@ -118,26 +115,12 @@ function NumberAdd() {
                 <p className={styles.descriptionTextarea} ref={pRef}>
                   {'Укажите Дату начала заселения'}
                 </p>
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  adapterLocale={'ru'}
-                >
-                  <DemoContainer components={['MobileDateTimePicker']}>
-                    <MobileDateTimePicker
-                      className={styles.fi}
-                      views={[
-                        'day',
-                        'month',
-                        'year',
-                        'hours',
-                        'minutes',
-                        'seconds',
-                      ]}
-                      label="Дата Заезда"
-                      onChange={setStartDate}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
+                <DatePicker
+                  locale="ru"
+                  selected={startDate}
+                  placeholderText="Дата Заезда"
+                  onChange={(date) => setStartDate(date)}
+                />
               </section>
               <section className={styles.wrapperTextarea}>
                 <p className={styles.descriptionTextarea} ref={pRef}>
@@ -146,27 +129,12 @@ function NumberAdd() {
                 <p className={styles.descriptionTextarea} ref={pRef}>
                   {'Укажите Дату начала выезда'}
                 </p>
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  adapterLocale={'ru'}
-                >
-                  <DemoContainer components={['MobileDateTimePicker']}>
-                    <MobileDateTimePicker
-                      className={styles.fi}
-                      views={[
-                        'day',
-                        'month',
-                        'year',
-                        'hours',
-                        'minutes',
-                        'seconds',
-                      ]}
-                      locale="ru"
-                      label="Дата Выезда"
-                      onChange={setEndDates}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
+                <DatePicker
+                  locale="ru"
+                  selected={endDates}
+                  placeholderText="Дата Выезда"
+                  onChange={(date) => setEndDates(date)}
+                />
               </section>
               <TextInput
                 name="nameNumber"

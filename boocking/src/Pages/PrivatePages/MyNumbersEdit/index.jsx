@@ -99,11 +99,11 @@ function MyNumbersEdit() {
         numberIdActions.numberIdEdit({
           startDate:
             moment(startDate)
-              .format('ddd, MMM D, YYYY h:mm')
+              .format('DD MMM YYYY')
               .replace(/\s[APMapm]{2}$/, '') || numberId?.startDate,
           endDates:
             moment(endDates)
-              .format('ddd, MMM D, YYYY h:mm')
+              .format('DD MMM YYYY')
               .replace(/\s[APMapm]{2}$/, '') || numberId?.endDates,
           nameNumber: credentials.nameNumber || numberId?.nameNumber,
           descriptionNumber:
@@ -223,7 +223,7 @@ function MyNumbersEdit() {
                   <p className={styles.descriptionTextarea} ref={pRef}>
                     {moment(numberId?.startDate)
                       .locale('ru')
-                      .format('DD MMMM YYYY h:mm A')}
+                      .format('DD MMMM YYYY')}
                   </p>
                   <DatePicker
                     locale="ru"
@@ -239,7 +239,7 @@ function MyNumbersEdit() {
                   <p className={styles.descriptionTextarea} ref={pRef}>
                     {moment(numberId?.endDates)
                       .locale('ru')
-                      .format('DD MMMM YYYY h:mm A')}
+                      .format('DD MMMM YYYY')}
                   </p>
                   <DatePicker
                     locale="ru"

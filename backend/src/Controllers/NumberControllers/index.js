@@ -209,13 +209,13 @@ class NumberControllers {
         const { username } = jwt.decode(token);
         let user = await UserModels.findOne(
           { where:{ username: username, isManager: true } }
-          );
+        );
         if (!user) {
           return res.status(409).json({ message: "Вы не являетесь ательером" })
         }else {
           const number = await NumbersModels.findOne(
             { where:{ [Op.and]:[ { id:id }, { userId:user.id } ] } }
-            )
+          )
           if (!number){
             return res.status(409).json(
               { message: "Ошибка загрузки Изображения" })
@@ -223,13 +223,13 @@ class NumberControllers {
             for (const file of files){
               await cloudinary.uploader.upload(file.path, options,
                 async (error, result) => {
-                if (result && result.secure_url) {
-                  await AlbumNumbers.create({
-                    albumNumber:result.secure_url,
-                    numberId:number.id,
-                  })
-                }
-              });
+                  if (result && result.secure_url) {
+                    await AlbumNumbers.create({
+                      albumNumber:result.secure_url,
+                      numberId:number.id,
+                    })
+                  }
+                });
 
             }
             return res.status(200).json(

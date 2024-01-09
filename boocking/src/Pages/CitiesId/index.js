@@ -13,6 +13,7 @@ import { Col, Row } from 'react-bootstrap'
 import NavBarFilters from '../../components/NavBarFilters'
 import { populars } from '../../components/Popular/data'
 import ListHotel from '../../components/ListHotel/ListHotel'
+import moment from 'moment'
 
 const linkMap = [
   {
@@ -121,12 +122,16 @@ function CitiesId() {
     const withinDateRange =
       hotel.number &&
       hotel.number.some((item) => {
-        const itemStartDate = +new Date(item.startDate)
-        const itemEndDate = +new Date(item.endDates)
-        const selectedStartDate = +new Date(startDate)
-        const selectedEndDate = +new Date(endDates)
+        const itemStartDate = item.startDate
+        const itemEndDate = item.endDates
+        const selectedStartDate = moment(startDate)
+          .format('DD MMM YYYY')
+          .replace(/\s[APMapm]{2}$/, '')
+        const selectedEndDate = moment(endDates)
+          .format('DD MMM YYYY')
+          .replace(/\s[APMapm]{2}$/, '')
         return (
-          itemStartDate >= selectedStartDate && itemEndDate <= selectedEndDate
+          itemStartDate === selectedStartDate && itemEndDate === selectedEndDate
         )
       })
 
@@ -136,7 +141,9 @@ function CitiesId() {
         return +item.guests === Number(people)
       })
     return (
-      (hasChildRoom && withinDateRange && guests) ||
+      hasChildRoom ||
+      withinDateRange ||
+      guests ||
       (hotel.price >= price[0] && hotel.price <= price[1]) ||
       hotel.wifi === wifi ||
       hotel.typeHotel.toString() === name ||
@@ -220,10 +227,10 @@ function CitiesId() {
     if (
       value[1] > 0 ||
       hotelFtFiltered?.length > 0 ||
-      (location?.location.state?.child?.value > 0 &&
-        location?.location?.state?.startDate &&
-        location?.location?.state?.endDates &&
-        location?.location?.state?.people?.value > 0)
+      location?.location.state?.child?.value > 0 ||
+      location?.location?.state?.startDate ||
+      location?.location?.state?.endDates ||
+      location?.location?.state?.people?.value > 0
     ) {
       setFilterActive(true)
     } else {

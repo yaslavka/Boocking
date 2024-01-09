@@ -64,6 +64,7 @@ function SearchForm({ t, pathId }) {
     })
   }
   useEffect(() => {}, [startDate, endDates])
+
   return (
     <>
       <div
